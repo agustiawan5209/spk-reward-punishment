@@ -18,6 +18,11 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'edit aspek']);
         Permission::create(['name' => 'delete aspek']);
         Permission::create(['name' => 'show aspek']);
+        // departement Permission
+        Permission::create(['name' => 'add departement']);
+        Permission::create(['name' => 'edit departement']);
+        Permission::create(['name' => 'delete departement']);
+        Permission::create(['name' => 'show departement']);
 
         // kriteria Permission
         Permission::create(['name' => 'add kriteria']);

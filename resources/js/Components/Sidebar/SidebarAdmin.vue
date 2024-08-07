@@ -41,16 +41,22 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
                 <span class="-mr-1 font-medium">Dashboard</span>
             </NavLink>
         </li>
-        <DropdownNavLink title="Master Data">
+        <DropdownNavLink title="Master Data" :active="route().current('Departement.index') || route().current('Departement.create') || route().current('Departement.edit') || route().current('Departement.show') || route().current('Staff.index') || route().current('Staff.create') || route().current('Staff.edit') || route().current('Staff.show')">
             <template #icon>📂</template>
-            <li>
-                <span
-                    class="relative flex items-center space-x-4 bg-gradient-to-r from-primary to-green-400 p-2 mt-1 rounded-l text-base text-white">Tahun
-                    Ajaran</span>
+            <li class="group">
+                <DropdownNavItem :href="route('Departement.index')"
+                    :active="route().current('Departement.index') || route().current('Departement.create') || route().current('Departement.edit') || route().current('Departement.show')"
+                    :icon="['fas', 'person-breastfeeding']">
+                    <span class="capitalize">Data Departement</span>
+                </DropdownNavItem>
             </li>
-            <li>
-                <span
-                    class="relative flex items-center space-x-4 bg-gradient-to-r from-primary to-green-400 p-2 mt-1 rounded-l text-base text-white">Kelas</span>
+            <li class="group">
+                <DropdownNavItem :href="route('Staff.index')"
+                    :active="route().current('Staff.index') || route().current('Staff.create') || route().current('Staff.edit') || route().current('Staff.show')"
+                    :icon="['fas', 'users-line']">
+
+                    <span class="capitalize">Data Staff</span>
+                </DropdownNavItem>
             </li>
         </DropdownNavLink>
 

@@ -154,6 +154,8 @@ class StaffController extends Controller
         $staff->update([
             'nama' => $request->name,
             'alamat' => $request->alamat,
+            'departement_id' => $request->departement_id,
+            'jabatan' => $request->jabatan,
         ]);
 
         return redirect()->route('Staff.index')->with('message', 'Data Staff berhasil Di Edit!');

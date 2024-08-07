@@ -50,7 +50,7 @@ window.addEventListener('resize', () => {
 
             <div class="flex flex-col w-full h-full !bg-gray-800 text-white">
                 <div class="flex flex-col items-center py-6 gap-7 justify-center bg-gray-900">
-                    <img v-if="user.profile_photo_path" class="inline-block w-32 h-32 rounded-full ring-2 ring-white" :src="user.profile_photo_path" alt="">
+                    <img v-if="user.profile_photo" class="inline-block w-32 h-32 rounded-full ring-2 ring-white" :src="user.profile_photo_path" alt="">
 
                         <img v-else class="inline-block w-32 h-32 rounded-full ring-2 ring-white" :src="'/images/vecteezy_profile-icon-design-vector_5544718.jpg'" alt="">
 
@@ -82,7 +82,7 @@ window.addEventListener('resize', () => {
                         <Dropdown align="right" width="48">
                             <template #trigger>
                                 <span class="inline-flex rounded-md">
-                                    <button v-if="user.profile_photo_path" type="button"
+                                    <button v-if="user.profile_photo" type="button"
                                         class="inline-flex items-center rounded-full border border-transparent text-sm leading-4 font-medium text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                                         <img class="inline-block w-8 h-8 rounded-full ring-2 ring-white"
                                             :src="user.profile_photo_path" alt="">

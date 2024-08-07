@@ -18,10 +18,8 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         $role = Role::create(['name' => 'Admin']);
-        $role_orangtua = Role::create(['name' => 'Kepala']);
+        $role_orangtua = Role::create(['name' => 'Kepala Bagian']);
         $role_staff = Role::create(['name' => 'Kepala Sekretariat']);
-
-
 
         $user = User::factory()->create([
             'name' => 'admin',
@@ -48,6 +46,11 @@ class RoleSeeder extends Seeder
             'edit aspek',
             'delete aspek',
             'show aspek',
+
+            'add departement',
+            'edit departement',
+            'delete departement',
+            'show departement',
         ]);
     }
 }

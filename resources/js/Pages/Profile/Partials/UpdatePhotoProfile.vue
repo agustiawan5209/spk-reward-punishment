@@ -40,7 +40,7 @@ const onFileChange = (event) => {
                 <div
                     class="mx-auto relative overflow-hidden flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full  border">
                     <img v-if="previewImage" :src="previewImage" alt="" class="absolute w-full h-full object-fill">
-                    <img v-else-if="form.profile_photo" :src="form.profile_photo" alt="" class="absolute w-full h-full object-fill">
+                    <img v-else-if="user.profile_photo" :src="form.profile_photo" alt="" class="absolute w-full h-full object-fill">
                     <img v-else src="/images/vecteezy_profile-icon-design-vector_5544718.jpg" alt="" class="absolute w-full h-full object-fill">
 
                 </div>

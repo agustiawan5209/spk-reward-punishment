@@ -262,7 +262,7 @@ function editUpdate() {
 <template>
     <Modal :show="VarDeleteModal">
         <div id="alert-additional-content-4"
-            class="p-4 text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
+            class="p-4 text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50"
             role="alert">
             <div class="flex items-center">
                 <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -278,7 +278,7 @@ function editUpdate() {
             </div>
             <div class="flex">
                 <button type="button" @click="VarDeleteModal = false"
-                    class="text-white bg-yellow-800 hover:bg-yellow-900 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-yellow-300 dark:text-gray-800 dark:hover:bg-yellow-400 dark:focus:ring-yellow-800">
+                    class="text-white bg-yellow-800 hover:bg-yellow-900 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center">
                     <svg class="me-2 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                         viewBox="0 0 20 14">
                         <path
@@ -287,7 +287,7 @@ function editUpdate() {
                     Tidak
                 </button>
                 <button type="button" @click="deleteItem()"
-                    class="text-yellow-800 bg-transparent border border-yellow-800 hover:bg-yellow-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-yellow-300 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-gray-800 dark:focus:ring-yellow-800"
+                    class="text-yellow-800 bg-transparent border border-yellow-800 hover:bg-yellow-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center "
                     data-dismiss-target="#alert-additional-content-4" aria-label="Close">
                     Ya
                 </button>
@@ -301,28 +301,28 @@ function editUpdate() {
                     <template v-for="(item, index) in tableColums">
                         <div v-if="item != 'id' && item != 'tahun_ajaran' && item != 'staff'" class="mt-3">
                             <label :for="item"
-                                class=" capitalize block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                                class=" capitalize block mb-2 text-sm font-medium text-gray-900">{{
                                     whiteSpaceAdd(item)
                                 }}</label>
                             <input type="text" v-model="FormCreate[item]" :id="item"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 :placeholder="whiteSpaceAdd(item)" required />
                         </div>
                         <div v-else-if="item == 'tahun_ajaran'">
                             <label for="countries"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{
+                                class="block mb-2 text-sm font-medium text-gray-900">{{
                                     whiteSpaceAdd(item) }}</label>
                             <select id="countries" v-model="FormCreate[item]"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                 <option value="">---Pilih---</option>
                                 <option v-for="col in relasi.tahun_ajarans" :value="col.tahun">{{ col.tahun }}</option>
                             </select>
                         </div>
                         <div v-else-if="item == 'staff'">
                             <label for="countries"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Staff</label>
+                                class="block mb-2 text-sm font-medium text-gray-900">Nama Staff</label>
                             <select id="countries" v-model="FormCreate[item]"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                 <option value="">---Pilih---</option>
                                 <option v-for="col in relasi.staffs" :value="col.id">{{ col.nama }}</option>
                             </select>
@@ -416,7 +416,7 @@ function editUpdate() {
                             </fwb-table-body>
                             <fwb-table-body class="bg-white divide-y " v-else-if="TableData.data.length > 0">
                                 <fwb-table-row v-for="(item, index) in TableData.data" :key="item.id"
-                                    class="text-gray-700 dark:text-gray-400">
+                                    class="text-gray-700">
                                     <fwb-table-cell
                                         class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border"
                                         v-for="col in tableColums">

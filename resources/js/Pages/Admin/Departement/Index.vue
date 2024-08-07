@@ -37,20 +37,21 @@ const crud = ref({
     reset_password: props.can.reset,
 
 })
+console.log(crud);
 
 </script>
 
 <template>
 
-    <Head title="TahunAjar" />
+    <Head title="Departement" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2>Data TahunAjar</h2>
+            <h2>Data Departement</h2>
         </template>
 
         <div class="py-4 relative box-content">
-            <SingleTable @update:search="search = $event" @update:order="order" :slug="null" path="TahunAjar" :TableData="data" :tableColums="table_colums" :crud="crud" >
+            <SingleTable @update:search="search = $event" @update:order="order" :slug="null" path="Departement" :TableData="data" :tableColums="table_colums" :crud="crud" >
 
             </SingleTable>
         </div>

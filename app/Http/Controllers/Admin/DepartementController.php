@@ -18,7 +18,7 @@ class DepartementController extends Controller
      */
     public function index()
     {
-        $tableName = 'tahun_ajarans'; // Ganti dengan nama tabel yang Anda inginkan
+        $tableName = 'departements'; // Ganti dengan nama tabel yang Anda inginkan
         $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
 
         return Inertia::render('Admin/Departement/Index', [
@@ -27,10 +27,10 @@ class DepartementController extends Controller
             'data' => Departement::filter(Request::only('search', 'order'))
                 ->paginate(10),
             'can' => [
-                'add' => Auth::user()->can('add guru'),
-                'edit' => Auth::user()->can('edit guru'),
-                'show' => Auth::user()->can('show guru'),
-                'delete' => Auth::user()->can('delete guru'),
+                'add' => Auth::user()->can('add departement'),
+                'edit' => Auth::user()->can('edit departement'),
+                'show' => Auth::user()->can('show departement'),
+                'delete' => Auth::user()->can('delete departement'),
             ]
         ]);
     }
