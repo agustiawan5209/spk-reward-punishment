@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Departement extends Model
 {
     use HasFactory;
+
+    protected $table = 'departements';
+
+    protected $fillable = [
+        'nama',
+    ];
+
+
+    //  FIlter Data User
+    public function scopeFilter($query, $filter)
+    {
+        $query->when($filter['search'] ?? null, function ($query, $search) {
+            $query->where('nama', 'like', '%' . $search . '%');
+        })->when($filter['order'] ?? null, function ($query, $order) {
+            $query->orderBy('id', $order);
+        });
+    }
 }

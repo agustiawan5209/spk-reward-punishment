@@ -11,7 +11,7 @@ class UpdateStaffRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class UpdateStaffRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'slug' => 'required|sometimes|integer|exists:gurus,id',
+            'name' => 'required|sometimes|string|max:255',
+            'no_telpon' => 'required|sometimes|string|max:255',
+            'alamat' => 'required|sometimes|string',
+            'jabatan'=> 'required|sometimes|in:Kepala Bagian,Kepala Sekretariat,Staff',
+            'departement_id'=> 'required|exists:departements,id',
         ];
     }
 }
