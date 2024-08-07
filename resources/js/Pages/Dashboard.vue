@@ -30,7 +30,7 @@ const props = defineProps({
         type: Number,
         default: 0,
     },
-    guru: {
+    staff: {
         type: Number,
         default: 0,
     },
@@ -48,8 +48,8 @@ const props = defineProps({
         </template>
 
         <div class="py-4 relative box-content">
-            <div class="max-w-7xl mx-auto sm:px-6" v-if="roleToCheck('Admin') || roleToCheck('Guru')">
-                <HeaderStats :pengguna="pengguna" :siswa="siswa" :guru="guru" :kelas="kelas" :orangtua="orangtua" />
+            <div class="max-w-7xl mx-auto sm:px-6" v-if="roleToCheck('Admin') || roleToCheck('Staff')">
+                <HeaderStats :pengguna="pengguna" :siswa="siswa" :staff="staff" :kelas="kelas" :orangtua="orangtua" />
 
             </div>
             <div class="py-4 relative box-content bg-white border rounded-lg" v-if="roleToCheck('Orang Tua')">

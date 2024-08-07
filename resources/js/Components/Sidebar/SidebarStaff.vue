@@ -42,8 +42,8 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
             </NavLink>
         </li>
         <li class="group">
-            <NavLink :href="route('Guru.Jadwal.index')"
-                :active="route().current('Guru.Jadwal.index') || route().current('Guru.Jadwal.create') || route().current('Guru.Jadwal.edit') || route().current('Guru.Jadwal.show')"
+            <NavLink :href="route('Staff.Jadwal.index')"
+                :active="route().current('Staff.Jadwal.index') || route().current('Staff.Jadwal.create') || route().current('Staff.Jadwal.edit') || route().current('Staff.Jadwal.show')"
                 :icon="['fas', 'calendar-days']">
                 <span class="capitalize text-sm">Jadwal Kegiatan</span>
             </NavLink>

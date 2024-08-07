@@ -48,7 +48,7 @@ const PjSearch = ref(props.jadwal.penanggung_jawab)
 const PjID = ref('')
 
 watch(PjSearch, (value) => {
-    axios.get(route('api.Guru.data', { search: value }))
+    axios.get(route('api.Staff.data', { search: value }))
         .then((res) => {
             if (res.status == 200) {
                 DataPj.value = res.data;
@@ -59,7 +59,7 @@ watch(PjSearch, (value) => {
 })
 
 const GetPjID = (id) => {
-    axios.get(route('api.Guru.byID', { id: id }))
+    axios.get(route('api.Staff.byID', { id: id }))
         .then((res) => {
             if (res.status == 200) {
                 Form.penanggung_jawab = res.data.nama;

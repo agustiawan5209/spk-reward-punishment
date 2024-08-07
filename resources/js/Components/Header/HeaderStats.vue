@@ -28,7 +28,7 @@ const props = defineProps({
         type: Number,
         default: 0,
     },
-    guru: {
+    staff: {
         type: Number,
         default: 0,
     },
@@ -49,7 +49,7 @@ const props = defineProps({
                             :statIconName="['fas', 'person-breastfeeding']" statIconColor="bg-red-500" />
                     </div>
                     <div class="w-full h-full  px-4" v-if="roleToCheck('Admin')">
-                        <card-stats statSubtitle=" Jumlah Guru" :statTitle="guru" statArrow="down" statPercent="3.48"
+                        <card-stats statSubtitle=" Jumlah Staff" :statTitle="staff" statArrow="down" statPercent="3.48"
                             statPercentColor="text-red-500" statDescripiron="Since last week"
                             :statIconName="['fas', 'user-group']" statIconColor="bg-orange-500" />
                     </div>

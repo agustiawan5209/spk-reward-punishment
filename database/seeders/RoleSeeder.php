@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Guru;
+use App\Models\Staff;
 use App\Models\OrangTua;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -19,7 +19,7 @@ class RoleSeeder extends Seeder
     {
         $role = Role::create(['name' => 'Admin']);
         $role_orangtua = Role::create(['name' => 'Kepala']);
-        $role_guru = Role::create(['name' => 'Kepala Sekretariat']);
+        $role_staff = Role::create(['name' => 'Kepala Sekretariat']);
 
 
 

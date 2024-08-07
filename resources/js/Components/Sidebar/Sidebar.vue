@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import SidebarAdmin from './SidebarAdmin.vue';
-import SidebarGuru from './SidebarGuru.vue';
+import SidebarStaff from './SidebarStaff.vue';
 import SidebarOrg from './SidebarOrg.vue';
 const Page = usePage().props.auth;
 const Roles = Page.role;
@@ -20,7 +20,7 @@ function roleToCheck(role) {
 
     <nav class="flex-1 overflow-y-auto">
         <SidebarAdmin v-if="roleToCheck('Admin')"/>
-        <SidebarGuru v-if="roleToCheck('Kepala Bagian')"/>
+        <SidebarStaff v-if="roleToCheck('Kepala Bagian')"/>
         <SidebarOrg v-if="roleToCheck('Kepala Sekretariat')"/>
     </nav>
 </template>
