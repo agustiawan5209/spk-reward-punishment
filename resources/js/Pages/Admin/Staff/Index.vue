@@ -32,7 +32,7 @@ const props = defineProps({
 const crud = ref({
     tambah: props.can.add,
     edit: props.can.edit,
-    show: false,
+    show: props.can.show,
     delete: props.can.delete,
     reset_password: props.can.reset,
 

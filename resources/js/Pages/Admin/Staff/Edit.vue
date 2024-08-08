@@ -9,7 +9,9 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { ref, defineProps } from 'vue';
-
+import {
+    FwbSpinner,
+} from 'flowbite-vue';
 const props = defineProps({
     jabatan: {
         type: Object,
@@ -19,7 +21,7 @@ const props = defineProps({
         type: Object,
         default:()=>({})
     },
-    kelas: {
+    departement: {
         type: Object,
         default:()=>({})
     },
@@ -28,6 +30,8 @@ const Form = useForm({
     slug: props.staff.id,
     name:props.staff.user.name,
     alamat:props.staff.alamat,
+    jabatan:props.staff.jabatan,
+    departement_id:props.staff.departement_id,
     username:props.staff.user.username,
     email:props.staff.user.email,
     password:props.staff.user.password,
@@ -81,8 +85,35 @@ function submit() {
                                 <InputError :message="Form.errors.alamat"/>
 
                             </div>
+                            <div class="col-span-full sm:col-span-3">
+                                <label for="departement" class="text-sm">Departement</label>
+                                <select id="departement" v-model="Form.departement_id"
+                                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                    <option value="">---Pilih---</option>
+                                    <option v-for="col in departement" :value="col.id">{{ col.nama }}</option>
+                                </select>
+                                <InputError :message="Form.errors.departement_id" />
+
+                            </div>
+                            <div class="col-span-full sm:col-span-3">
+                                <label for="jabatan" class="text-sm">Jabatan</label>
+                                <select id="jabatan" v-model="Form.jabatan"
+                                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                    <option value="">---Pilih---</option>
+                                    <option v-for="col in jabatan" :value="col.name">{{ col.name }}</option>
+                                </select>
+                                <InputError :message="Form.errors.jabatan" />
+
+                            </div>
                         </div>
-                        <PrimaryButton type="submit" class="col-span-full text-center">Simpan</PrimaryButton>
+                        <PrimaryButton type="submit" class="col-span-full text-center">
+                            <span v-if="Form.processing" class="flex justify-center">
+                                <fwb-spinner color="blue" size="6" />
+                            </span>
+                            <span v-else class="flex justify-center">
+                                Simpan Data
+                            </span>
+                        </PrimaryButton>
                     </fieldset>
                 </form>
             </section>

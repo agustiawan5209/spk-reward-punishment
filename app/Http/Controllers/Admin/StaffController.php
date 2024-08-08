@@ -15,6 +15,7 @@ use Illuminate\Auth\Events\Registered;
 use App\Http\Requests\StoreStaffRequest;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\UpdateStaffRequest;
+use App\Models\Departement;
 
 class StaffController extends Controller
 {
@@ -50,7 +51,7 @@ class StaffController extends Controller
      */
     public function create()
     {
-        $columns_staff = DB::getSchemaBuilder()->getColumnListing('staffs');
+        $columns_staff = DB::getSchemaBuilder()->getColumnListing('staff');
         $columns_user = DB::getSchemaBuilder()->getColumnListing('users');
         $columns_hide = ['remember_token', 'email_verified_at', 'created_at', 'updated_at', 'user_id', 'id', 'name'];
         $colums = array_diff(array_merge($columns_staff, $columns_user), $columns_hide);
@@ -61,6 +62,7 @@ class StaffController extends Controller
         // dd($colums);
         return Inertia::render('Admin/Staff/Form', [
             'jabatan' => Role::whereNot('name', 'Admin')->get(),
+            'departement'=> Departement::all(),
             'colums' => array_values($colums),
             'linkCreate' => 'Staff.store',
 
@@ -111,10 +113,10 @@ class StaffController extends Controller
     public function show(Staff $staff)
     {
         Request::validate([
-            'slug'=> 'required|exists:staffs,id',
+            'slug'=> 'required|exists:staff,id',
         ]);
         return Inertia::render('Admin/Staff/Show', [
-            'staff' => $staff->find(Request::input('slug')),
+            'staff' => $staff->with(['departement','user'])->find(Request::input('slug')),
         ]);
     }
 
@@ -124,11 +126,12 @@ class StaffController extends Controller
     public function edit(Staff $staff)
     {
         Request::validate([
-            'slug'=> 'required|exists:staffs,id',
+            'slug'=> 'required|exists:staff,id',
         ]);
         return Inertia::render('Admin/Staff/Edit', [
             'staff' => $staff->with(['user'])->find(Request::input('slug')),
-            'jabatan' => Role::whereNot('name', 'Orang Tua')->get(),
+            'jabatan' => Role::whereNot('name', 'Admin')->get(),
+            'departement'=> Departement::all(),
 
         ]);
     }

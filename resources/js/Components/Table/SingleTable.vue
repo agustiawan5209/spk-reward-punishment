@@ -424,7 +424,7 @@ function editUpdate() {
                                         </span>
                                         <span v-else-if="col == 'status'">
                                             <span v-if="item.status == 0 || item.status == '0'"
-                                                class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-primary">
+                                                class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-700">
 
                                                 <p class="whitespace-nowrap text-sm">Tersedia</p>
                                             </span>
@@ -459,7 +459,7 @@ function editUpdate() {
                                                     <button v-if="crud.edit" type="button"
                                                         class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                                                         @click="getDataID(item.id)">
-                                                        <font-awesome-icon class="text-green-500 hover:text-primary"
+                                                        <font-awesome-icon class="text-green-500 hover:text-green-700"
                                                             :icon="['fas', 'pen-to-square']" />
                                                         Edit
                                                     </button>

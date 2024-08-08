@@ -206,20 +206,20 @@ const AddForm = ref(true);
                                 </template>
                                 <col>
                             </colgroup>
-                            <fwb-table-head
+                            <thead
                                 class="text-xs md:text-base font-semibold tracking-wide text-left uppercase border-b border-gray-700  ">
-                                <fwb-table-head-cell scope="col" v-for="item in columsReplace"
+                                <th scope="col" v-for="item in columsReplace"
                                     class="px-2 py-1 md:px-6 md:py-3 text-nowrap text-start font-medium capitalize">
                                     <span v-if="item == 'id' || item == 'slug'" class="w-10">
                                         No.
                                     </span>
                                     <span v-else>{{ item }}</span>
-                                </fwb-table-head-cell>
+                                </th>
                                 <th scope="col" v-if="cekAksi()"
                                     class=" px-2 py-1 md:px-3 md:py-3 text-center font-medium uppercase">Aksi
                                 </th>
-                            </fwb-table-head>
-                            <fwb-table-body v-if="Form.processing">
+                            </thead>
+                            <tbody v-if="Form.processing">
                                 <tr>
                                     <td :colspan="tableColums.length" class="p-5 text-gray-400 text-center ">
                                         <div class="flex justify-center">
@@ -227,13 +227,13 @@ const AddForm = ref(true);
                                         </div>
                                     </td>
                                 </tr>
-                            </fwb-table-body>
-                            <fwb-table-body class="bg-white divide-y " v-else-if="TableData.data.length > 0">
-                                <fwb-table-row v-for="(item, index) in TableData.data" :key="item.id"
+                            </tbody>
+                            <tbody class="bg-white divide-y " v-else-if="TableData.data.length > 0">
+                                <tr v-for="(item, index) in TableData.data" :key="item.id"
                                     class="text-gray-700 dark:text-gray-400"
                                     :class="{ 'opacity-75 blur-sm': Form.processing }">
 
-                                    <fwb-table-cell
+                                    <td
                                         class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border"
                                         v-for="col in tableColums">
 
@@ -245,7 +245,7 @@ const AddForm = ref(true);
                                         </span>
                                         <span v-else-if="col == 'status'">
                                             <span v-if="item.status == 0 || item.status == '0'"
-                                                class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-primary">
+                                                class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-700">
 
                                                 <p class="whitespace-nowrap text-sm">Tersedia</p>
                                             </span>
@@ -265,8 +265,8 @@ const AddForm = ref(true);
                                         </span>
                                         <span v-else :class="col == 'tanggal' ? 'whitespace-nowrap' : ''">{{ item[col]
                                             }}</span>
-                                    </fwb-table-cell>
-                                    <fwb-table-cell
+                                    </td>
+                                    <td
                                         class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border relative"
                                         v-if="cekAksi()">
                                         <!-- Settings dropdownTable -->
@@ -289,7 +289,7 @@ const AddForm = ref(true);
                                                     <DropdownLink v-if="crud.edit"
                                                         :href="route(props.path + '.edit', { slug: item.id })"
                                                         class="flex justify-start gap-3 text-gray-700">
-                                                        <font-awesome-icon class="text-green-500 hover:text-primary"
+                                                        <font-awesome-icon class="text-green-500 hover:text-green-700"
                                                             :icon="['fas', 'pen-to-square']" />
                                                         Edit
                                                     </DropdownLink>
@@ -319,16 +319,16 @@ const AddForm = ref(true);
                                                 </template>
                                             </dropdownTable>
                                         </div>
-                                    </fwb-table-cell>
-                                </fwb-table-row>
+                                    </td>
+                                </tr>
 
-                            </fwb-table-body>
-                            <fwb-table-body v-else>
+                            </tbody>
+                            <tbody v-else>
                                 <tr>
                                     <td :colspan="tableColums.length" class="p-5 text-gray-400 text-center">Data Kosong
                                     </td>
                                 </tr>
-                            </fwb-table-body>
+                            </tbody>
                         </fwb-table>
                     </div>
                     <div class="py-1 px-4 ">

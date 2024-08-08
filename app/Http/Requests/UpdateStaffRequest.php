@@ -22,7 +22,7 @@ class UpdateStaffRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'slug' => 'required|sometimes|integer|exists:gurus,id',
+            'slug' => 'required|sometimes|integer|exists:staff,id',
             'name' => 'required|sometimes|string|max:255',
             'no_telpon' => 'required|sometimes|string|max:255',
             'alamat' => 'required|sometimes|string',

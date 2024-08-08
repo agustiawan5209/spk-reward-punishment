@@ -23,6 +23,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
      Route::group(['prefix' => 'staff', 'as' => "Staff."], function () {
         Route::controller(StaffController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/detail-staff', 'show')->name('show');
             Route::get('/tambah-data-staff', 'create')->name('create');
             Route::get('/edit-data-staff', 'edit')->middleware(['auth', 'password.confirm'])->name('edit');
             Route::post('/store-data-staff', 'store')->name('store');
