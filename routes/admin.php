@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AspekKriteriaController;
 use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\StaffController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,19 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
 
             Route::get('/reset-password-staff', 'resetpassword')->middleware(['auth', 'password.confirm'])->name('reset.password');
             Route::post('/reset-password-staff', 'resetpasswordUpdate')->name('reset.password');
+        });
+    });
+
+    // Router Departement
+    Route::group(['prefix' => 'aspek', 'as' => "Aspek."], function () {
+        Route::controller(AspekKriteriaController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-data/aspek', 'create')->name('create');
+            Route::get('/edit-data/aspek', 'edit')->name('edit');
+            Route::get('/detail-data/aspek', 'show')->name('show');
+            Route::post('/store-data/aspek', 'store')->name('store');
+            Route::put('/update-data/aspek', 'update')->name('update');
+            Route::delete('/hapus-data/aspek', 'destroy')->name('destroy');
         });
     });
 });

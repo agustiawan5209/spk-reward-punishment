@@ -38,7 +38,7 @@ library.add(fas, far, fab)
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-const appName = import.meta.env.VITE_APP_NAME || 'PAUD';
+const appName = import.meta.env.VITE_APP_NAME || 'SPK';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

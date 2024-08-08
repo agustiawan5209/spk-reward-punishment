@@ -59,6 +59,12 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
                 </DropdownNavItem>
             </li>
         </DropdownNavLink>
+        <li>
+            <NavLink :href="route('Aspek.index')" :active="route().current('Aspek.index') || route().current('Aspek.create') || route().current('Aspek.edit') || route().current('Aspek.show')" :icon="['fas', 'file']">
+
+                <span class="-mr-1 font-medium">Aspek Penilaian</span>
+            </NavLink>
+        </li>
 
     </ul>
 </template>
