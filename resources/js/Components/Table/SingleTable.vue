@@ -159,7 +159,7 @@ function truncateText(text) {
             text += paragraphs[i]
         }
     }
-    if(paragraphs.length>50){
+    if (paragraphs.length > 50) {
         text += '........'
     }
     return text;
@@ -262,8 +262,7 @@ function editUpdate() {
 <template>
     <Modal :show="VarDeleteModal">
         <div id="alert-additional-content-4"
-            class="p-4 text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50"
-            role="alert">
+            class="p-4 text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50" role="alert">
             <div class="flex items-center">
                 <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -300,18 +299,16 @@ function editUpdate() {
                 <form @submit.prevent="EditForm ? editUpdate() : storeUpdate()" class="relative my-5">
                     <template v-for="(item, index) in tableColums">
                         <div v-if="item != 'id' && item != 'tahun_ajaran' && item != 'staff'" class="mt-3">
-                            <label :for="item"
-                                class=" capitalize block mb-2 text-sm font-medium text-gray-900">{{
-                                    whiteSpaceAdd(item)
-                                }}</label>
+                            <label :for="item" class=" capitalize block mb-2 text-sm font-medium text-gray-900">{{
+                                whiteSpaceAdd(item)
+                            }}</label>
                             <input type="text" v-model="FormCreate[item]" :id="item"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 :placeholder="whiteSpaceAdd(item)" required />
                         </div>
                         <div v-else-if="item == 'tahun_ajaran'">
-                            <label for="countries"
-                                class="block mb-2 text-sm font-medium text-gray-900">{{
-                                    whiteSpaceAdd(item) }}</label>
+                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">{{
+                                whiteSpaceAdd(item) }}</label>
                             <select id="countries" v-model="FormCreate[item]"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                 <option value="">---Pilih---</option>
@@ -319,8 +316,8 @@ function editUpdate() {
                             </select>
                         </div>
                         <div v-else-if="item == 'staff'">
-                            <label for="countries"
-                                class="block mb-2 text-sm font-medium text-gray-900">Nama Staff</label>
+                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900">Nama
+                                Staff</label>
                             <select id="countries" v-model="FormCreate[item]"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                 <option value="">---Pilih---</option>
@@ -338,7 +335,7 @@ function editUpdate() {
                         </span>
 
                     </PrimaryButton>
-                    <PrimaryButton v-else type="submit" class="w-full text-center !bg-green-500">
+                    <PrimaryButton v-else type="submit" class="w-full text-center !bg-red-500">
                         <span v-if="FormCreate.processing" class="flex justify-center">
                             <fwb-spinner color="blue" size="6" />
                         </span>
@@ -384,7 +381,7 @@ function editUpdate() {
                         </div>
                     </div>
                     <div class="w-full overflow-x-auto">
-                        <fwb-table hoverable striped class="w-full table-full overflow-x-auto">
+                        <fwb-table striped class="w-full table-full overflow-x-auto">
                             <colgroup>
                                 <template v-for="(item, index) in columsReplace">
                                     <col v-if="index == 0" class="w-10">
@@ -392,20 +389,20 @@ function editUpdate() {
                                 </template>
                                 <col>
                             </colgroup>
-                            <fwb-table-head
-                                class="text-xs md:text-base font-semibold tracking-wide text-left uppercase border-b border-gray-700  ">
-                                <fwb-table-head-cell scope="col" v-for="item in columsReplace"
+                            <thead
+                                class="text-xs md:text-base font-semibold tracking-wide text-left uppercase bg-primary border-b border-gray-700 text-white  ">
+                                <th scope="col" v-for="item in columsReplace"
                                     class="px-2 py-1 md:px-6 md:py-3 text-nowrap text-start font-medium capitalize">
-                                    <span v-if="item == 'id' || item == 'slug'" class="w-10">
+                                    <span v-if="item == 'id' || item == 'slug'" class="w-10 text-white">
                                         No.
                                     </span>
-                                    <span v-else>{{ item }}</span>
-                                </fwb-table-head-cell>
-                                <th scope="col" v-if="cekAksi()"
-                                    class=" px-2 py-1 md:px-3 md:py-3 text-center font-medium uppercase">Aksi
+                                    <span v-else class="text-white">{{ item }}</span>
                                 </th>
-                            </fwb-table-head>
-                            <fwb-table-body  v-if="Form.processing">
+                                <th scope="col" v-if="cekAksi()"
+                                    class=" px-2 py-1 md:px-3 md:py-3 text-center font-medium text-white">Aksi
+                                </th>
+                            </thead>
+                            <tbody v-if="Form.processing">
                                 <tr>
                                     <td :colspan="tableColums.length" class="p-5 text-gray-400 text-center ">
                                         <div class="flex justify-center">
@@ -413,12 +410,10 @@ function editUpdate() {
                                         </div>
                                     </td>
                                 </tr>
-                            </fwb-table-body>
-                            <fwb-table-body class="bg-white divide-y " v-else-if="TableData.data.length > 0">
-                                <fwb-table-row v-for="(item, index) in TableData.data" :key="item.id"
-                                    class="text-gray-700">
-                                    <fwb-table-cell
-                                        class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border"
+                            </tbody>
+                            <tbody class="bg-white divide-y " v-else-if="TableData.data.length > 0">
+                                <tr v-for="(item, index) in TableData.data" :key="item.id" class="text-gray-800  ">
+                                    <td class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium border"
                                         v-for="col in tableColums">
 
                                         <span v-if="col == 'id' || col == 'slug'">
@@ -429,7 +424,7 @@ function editUpdate() {
                                         </span>
                                         <span v-else-if="col == 'status'">
                                             <span v-if="item.status == 0 || item.status == '0'"
-                                                class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-700">
+                                                class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-primary">
 
                                                 <p class="whitespace-nowrap text-sm">Tersedia</p>
                                             </span>
@@ -441,9 +436,8 @@ function editUpdate() {
                                         </span>
                                         <span v-else :class="col == 'tahun' ? 'whitespace-nowrap' : ''">{{ item[col]
                                             }}</span>
-                                    </fwb-table-cell>
-                                    <fwb-table-cell
-                                        class="w-12 px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border relative"
+                                    </td>
+                                    <td class="w-12 px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border relative"
                                         v-if="cekAksi()">
                                         <!-- Settings dropdownTable -->
                                         <div class="ml-3 relative z-50">
@@ -465,7 +459,7 @@ function editUpdate() {
                                                     <button v-if="crud.edit" type="button"
                                                         class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                                                         @click="getDataID(item.id)">
-                                                        <font-awesome-icon class="text-green-500 hover:text-green-700"
+                                                        <font-awesome-icon class="text-green-500 hover:text-primary"
                                                             :icon="['fas', 'pen-to-square']" />
                                                         Edit
                                                     </button>
@@ -488,10 +482,10 @@ function editUpdate() {
                                                 </template>
                                             </dropdownTable>
                                         </div>
-                                    </fwb-table-cell>
-                                </fwb-table-row>
+                                    </td>
+                                </tr>
 
-                            </fwb-table-body>
+                            </tbody>
                             <tbody v-else>
                                 <tr>
                                     <td :colspan="tableColums.length" class="p-5 text-gray-400 text-center">Data Kosong

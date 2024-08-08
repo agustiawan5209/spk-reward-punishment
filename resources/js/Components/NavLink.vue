@@ -18,7 +18,7 @@ const props = defineProps({
 
 const classes = computed(() =>
     props.active
-        ? 'relative flex items-center space-x-4 bg-gradient-to-r from-primary to-green-400 p-2 sm:p-4 text-base text-white'
+        ? 'relative flex items-center space-x-4 bg-secondary p-2 sm:p-4 text-base text-white'
         : ' flex items-center space-x-4 rounded-md p-2 sm:p-4 text-base text-white'
 );
 const classesIcon = computed(() =>

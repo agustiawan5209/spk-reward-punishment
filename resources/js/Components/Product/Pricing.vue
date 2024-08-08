@@ -6,7 +6,7 @@ const props = defineProps(['jasa'])
 </script>
 
 <template>
-    <div class="bg-gray-800 pt-20 " id="pricing">
+    <div class="bg-primary pt-20 " id="pricing">
         <div class="relative mx-auto max-w-7xl px-6 text-center lg:px-8 mb-10">
             <div class="mx-auto max-w-2xl lg:max-w-4xl">
                 <h2 class="text-lg font-semibold leading-8 text-teal-400">Harga</h2>
@@ -16,7 +16,7 @@ const props = defineProps(['jasa'])
         <div class="">
             <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mx-auto grid max-w-md grid-cols-1 gap-8 lg:max-w-7xl lg:grid-cols-3 lg:gap-8">
-                    <div v-for="item in jasa" class="flex flex-col rounded-3xl  bg-gray-900 shadow-xl ring-1 ring-black/10">
+                    <div v-for="item in jasa" class="flex flex-col rounded-3xl  bg-secondary shadow-xl ring-1 ring-black/10">
                         <div class="p-8 sm:p-10">
                             <div class="flex">
                                 <h3 class="text-lg font-semibold leading-8 tracking-tight text-teal-400"

@@ -148,7 +148,7 @@ function truncateText(col) {
 <template>
     <Modal :show="VarDeleteModal">
         <div id="alert-additional-content-4"
-            class="p-4 text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800"
+            class="p-4 text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-primary dark:text-yellow-300 dark:border-yellow-800"
             role="alert">
             <div class="flex items-center">
                 <svg class="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -277,7 +277,7 @@ function truncateText(col) {
                                                 <p class="whitespace-nowrap text-xs">{{ item.status }}</p>
                                             </span>
                                             <span v-else
-                                                class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-700">
+                                                class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-primary">
 
                                                 <p class="whitespace-nowrap text-xs">{{ item.status }}</p>
                                             </span>
@@ -307,7 +307,7 @@ function truncateText(col) {
                                                     <DropdownLink v-if="crud.edit"
                                                         :href="route(props.path + '.edit', { slug: item.id })"
                                                         class="flex justify-start gap-3 text-gray-700">
-                                                        <font-awesome-icon class="text-green-500 hover:text-green-700"
+                                                        <font-awesome-icon class="text-green-500 hover:text-primary"
                                                             :icon="['fas', 'pen-to-square']" />
                                                         Edit
                                                     </DropdownLink>

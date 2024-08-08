@@ -23,7 +23,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $tableName = 'staffs'; // Ganti dengan nama tabel yang Anda inginkan
+        $tableName = 'staff'; // Ganti dengan nama tabel yang Anda inginkan
         // $columns=DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
         $columns[] = 'nama';

@@ -35,8 +35,8 @@ window.addEventListener('resize', () => {
                 </svg>
             </button>
 
-            <div class="flex flex-col w-full h-full !bg-gray-800 text-white">
-                <div class="flex flex-col items-center justify-center bg-gray-900">
+            <div class="flex flex-col w-full h-full !bg-primary text-white">
+                <div class="flex flex-col items-center justify-center bg-secondary">
                     <h1 class="text-2xl font-bold">PAUD</h1>
                     <img class="inline-block w-8 h-8 rounded-full ring-2 ring-white" :src="user.profile_photo_path"
                         alt="">
@@ -48,8 +48,8 @@ window.addEventListener('resize', () => {
         <aside key="dekstop"
             class="fixed top-0 z-10 ml-[-100%] flex h-screen w-full flex-col justify-between border-r bg-white transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%] overflow-y-auto">
 
-            <div class="flex flex-col w-full h-full !bg-gray-800 text-white">
-                <div class="flex flex-col items-center py-6 gap-7 justify-center bg-gray-900">
+            <div class="flex flex-col w-full h-full !bg-primary text-white">
+                <div class="flex flex-col items-center py-6 gap-7 justify-center bg-secondary">
                     <img v-if="user.profile_photo" class="inline-block w-32 h-32 rounded-full ring-2 ring-white" :src="user.profile_photo_path" alt="">
 
                         <img v-else class="inline-block w-32 h-32 rounded-full ring-2 ring-white" :src="'/images/vecteezy_profile-icon-design-vector_5544718.jpg'" alt="">
@@ -62,7 +62,7 @@ window.addEventListener('resize', () => {
         </aside>
     </transition-group>
     <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%] ">
-        <div class="sticky top-0 h-16 border-b bg-gray-800 lg:py-2.5 z-[100]">
+        <div class="sticky top-0 h-16 border-b bg-primary lg:py-2.5 z-[100]">
             <div class="flex items-center justify-between space-x-4 px-6 2xl:container">
 
                 <h5 hidden class="text-2xl font-medium !text-white lg:block">

@@ -18,7 +18,7 @@ const funModal = (id)=>{
 <template>
 
     <div class="mx-auto grid max-w-md grid-cols-1 gap-8 lg:max-w-7xl lg:grid-cols-3 lg:gap-8">
-        <div v-for="item in jasa" class="flex flex-col rounded-3xl  bg-gray-900 shadow-xl ring-1 ring-black/10">
+        <div v-for="item in jasa" class="flex flex-col rounded-3xl  bg-secondary shadow-xl ring-1 ring-black/10">
             <Link :href="route('produk.detail', { tipe: tipe, slug: item.id })"  v-for="(image,index) in item.image">
                 <img class="h-60 rounded-t-lg object-cover w-full"
                     v-if="image.status" :src="image.image_url"
