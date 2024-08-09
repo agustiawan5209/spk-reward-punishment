@@ -236,7 +236,7 @@ function truncateText(text) {
                                 <col>
                             </colgroup>
                             <thead
-                                class="text-xs md:text-base font-semibold tracking-wide text-left uppercase border-b border-gray-700  ">
+                                class="text-xs md:text-sm font-semibold tracking-wide text-left uppercase border-b border-gray-700  ">
                                 <th scope="col" v-for="item in columsReplace"
                                     class="px-2 py-1 md:py-2 text-nowrap text-start font-medium capitalize bg-primary text-white">
                                     <span v-if="item == 'id' || item == 'slug'" class="w-10">

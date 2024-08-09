@@ -41,7 +41,8 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
                 <span class="-mr-1 font-medium">Dashboard</span>
             </NavLink>
         </li>
-        <DropdownNavLink title="Master Data" :active="route().current('Departement.index') || route().current('Departement.create') || route().current('Departement.edit') || route().current('Departement.show') || route().current('Staff.index') || route().current('Staff.create') || route().current('Staff.edit') || route().current('Staff.show')">
+        <DropdownNavLink title="Master Data"
+            :active="route().current('Departement.index') || route().current('Departement.create') || route().current('Departement.edit') || route().current('Departement.show') || route().current('Staff.index') || route().current('Staff.create') || route().current('Staff.edit') || route().current('Staff.show')">
             <template #icon>📂</template>
             <li class="group">
                 <DropdownNavItem :href="route('Departement.index')"
@@ -59,16 +60,32 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
                 </DropdownNavItem>
             </li>
         </DropdownNavLink>
-        <li>
-            <NavLink :href="route('Aspek.index')" :active="route().current('Aspek.index') || route().current('Aspek.create') || route().current('Aspek.edit') || route().current('Aspek.show')" :icon="['fas', 'file']">
+        <DropdownNavLink title="Master Penilaian"
+            :active="route().current('Aspek.index') || route().current('Aspek.create') || route().current('Aspek.edit') || route().current('Aspek.show') || route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.edit') || route().current('Kriteria.show')">
+            <template #icon>📂</template>
+            <li>
+                <DropdownNavItem :href="route('Aspek.index')"
+                    :active="route().current('Aspek.index') || route().current('Aspek.create') || route().current('Aspek.edit') || route().current('Aspek.show')">
 
-                <span class="-mr-1 font-medium">Aspek Penilaian</span>
-            </NavLink>
-        </li>
-        <li>
-            <NavLink :href="route('Kriteria.index')" :active="route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.edit') || route().current('Kriteria.show')" :icon="['fas', 'file']">
+                    <span class="-mr-1 font-medium">Aspek Penilaian</span>
+                </DropdownNavItem>
+            </li>
+            <li>
+                <DropdownNavItem :href="route('Kriteria.index')"
+                    :active="route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.edit') || route().current('Kriteria.show')">
 
-                <span class="-mr-1 font-medium">Kriteria Penilaian</span>
+                    <span class="-mr-1 font-medium">Kriteria Penilaian</span>
+                </DropdownNavItem>
+            </li>
+        </DropdownNavLink>
+
+
+        <li>
+            <NavLink :href="route('Kategori.index')"
+                :active="route().current('Kategori.index') || route().current('Kategori.create') || route().current('Kategori.edit') || route().current('Kategori.show')"
+                :icon="['fas', 'file']">
+
+                <span class="-mr-1 font-medium">Kategori Penilaian</span>
             </NavLink>
         </li>
 

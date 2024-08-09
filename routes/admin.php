@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AspekKriteriaController;
 use App\Http\Controllers\Admin\DepartementController;
+use App\Http\Controllers\Admin\KategoriPenilaianController;
 use App\Http\Controllers\Admin\KriteriaPenilaianController;
 use App\Http\Controllers\Admin\StaffController;
 use Illuminate\Support\Facades\Route;
@@ -62,6 +63,20 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
             Route::post('/store-data/kriteria', 'store')->name('store');
             Route::put('/update-data/kriteria', 'update')->name('update');
             Route::delete('/hapus-data/kriteria', 'destroy')->name('destroy');
+        });
+    });
+
+
+    //router kategori
+    Route::group(['prefix' => 'kategori', 'as' => "Kategori."], function () {
+        Route::controller(KategoriPenilaianController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-data/kategori', 'create')->name('create');
+            Route::get('/edit-data/kategori', 'edit')->name('edit');
+            Route::get('/detail-data/kategori', 'show')->name('show');
+            Route::post('/store-data/kategori', 'store')->name('store');
+            Route::put('/update-data/kategori', 'update')->name('update');
+            Route::delete('/hapus-data/kategori', 'destroy')->name('destroy');
         });
     });
 });
