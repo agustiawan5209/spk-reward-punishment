@@ -26,22 +26,22 @@ class UpdateAspekKriteriaRequest extends FormRequest
             'nama' => 'sometimes|required|unique:aspek_kriterias,nama,' . $this->slug,
             'persentase' => 'required|sometimes|numeric|between:10,100',
             'bobot' => 'required|sometimes|numeric',
-            'sub_nama_aspek' => 'nullable|array',
-            'sub_nama_aspek.*' => 'required|string|max:50',
-            'sub_bobot_aspek' => 'nullable|array',
-            'sub_bobot_aspek.*' => 'required|numeric|between:1,50',
+            // 'sub_nama_aspek' => 'nullable|array',
+            // 'sub_nama_aspek.*' => 'required|string|max:50',
+            // 'sub_bobot_aspek' => 'nullable|array',
+            // 'sub_bobot_aspek.*' => 'required|numeric|between:1,50',
         ];
     }
 
-    public function messages(): array
-    {
-        return [
-            'sub_nama_aspek' => 'Nama Sub aspek Penilaian harus Di Isi.',
-            'sub_nama_aspek.*.string' => 'Bobot Sub aspek Penilaian harus berupa teks.',
-            'sub_nama_aspek.*.required' => 'Bobot Sub aspek Penilaian harus berupa angka.',
+    // public function messages(): array
+    // {
+    //     return [
+    //         'sub_nama_aspek' => 'Nama Sub aspek Penilaian harus Di Isi.',
+    //         'sub_nama_aspek.*.string' => 'Bobot Sub aspek Penilaian harus berupa teks.',
+    //         'sub_nama_aspek.*.required' => 'Bobot Sub aspek Penilaian harus berupa angka.',
 
-            'sub_bobot_aspek.*.numeric' => 'Bobot Sub aspek Penilaian harus berupa angka.',
-            'sub_bobot_aspek.*.required' => 'Bobot Sub aspek Penilaian harus berupa angka.',
-        ];
-    }
+    //         'sub_bobot_aspek.*.numeric' => 'Bobot Sub aspek Penilaian harus berupa angka.',
+    //         'sub_bobot_aspek.*.required' => 'Bobot Sub aspek Penilaian harus berupa angka.',
+    //     ];
+    // }
 }

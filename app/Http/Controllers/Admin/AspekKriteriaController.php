@@ -51,16 +51,16 @@ class AspekKriteriaController extends Controller
     {
         $aspek = AspekKriteria::create($request->all());
 
-        $sub_nama_aspek = $request->sub_nama_aspek;
-        $sub_bobot_aspek = $request->sub_bobot_aspek;
+        // $sub_nama_aspek = $request->sub_nama_aspek;
+        // $sub_bobot_aspek = $request->sub_bobot_aspek;
 
-        for($i = 0; $i < count($sub_nama_aspek); $i++){
-            KriteriaPenilaian::create([
-                'aspek_id'=> $aspek->id,
-                'nama'=> $sub_nama_aspek[$i],
-                'bobot'=> $sub_bobot_aspek[$i],
-            ]);
-        }
+        // for($i = 0; $i < count($sub_nama_aspek); $i++){
+        //     KriteriaPenilaian::create([
+        //         'aspek_id'=> $aspek->id,
+        //         'nama'=> $sub_nama_aspek[$i],
+        //         'bobot'=> $sub_bobot_aspek[$i],
+        //     ]);
+        // }
         return redirect()->route('Aspek.index')->with('message', 'Berhasil Di Tambah!!');
 
     }
@@ -94,17 +94,17 @@ class AspekKriteriaController extends Controller
         $aspek = $aspekKriteria->find(Request::input('slug'));
         $aspek->update($request->all());
 
-        KriteriaPenilaian::where('aspek_id', $aspek->id)->delete();
-        $sub_nama_aspek = $request->sub_nama_aspek;
-        $sub_bobot_aspek = $request->sub_bobot_aspek;
+        // KriteriaPenilaian::where('aspek_id', $aspek->id)->delete();
+        // $sub_nama_aspek = $request->sub_nama_aspek;
+        // $sub_bobot_aspek = $request->sub_bobot_aspek;
 
-        for($i = 0; $i < count($sub_nama_aspek); $i++){
-            KriteriaPenilaian::create([
-                'aspek_id'=> $aspek->id,
-                'nama'=> $sub_nama_aspek[$i],
-                'bobot'=> $sub_bobot_aspek[$i],
-            ]);
-        }
+        // for($i = 0; $i < count($sub_nama_aspek); $i++){
+        //     KriteriaPenilaian::create([
+        //         'aspek_id'=> $aspek->id,
+        //         'nama'=> $sub_nama_aspek[$i],
+        //         'bobot'=> $sub_bobot_aspek[$i],
+        //     ]);
+        // }
 
         return redirect()->route('Aspek.index')->with('message', 'Berhasil Di Ubah!!');
     }
