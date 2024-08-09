@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AspekKriteriaController;
 use App\Http\Controllers\Admin\DepartementController;
+use App\Http\Controllers\Admin\KriteriaPenilaianController;
 use App\Http\Controllers\Admin\StaffController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +39,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
         });
     });
 
-    // Router Departement
+    // Router aspek
     Route::group(['prefix' => 'aspek', 'as' => "Aspek."], function () {
         Route::controller(AspekKriteriaController::class)->group(function () {
             Route::get('/', 'index')->name('index');
@@ -48,6 +49,19 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
             Route::post('/store-data/aspek', 'store')->name('store');
             Route::put('/update-data/aspek', 'update')->name('update');
             Route::delete('/hapus-data/aspek', 'destroy')->name('destroy');
+        });
+    });
+
+    //router kriteria
+    Route::group(['prefix' => 'kriteria', 'as' => "Kriteria."], function () {
+        Route::controller(KriteriaPenilaianController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-data/kriteria', 'create')->name('create');
+            Route::get('/edit-data/kriteria', 'edit')->name('edit');
+            Route::get('/detail-data/kriteria', 'show')->name('show');
+            Route::post('/store-data/kriteria', 'store')->name('store');
+            Route::put('/update-data/kriteria', 'update')->name('update');
+            Route::delete('/hapus-data/kriteria', 'destroy')->name('destroy');
         });
     });
 });

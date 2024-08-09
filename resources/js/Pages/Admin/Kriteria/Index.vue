@@ -42,15 +42,15 @@ const crud = ref({
 
 <template>
 
-    <Head title="Aspek" />
+    <Head title="Kriteria" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2>Data Aspek</h2>
+            <h2>Data Kriteria</h2>
         </template>
 
         <div class="py-4 relative box-content">
-            <CardTable @update:search="search = $event" @update:order="order" :slug="null" path="Aspek" :TableData="data" :tableColums="table_colums" :crud="crud" >
+            <CardTable @update:search="search = $event" @update:order="order" :slug="null" path="Kriteria" :TableData="data" :tableColums="table_colums" :crud="crud" >
 
             </CardTable>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,10 +13,32 @@ class KriteriaPenilaian extends Model
     protected $fillable = [
         'aspek_id',
         'nama',
-        'bobot'
+        'bobot',
+
     ];
 
     public function aspekkriteria(){
-        return $this->belongsTo(AspekKriteria::class);
+        return $this->hasOne(AspekKriteria::class, 'id','aspek_id');
+    }
+
+    protected $appends = [
+        'nama_aspek',
+    ];
+
+    public function namaAspek(): Attribute
+    {
+        return new Attribute(
+            get: fn()=> $this->aspekkriteria->nama,
+        );
+    }
+
+    //  FIlter Data User
+    public function scopeFilter($query, $filter)
+    {
+        $query->when($filter['search'] ?? null, function ($query, $search) {
+            $query->where('nama', 'like', '%' . $search . '%');
+        })->when($filter['order'] ?? null, function ($query, $order) {
+            $query->orderBy('id', $order);
+        });
     }
 }

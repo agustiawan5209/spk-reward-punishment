@@ -25,6 +25,9 @@ class StoreAspekKriteriaRequest extends FormRequest
             'nama'=> 'required|unique:aspek_kriterias,nama',
             'persentase'=> 'required|numeric|between:10,100',
             'bobot'=> 'required|numeric',
+            'core_factory'=> 'required|numeric',
+            'secondary_factory'=> 'required|numeric',
+
             // 'sub_nama_aspek'=> 'nullable|array',
             // 'sub_nama_aspek.*'=> 'required|string|max:50',
             // 'sub_bobot_aspek'=> 'nullable|array',

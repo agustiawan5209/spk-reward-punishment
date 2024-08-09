@@ -15,6 +15,8 @@ class AspekKriteria extends Model
         'nama',
         'persentase',
         'bobot',
+        'core_factory',
+        'secondary_factory',
     ];
 
 

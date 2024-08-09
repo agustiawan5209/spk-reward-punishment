@@ -26,6 +26,8 @@ class UpdateAspekKriteriaRequest extends FormRequest
             'nama' => 'sometimes|required|unique:aspek_kriterias,nama,' . $this->slug,
             'persentase' => 'required|sometimes|numeric|between:10,100',
             'bobot' => 'required|sometimes|numeric',
+            'core_factory'=> 'required|numeric',
+            'secondary_factory'=> 'required|numeric',
             // 'sub_nama_aspek' => 'nullable|array',
             // 'sub_nama_aspek.*' => 'required|string|max:50',
             // 'sub_bobot_aspek' => 'nullable|array',

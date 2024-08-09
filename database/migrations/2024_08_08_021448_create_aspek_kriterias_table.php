@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('nama');
             $table->integer('persentase');
             $table->integer('bobot')->nullable();
+            $table->integer('core_factory');
+            $table->integer('secondary_factory');
             // $table->integer('')->nullable();
             $table->timestamps();
         });

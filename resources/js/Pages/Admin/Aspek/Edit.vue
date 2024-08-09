@@ -26,6 +26,8 @@ const Form = useForm({
     nama: props.aspek.nama,
     persentase: props.aspek.persentase,
     bobot: props.aspek.bobot,
+    core_factory: props.aspek.core_factory,
+    secondary_factory: props.aspek.secondary_factory,
 })
 
 function submit() {
@@ -85,6 +87,20 @@ function submit() {
                                     <TextInput id="bobot" type="number" placeholder="Bobot Aspek" v-model="Form.bobot"
                                         class="w-full text-gray-900" />
                                     <InputError :message="Form.errors.bobot" />
+                                </div>
+                                <div class="col-span-full">
+                                    <InputLabel for="core_factory" value="Core Factory(%)" />
+
+                                    <TextInput id="core_factory" type="number" placeholder="Bobot Aspek" v-model="Form.core_factory"
+                                        class="w-full text-gray-900" />
+                                    <InputError :message="Form.errors.core_factory" />
+                                </div>
+                                <div class="col-span-full">
+                                    <InputLabel for="secondary_factory" value="Secondary Factory(%)" />
+
+                                    <TextInput id="secondary_factory" type="number" placeholder="Bobot Aspek" v-model="Form.secondary_factory"
+                                        class="w-full text-gray-900" />
+                                    <InputError :message="Form.errors.secondary_factory" />
                                 </div>
 
                             </div>
