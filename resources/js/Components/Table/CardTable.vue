@@ -238,14 +238,14 @@ function truncateText(text) {
                             <thead
                                 class="text-xs md:text-base font-semibold tracking-wide text-left uppercase border-b border-gray-700  ">
                                 <th scope="col" v-for="item in columsReplace"
-                                    class="px-2 py-1 md:px-6 md:py-3 text-nowrap text-start font-medium capitalize bg-primary text-white">
+                                    class="px-2 py-1 md:py-2 text-nowrap text-start font-medium capitalize bg-primary text-white">
                                     <span v-if="item == 'id' || item == 'slug'" class="w-10">
                                         No.
                                     </span>
                                     <span v-else>{{ item }}</span>
                                 </th>
                                 <th scope="col" v-if="cekAksi()"
-                                    class=" px-2 py-1 md:px-3 md:py-3 text-center font-medium uppercase bg-primary text-white">Aksi
+                                    class=" px-2 py-1 md:py-2 text-center font-medium uppercase bg-primary text-white">Aksi
                                 </th>
                             </thead>
                             <tbody v-if="Form.processing">

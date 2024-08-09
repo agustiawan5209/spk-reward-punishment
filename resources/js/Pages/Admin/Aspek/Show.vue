@@ -13,7 +13,7 @@ import { ref, defineProps, watch, onMounted } from 'vue';
 
 const page = usePage();
 const props = defineProps({
-    staff: {
+    aspek: {
         type: Object,
         default: () => ({})
     },
@@ -27,11 +27,11 @@ const props = defineProps({
 
 <template>
 
-    <Head title="Staff" />
+    <Head title="Aspek" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2>Detail Staff</h2>
+            <h2>Detail Aspek</h2>
         </template>
 
         <div class="md:py-4 relative box-content">
@@ -42,47 +42,37 @@ const props = defineProps({
                             <div class="col-span-full sm:col-span-3 ">
                                 <ul class="flex flex-col space-y-20">
                                     <li class="flex gap-3 py-2 border-b">
-                                        <span class="text-lg">Detail Staff</span>
+                                        <span class="text-lg">Detail Aspek</span>
                                     </li>
                                 </ul>
 
                                 <table class="w-full table">
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold">Nama</td>
-                                        <td class="text-sm border-b text-gray-600">: {{ staff.nama }} </td>
+                                        <td class="text-sm border-b text-gray-900">: {{ aspek.nama }} </td>
                                     </tr>
                                     <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold">No. Telpon</td>
-                                        <td class="text-sm border-b text-gray-600">: {{ staff.user.phone }} </td>
+                                        <td class="text-sm border-b py-2 font-bold">Persentase</td>
+                                        <td class="text-sm border-b text-gray-900">: {{ aspek.persentase }} </td>
                                     </tr>
                                     <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold">Alamat</td>
-                                        <td class="text-sm border-b text-gray-600">: {{ staff.alamat }} </td>
-                                    </tr>
-                                    <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold">Jabatan</td>
-                                        <td class="text-sm border-b text-gray-600">: {{ staff.jabatan }} </td>
-                                    </tr>
-                                    <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold">Departement</td>
-                                        <td class="text-sm border-b text-gray-600">: {{ staff.departement.nama }} </td>
+                                        <td class="text-sm border-b py-2 font-bold">Bobot</td>
+                                        <td class="text-sm border-b text-gray-900">: {{ aspek.bobot }} </td>
                                     </tr>
                                 </table>
                             </div>
                             <div class="col-span-full sm:col-span-3">
                                 <ul class="flex flex-col space-y-20">
                                     <li class="flex gap-3 py-2 border-b">
-                                        <span class="text-lg">Detail Pengguna</span>
+                                        <span class="text-lg">Sub Aspek Penilaian</span>
                                     </li>
                                 </ul>
                                 <table>
-                                    <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold">Username Pengguna</td>
-                                        <td class="text-sm border-b text-gray-600">: {{ staff.user.username }} </td>
-                                    </tr>
-                                    <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold">Email Pengguna</td>
-                                        <td class="text-sm border-b text-gray-600">: {{ staff.user.email }} </td>
+                                    <tr class="" v-for="item in aspek.kriteriapenilaian">
+                                        <td class="text-sm border-b py-2 font-bold">Nama</td>
+                                        <td class="text-sm border-b px-3 text-gray-900">: {{ item.nama }} </td>
+                                        <td class="text-sm border-b py-2 font-bold">Bobot</td>
+                                        <td class="text-sm border-b px-3 text-gray-900">: {{ item.bobot }} </td>
                                     </tr>
                                 </table>
                             </div>

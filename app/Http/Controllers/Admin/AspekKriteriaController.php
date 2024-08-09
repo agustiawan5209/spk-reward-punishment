@@ -6,6 +6,7 @@ use App\Models\AspekKriteria;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAspekKriteriaRequest;
 use App\Http\Requests\UpdateAspekKriteriaRequest;
+use App\Models\KriteriaPenilaian;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
@@ -49,6 +50,17 @@ class AspekKriteriaController extends Controller
     public function store(StoreAspekKriteriaRequest $request)
     {
         $aspek = AspekKriteria::create($request->all());
+
+        $sub_nama_aspek = $request->sub_nama_aspek;
+        $sub_bobot_aspek = $request->sub_bobot_aspek;
+
+        for($i = 0; $i < count($sub_nama_aspek); $i++){
+            KriteriaPenilaian::create([
+                'aspek_id'=> $aspek->id,
+                'nama'=> $sub_nama_aspek[$i],
+                'bobot'=> $sub_bobot_aspek[$i],
+            ]);
+        }
         return redirect()->route('Aspek.index')->with('message', 'Berhasil Di Tambah!!');
 
     }
@@ -59,9 +71,9 @@ class AspekKriteriaController extends Controller
     public function show(AspekKriteria $aspekKriteria)
     {
         return Inertia::render('Admin/Aspek/Show',[
-            'aspek'=> $aspekKriteria->find(Request::input('slug')),
+            'aspek'=> $aspekKriteria->with(['kriteriapenilaian'])->find(Request::input('slug')),
         ]);
-        
+
     }
 
     /**
@@ -70,7 +82,7 @@ class AspekKriteriaController extends Controller
     public function edit(AspekKriteria $aspekKriteria)
     {
         return Inertia::render('Admin/Aspek/Edit',[
-            'aspek'=> $aspekKriteria->find(Request::input('slug')),
+            'aspek'=> $aspekKriteria->with(['kriteriapenilaian'])->find(Request::input('slug')),
         ]);
     }
 
@@ -79,7 +91,20 @@ class AspekKriteriaController extends Controller
      */
     public function update(UpdateAspekKriteriaRequest $request, AspekKriteria $aspekKriteria)
     {
-        $aspek = $aspekKriteria->find(Request::input('slug'))->update($request->all());
+        $aspek = $aspekKriteria->find(Request::input('slug'));
+        $aspek->update($request->all());
+
+        KriteriaPenilaian::where('aspek_id', $aspek->id)->delete();
+        $sub_nama_aspek = $request->sub_nama_aspek;
+        $sub_bobot_aspek = $request->sub_bobot_aspek;
+
+        for($i = 0; $i < count($sub_nama_aspek); $i++){
+            KriteriaPenilaian::create([
+                'aspek_id'=> $aspek->id,
+                'nama'=> $sub_nama_aspek[$i],
+                'bobot'=> $sub_bobot_aspek[$i],
+            ]);
+        }
 
         return redirect()->route('Aspek.index')->with('message', 'Berhasil Di Ubah!!');
     }

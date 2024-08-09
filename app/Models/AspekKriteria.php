@@ -18,6 +18,10 @@ class AspekKriteria extends Model
     ];
 
 
+    public function kriteriapenilaian(){
+        return $this->hasMany(KriteriaPenilaian::class, 'aspek_id','id');
+    }
+
      //  FIlter Data User
      public function scopeFilter($query, $filter)
      {
