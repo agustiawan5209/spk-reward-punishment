@@ -14,11 +14,17 @@ class KriteriaPenilaian extends Model
         'aspek_id',
         'nama',
         'bobot',
+        'factory',
+        'nilai_target',
 
     ];
 
     public function aspekkriteria(){
         return $this->hasOne(AspekKriteria::class, 'id','aspek_id');
+    }
+
+    public function subkriteria(){
+        return $this->hasMany(SubKriteria::class,'kriteria_id','id');
     }
 
     protected $appends = [

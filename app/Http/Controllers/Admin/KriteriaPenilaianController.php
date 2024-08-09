@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreKriteriaPenilaianRequest;
 use App\Http\Requests\UpdateKriteriaPenilaianRequest;
 use App\Models\AspekKriteria;
+use App\Models\SubKriteria;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
@@ -24,7 +25,8 @@ class KriteriaPenilaianController extends Controller
         $columns[] = 'id';
         $columns[] = 'nama_aspek';
         $columns[] = 'nama';
-        $columns[] = 'bobot';
+        $columns[] = 'nilai_target';
+        $columns[] = 'factory';
 
         return Inertia::render('Admin/Kriteria/Index', [
             'search' =>  Request::input('search'),
@@ -57,7 +59,17 @@ class KriteriaPenilaianController extends Controller
     {
         $kriteria = KriteriaPenilaian::create($request->all());
 
-        return redirect()->route('Aspek.index')->with('message', 'Berhasil Di Tambah!!');
+        $sub_nama_kriteria = $request->sub_nama_kriteria;
+        $sub_bobot_kriteria = $request->sub_bobot_kriteria;
+
+        for($i = 0; $i < count($sub_nama_kriteria); $i++){
+            SubKriteria::create([
+                'kriteria_id'=> $kriteria->id,
+                'nama'=> $sub_nama_kriteria[$i],
+                'bobot'=> $sub_bobot_kriteria[$i],
+            ]);
+        }
+        return redirect()->route('Kriteria.index')->with('message', 'Berhasil Di Tambah!!');
 
     }
 
@@ -67,7 +79,7 @@ class KriteriaPenilaianController extends Controller
     public function show(KriteriaPenilaian $kriteriaPenilaian)
     {
         return Inertia::render('Admin/Kriteria/Show',[
-            'kriteria'=> $kriteriaPenilaian->with(['kriteriapenilaian'])->find(Request::input('slug')),
+            'kriteria'=> $kriteriaPenilaian->with(['subkriteria'])->find(Request::input('slug')),
         ]);
 
     }
@@ -79,7 +91,7 @@ class KriteriaPenilaianController extends Controller
     {
         return Inertia::render('Admin/Kriteria/Edit',[
             'aspek'=> AspekKriteria::all(),
-            'kriteria'=> $kriteriaPenilaian->with(['kriteriapenilaian'])->find(Request::input('slug')),
+            'kriteria'=> $kriteriaPenilaian->with(['subkriteria'])->find(Request::input('slug')),
         ]);
     }
 
@@ -91,7 +103,19 @@ class KriteriaPenilaianController extends Controller
         $kriteria = $kriteriaPenilaian->find(Request::input('slug'));
         $kriteria->update($request->all());
 
-        return redirect()->route('Aspek.index')->with('message', 'Berhasil Di Ubah!!');
+        SubKriteria::where('kriteria_id', $kriteria->id)->delete();
+        $sub_nama_kriteria = $request->sub_nama_kriteria;
+        $sub_bobot_kriteria = $request->sub_bobot_kriteria;
+
+        for($i = 0; $i < count($sub_nama_kriteria); $i++){
+            SubKriteria::create([
+                'kriteria_id'=> $kriteria->id,
+                'nama'=> $sub_nama_kriteria[$i],
+                'bobot'=> $sub_bobot_kriteria[$i],
+            ]);
+        }
+
+        return redirect()->route('Kriteria.index')->with('message', 'Berhasil Di Ubah!!');
     }
 
     /**
@@ -101,6 +125,6 @@ class KriteriaPenilaianController extends Controller
     {
         $kriteria = $kriteriaPenilaian->find(Request::input('slug'));
 
-        return redirect()->route('Aspek.index')->with('message', 'Berhasil Di Hapus!!');
+        return redirect()->route('Kriteria.index')->with('message', 'Berhasil Di Hapus!!');
     }
 }

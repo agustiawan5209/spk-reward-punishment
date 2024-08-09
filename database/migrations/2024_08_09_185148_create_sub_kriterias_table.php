@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kriteria_penilaians', function (Blueprint $table) {
+        Schema::create('sub_kriterias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('aspek_id')->constrained('aspek_kriterias')->onDelete('cascade');
+            $table->foreignId('kriteria_id')->constrained('kriteria_penilaians')->cascadeOnDelete();
             $table->string('nama');
-            $table->integer('bobot')->nullable();
-            $table->enum('factory', ['core', 'secondary']);
-            $table->integer('nilai_target');
+            $table->integer('bobot');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kriteria_penilaians');
+        Schema::dropIfExists('sub_kriterias');
     }
 };
