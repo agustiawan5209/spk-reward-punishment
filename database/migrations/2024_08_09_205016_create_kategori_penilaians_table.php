@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->date('tanggal');
             $table->text('keterangan');
-            $table->enum('status', ['aktif', 'tidak aktif']);
+            $table->enum('status', ['aktif', 'tidak aktif'])->default('aktif');
             $table->timestamps();
         });
     }
