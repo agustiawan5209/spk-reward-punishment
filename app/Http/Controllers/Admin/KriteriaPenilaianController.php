@@ -60,9 +60,9 @@ class KriteriaPenilaianController extends Controller
     {
         $persentase = 0;
         if($request->factory == 'core' || $request->factory == 'Core'){
-            $persentase = 60;
+            $persentase = AspekKriteria::find($request->aspek_id)->core_factory;
         }else{
-            $persentase = 40;
+            $persentase = AspekKriteria::find($request->aspek_id)->secondary_factory;
         }
         $data = $request->all();
         $data['persentase'] = $persentase;
@@ -110,11 +110,10 @@ class KriteriaPenilaianController extends Controller
     public function update(UpdateKriteriaPenilaianRequest $request, KriteriaPenilaian $kriteriaPenilaian)
     {
         if($request->factory == 'core' || $request->factory == 'Core'){
-            $persentase = 60;
+            $persentase = AspekKriteria::find($request->aspek_id)->core_factory;
         }else{
-            $persentase = 40;
+            $persentase = AspekKriteria::find($request->aspek_id)->secondary_factory;
         }
-        // dd($persentase);
         $data = $request->all();
         $data['persentase'] = $persentase;
         $kriteria = $kriteriaPenilaian->find(Request::input('slug'));

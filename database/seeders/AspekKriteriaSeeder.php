@@ -13,18 +13,6 @@ class AspekKriteriaSeeder extends Seeder
      */
     public function run(): void
     {
-        $aspek_kriterias = array(
-            array(
-                "id" => 1,
-                "nama" => "Kriteria Penilaian",
-                "persentase" => 100,
-                "bobot" => 10,
-                "core_factory" => 10,
-                "secondary_factory" => 10,
-                "created_at" => "2024-08-09 19:53:54",
-                "updated_at" => "2024-08-10 01:33:42",
-            ),
-        );
-        AspekKriteria::insert($aspek_kriterias);
+
     }
 }

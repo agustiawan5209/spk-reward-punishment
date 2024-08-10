@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\KriteriaPenilaian;
 use App\Models\SubKriteria;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\AspekKriteria;
 use Illuminate\Database\Seeder;
+use App\Models\KriteriaPenilaian;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class KriteriaPenilaianSeeder extends Seeder
 {
@@ -14,12 +15,24 @@ class KriteriaPenilaianSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $AspekKriteria = AspekKriteria::create(array(
+            "id" => 1,
+            "nama" => "Kriteria Penilaian",
+            "persentase" => 100,
+            "bobot" => 10,
+            "core_factory" => 60,
+            "secondary_factory" => 40,
+            "created_at" => "2024-08-09 19:53:54",
+            "updated_at" => "2024-08-10 01:33:42",
+        ));
         $kriteria_penilaians = array(
             array(
                 "id" => 1,
                 "aspek_id" => 1,
                 "nama" => "Loyalitas",
                 "bobot" => NULL,
+                "persentase" => 60,
                 "factory" => "core",
                 "nilai_target" => 3,
                 "created_at" => "2024-08-09 19:55:20",
@@ -30,6 +43,7 @@ class KriteriaPenilaianSeeder extends Seeder
                 "aspek_id" => 1,
                 "nama" => "Kedisiplinan",
                 "bobot" => NULL,
+                "persentase" => 60,
                 "factory" => "core",
                 "nilai_target" => 3,
                 "created_at" => "2024-08-09 19:55:20",
@@ -40,6 +54,7 @@ class KriteriaPenilaianSeeder extends Seeder
                 "aspek_id" => 1,
                 "nama" => "Kinerja",
                 "bobot" => NULL,
+                "persentase" => 60,
                 "factory" => "core",
                 "nilai_target" => 3,
                 "created_at" => "2024-08-09 19:55:20",
@@ -50,6 +65,7 @@ class KriteriaPenilaianSeeder extends Seeder
                 "aspek_id" => 1,
                 "nama" => "Profesional",
                 "bobot" => NULL,
+                "persentase" => 60,
                 "factory" => "core",
                 "nilai_target" => 3,
                 "created_at" => "2024-08-09 19:55:20",
@@ -60,7 +76,8 @@ class KriteriaPenilaianSeeder extends Seeder
                 "aspek_id" => 1,
                 "nama" => "Integritas",
                 "bobot" => NULL,
-                "factory" => "core",
+                "persentase" => 40,
+                "factory" => "secondary",
                 "nilai_target" => 3,
                 "created_at" => "2024-08-09 19:55:20",
                 "updated_at" => "2024-08-10 01:43:52",
@@ -70,7 +87,8 @@ class KriteriaPenilaianSeeder extends Seeder
                 "aspek_id" => 1,
                 "nama" => "Totalitas",
                 "bobot" => NULL,
-                "factory" => "core",
+                "persentase" => 40,
+                "factory" => "secondary",
                 "nilai_target" => 3,
                 "created_at" => "2024-08-09 19:55:20",
                 "updated_at" => "2024-08-10 01:43:52",
