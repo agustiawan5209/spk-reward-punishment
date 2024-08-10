@@ -27,13 +27,13 @@ const props = defineProps({
 
 })
 const Form = useForm({
-    slug: '',
-    aspek_id: '',
-    nama: '',
-    persentase: '',
-    factory: '',
-    nilai_target: '',
-    bobot: '',
+    slug:props.kriteria.id,
+    aspek_id:props.kriteria.aspek_id,
+    nama:props.kriteria.nama,
+    persentase:props.kriteria.persentase,
+    factory:props.kriteria.factory,
+    nilai_target:props.kriteria.nilai_target,
+    bobot:props.kriteria.bobot,
     sub_nama_kriteria: [],
     sub_bobot_kriteria: [],
 })
@@ -103,7 +103,7 @@ function deleteSlice(index){
 
     <AuthenticatedLayout>
         <template #header>
-            <h2>Form Tambah Kriteria</h2>
+            <h2>Form Edit Kriteria</h2>
         </template>
 
         <div class="py-4 relative box-content">

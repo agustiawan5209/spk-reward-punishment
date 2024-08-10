@@ -23,7 +23,7 @@ class KriteriaPenilaianController extends Controller
         $tableName = 'kriteria_penilaians'; // Ganti dengan nama tabel yang Anda inginkan
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
-        $columns[] = 'nama_aspek';
+        // $columns[] = 'nama_aspek';
         $columns[] = 'nama';
         $columns[] = 'nilai_target';
         $columns[] = 'factory';
