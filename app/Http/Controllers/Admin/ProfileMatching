@@ -1,0 +1,41 @@
+class ProfileMatching {
+  private $profiles;
+  private $weights;
+
+  public function __construct($profiles, $weights) {
+    $this->profiles = $profiles;
+    $this->weights = $weights;
+  }
+
+  public function calculateSimilarity($profile1, $profile2) {
+    $similarity = 0;
+    foreach ($this->weights as $key => $weight) {
+      $similarity += $weight * $this->calculateAttributeSimilarity($profile1[$key], $profile2[$key]);
+    }
+    return $similarity;
+  }
+
+  private function calculateAttributeSimilarity($value1, $value2) {
+    if (is_numeric($value1) && is_numeric($value2)) {
+      return 1 - abs($value1 - $value2) / max($value1, $value2);
+    } elseif (is_string($value1) && is_string($value2)) {
+      return similar_text($value1, $value2, $percent);
+      return $percent / 100;
+    } else {
+      return 0;
+    }
+  }
+
+  public function findBestMatch($profile) {
+    $bestMatch = null;
+    $bestSimilarity = 0;
+    foreach ($this->profiles as $key => $existingProfile) {
+      $similarity = $this->calculateSimilarity($profile, $existingProfile);
+      if ($similarity > $bestSimilarity) {
+        $bestMatch = $key;
+        $bestSimilarity = $similarity;
+      }
+    }
+    return $bestMatch;
+  }
+}

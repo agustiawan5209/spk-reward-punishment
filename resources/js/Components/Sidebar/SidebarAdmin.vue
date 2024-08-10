@@ -65,14 +65,14 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
             <template #icon>📂</template>
             <li>
                 <DropdownNavItem :href="route('Aspek.index')"
-                    :active="route().current('Aspek.index') || route().current('Aspek.create') || route().current('Aspek.edit') || route().current('Aspek.show')">
+                    :active="route().current('Aspek.index') || route().current('Aspek.create') || route().current('Aspek.edit') || route().current('Aspek.show')" :icon="['fas', 'file']">
 
                     <span class="-mr-1 font-medium">Aspek Penilaian</span>
                 </DropdownNavItem>
             </li>
             <li>
                 <DropdownNavItem :href="route('Kriteria.index')"
-                    :active="route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.edit') || route().current('Kriteria.show')">
+                    :active="route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.edit') || route().current('Kriteria.show')" :icon="['fas', 'file']">
 
                     <span class="-mr-1 font-medium">Kriteria Penilaian</span>
                 </DropdownNavItem>

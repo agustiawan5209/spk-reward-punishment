@@ -25,13 +25,14 @@ class Staff extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
     public function departement(){
         return $this->hasOne(Departement::class,'id','departement_id');
     }
 
     protected $appends = [
-        'nomor_telepon'
+        'nomor_telepon',
+        'nama_departement',
     ];
 
     public function nomorTelepon(): Attribute
@@ -41,8 +42,15 @@ class Staff extends Model
             set: null,
         );
     }
+    public function namaDepartement(): Attribute
+    {
+        return new Attribute(
+            get: fn()=> $this->departement->nama,
+            set: null,
+        );
+    }
 
-   
+
 
     public function scopeFilter($query, $filter)
     {

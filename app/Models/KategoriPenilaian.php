@@ -13,11 +13,12 @@ class KategoriPenilaian extends Model
         'nama',
         'tanggal',
         'keterangan',
+        'status',
     ];
 
     public function alternatif()
     {
-        return $this->belongsTo(Alternatif::class);
+        return $this->hasMany(Alternatif::class, 'kategori_id', 'id');
     }
 
 
