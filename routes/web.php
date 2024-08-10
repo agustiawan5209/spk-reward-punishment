@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +32,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
-require __DIR__.'/admin.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';
+
+//router penilaian
+Route::middleware(['auth', 'verified', 'role:Admin|Kepala Bagian|Kepala Sekretariat|Staff'])->group(function () {
+
+    Route::group(['prefix' => 'penilaian', 'as' => "Penilaian."], function () {
+        Route::controller(PenilaianController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-data/penilaian', 'create')->name('create');
+            Route::get('/edit-data/penilaian', 'edit')->name('edit');
+            Route::get('/detail-data/penilaian', 'show')->name('show');
+            Route::post('/store-data/penilaian', 'store')->name('store');
+            Route::put('/update-data/penilaian', 'update')->name('update');
+            Route::delete('/hapus-data/penilaian', 'destroy')->name('destroy');
+        });
+    });
+});
