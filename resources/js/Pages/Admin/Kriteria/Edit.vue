@@ -217,7 +217,7 @@ function deleteSlice(index){
                             <fwb-spinner color="white" size="6" />
                         </span>
                         <span v-else class="w-full flex justify-center text-center">
-                            Tambah Data
+                            Edit Data
                         </span>
                     </PrimaryButton>
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('aspek_id')->constrained('aspek_kriterias')->onDelete('cascade');
             $table->string('nama');
             $table->integer('bobot')->nullable();
+            $table->integer('persentase')->nullable();
             $table->enum('factory', ['core', 'secondary']);
             $table->integer('nilai_target');
             $table->timestamps();

@@ -13,6 +13,7 @@ class KriteriaPenilaian extends Model
     protected $fillable = [
         'aspek_id',
         'nama',
+        'persentase',
         'bobot',
         'factory',
         'nilai_target',

@@ -25,6 +25,7 @@ class KriteriaPenilaianController extends Controller
         $columns[] = 'id';
         // $columns[] = 'nama_aspek';
         $columns[] = 'nama';
+        $columns[] = 'persentase';
         $columns[] = 'nilai_target';
         $columns[] = 'factory';
 
@@ -57,7 +58,15 @@ class KriteriaPenilaianController extends Controller
      */
     public function store(StoreKriteriaPenilaianRequest $request)
     {
-        $kriteria = KriteriaPenilaian::create($request->all());
+        $persentase = 0;
+        if($request->factory == 'core' || $request->factory == 'Core'){
+            $persentase = 60;
+        }else{
+            $persentase = 40;
+        }
+        $data = $request->all();
+        $data['persentase'] = $persentase;
+        $kriteria = KriteriaPenilaian::create($data);
 
         $sub_nama_kriteria = $request->sub_nama_kriteria;
         $sub_bobot_kriteria = $request->sub_bobot_kriteria;
@@ -100,8 +109,16 @@ class KriteriaPenilaianController extends Controller
      */
     public function update(UpdateKriteriaPenilaianRequest $request, KriteriaPenilaian $kriteriaPenilaian)
     {
+        if($request->factory == 'core' || $request->factory == 'Core'){
+            $persentase = 60;
+        }else{
+            $persentase = 40;
+        }
+        // dd($persentase);
+        $data = $request->all();
+        $data['persentase'] = $persentase;
         $kriteria = $kriteriaPenilaian->find(Request::input('slug'));
-        $kriteria->update($request->all());
+        $kriteria->update($data);
 
         SubKriteria::where('kriteria_id', $kriteria->id)->delete();
         $sub_nama_kriteria = $request->sub_nama_kriteria;
