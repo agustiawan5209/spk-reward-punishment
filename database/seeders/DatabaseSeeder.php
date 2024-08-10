@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             AspekKriteriaSeeder::class,
             KriteriaPenilaianSeeder::class,
+            DepartementSeeder::class,
         ]);
     }
 }

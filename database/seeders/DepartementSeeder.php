@@ -2,8 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use App\Models\Staff;
+use App\Models\Departement;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DepartementSeeder extends Seeder
 {
@@ -12,6 +16,26 @@ class DepartementSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Departement::factory(3)->afterCreating(function (Departement $departement) {
+            User::factory(3)->afterCreating(function (User $user) use($departement) {
+                $role = Role::findByName('Staff'); // Replace 'user' with your actual role name
+                if ($role) {
+                    $user->assignRole($role); // Assign 'user' role to the user
+                }
+                $user->givePermissionTo([
+                    'add penilaian',
+                    'edit penilaian',
+                    'delete penilaian',
+                    'show penilaian',
+                ]);
+                Staff::create([
+                    'jabatan' => 'Staff',
+                    'user_id' => $user->id,
+                    'departement_id' => $departement->id,
+                    'nama' => $user->name,
+                    'alamat' => fake()->address(),
+                ]);
+            })->create();
+        })->create();
     }
 }

@@ -17,7 +17,7 @@ class DepartementFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama'=> fake()->unique()->randomElement(['HUMAS','IT', 'HRD']),
         ];
     }
 }
