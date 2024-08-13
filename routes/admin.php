@@ -2,15 +2,27 @@
 
 use App\Http\Controllers\Admin\AspekKriteriaController;
 use App\Http\Controllers\Admin\DepartementController;
+use App\Http\Controllers\Admin\GapController;
 use App\Http\Controllers\Admin\KategoriPenilaianController;
 use App\Http\Controllers\Admin\KriteriaPenilaianController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\PenilaianController;
-use App\Models\Penilaian;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
 
+    // Router Gap
+    Route::group(['prefix' => 'gap', 'as' => "Gap."], function () {
+        Route::controller(GapController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-data/departement', 'create')->name('create');
+            Route::get('/edit-data/departement', 'edit')->name('edit');
+            Route::get('/detail-data/departement', 'show')->name('show');
+            Route::post('/store-data/departement', 'store')->name('store');
+            Route::put('/update-data/departement', 'update')->name('update');
+            Route::delete('/hapus-data/departement', 'destroy')->name('destroy');
+        });
+    });
     // Router Departement
     Route::group(['prefix' => 'departement', 'as' => "Departement."], function () {
         Route::controller(DepartementController::class)->group(function () {

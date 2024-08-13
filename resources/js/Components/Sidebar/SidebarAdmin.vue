@@ -64,6 +64,13 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
             :active="route().current('Aspek.index') || route().current('Aspek.create') || route().current('Aspek.edit') || route().current('Aspek.show') || route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.edit') || route().current('Kriteria.show')">
             <template #icon>📂</template>
             <li>
+                <DropdownNavItem :href="route('Gap.index')"
+                    :active="route().current('Gap.index') || route().current('Gap.create') || route().current('Gap.edit') || route().current('Gap.show')" :icon="['fas', 'file']">
+
+                    <span class="-mr-1 font-medium">Gap/Selisih Penilaian</span>
+                </DropdownNavItem>
+            </li>
+            <li>
                 <DropdownNavItem :href="route('Aspek.index')"
                     :active="route().current('Aspek.index') || route().current('Aspek.create') || route().current('Aspek.edit') || route().current('Aspek.show')" :icon="['fas', 'file']">
 
