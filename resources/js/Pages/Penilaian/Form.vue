@@ -19,6 +19,10 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
+    alternatif: {
+        type: Object,
+        default: () => ({}),
+    },
     aspek_kriteria: {
         type: Object,
         default: () => ({}),
@@ -121,7 +125,7 @@ function submit() {
 
                                 <div class="relative  text-gray-500 focus-within:text-gray-900 mb-4">
                                     <InputLabel for="tgl_penilaian" value="Aspek yang Dinilai" />
-                                    <select v-model="aspekID" name="aspek_id" id="aspek_id"
+                                    <select v-model="aspekID" name="aspek_id" id="aspek_id" required
                                         class="px-2 py-1 md:px-3 md:py-2 placeholder-gray-400 border focus:outline-none sm:w-40 sm:text-sm border-gray-200 shadow-sm rounded-lg focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none ">
                                         <option value="">-----</option>
                                         <option v-for="col in aspek" :value="col.id">{{ col.nama }}</option>
@@ -149,7 +153,7 @@ function submit() {
                                     </thead>
                                     <tbody class="divide-y divide-gray-300 ">
                                         <tr class="bg-white transition-all duration-500 hover:bg-gray-50"
-                                            v-for="(item, index) in kategori.alternatif">
+                                            v-for="(item, index) in alternatif">
                                             <td
                                                 class="p-5 whitespace-nowrap text-xs leading-6 font-medium text-gray-900 ">
                                                 {{ item.staff.nama }}

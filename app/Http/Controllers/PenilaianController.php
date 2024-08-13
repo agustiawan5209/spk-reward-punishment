@@ -59,16 +59,28 @@ class PenilaianController extends Controller
         if ($valid->fails()) {
             return redirect()->route('Penilaian.index')->with('message', 'Kategori Harus Di Pilih');
         }
+
+        // dd(Auth::user()->staff->departement_id);
+        $alternatif = Alternatif::with(['staff', 'staff.departement'])
+            ->when(Auth::user()->hasRole('Staff'), function ($query) {
+                $query->whereHas('staff', function ($query) {
+                    $query->where('departement_id', '=', Auth::user()->staff->departement_id);
+                });
+            })
+            ->where('kategori_id', Request::input('kategori'))
+            ->get();
         return Inertia::render('Penilaian/Form', [
-            'alternatif' => Alternatif::where('kategori_id', Request::input('kategori'))->get(),
+            'alternatif' => $alternatif,
             'aspek' => AspekKriteria::all(),
-            'kriteria' => KriteriaPenilaian::with(['subkriteria'])->when(Request::has('aspek_id'), function ($query, $aspek) {
-                $query->where('aspek_id', $aspek);
-            })->get(),
+            'kriteria' => KriteriaPenilaian::with(['subkriteria'])
+                ->when(Request::has('aspek_id'), function ($query, $aspek) {
+                    $query->where('aspek_id', $aspek);
+                })->get(),
             'aspek_kriteria' => AspekKriteria::when(Request::has('aspek_id'), function ($query, $aspek) {
                 $query->where('id', $aspek);
             })->first(),
-            'kategori' => KategoriPenilaian::with(['alternatif', 'alternatif.staff', 'alternatif.staff.departement'])->find(Request::input('kategori')),
+            'kategori' => KategoriPenilaian::with(['alternatif', 'alternatif.staff', 'alternatif.staff.departement'])
+                ->find(Request::input('kategori')),
         ]);
     }
 
@@ -96,7 +108,7 @@ class PenilaianController extends Controller
             $penilaian = Penilaian::create([
                 'kategori_id' => $kategori->id,
                 'kategori' => $kategori,
-                'aspek_id' => $request->aspek_id,
+                'aspek_id' => $aspek->id,
                 'aspek' => $aspek,
                 'staff_penilai_id' => $staff_penilai->id,
                 'staff_penilai' => $staff_penilai,
@@ -148,5 +160,32 @@ class PenilaianController extends Controller
     public function destroy(Penilaian $penilaian)
     {
         //
+    }
+
+
+    public function riwayat()
+    {
+        $tableName = 'kategori_penilaians'; // Ganti dengan nama tabel yang Anda inginkan
+        $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
+
+        return Inertia::render('Penilaian/Riwayat', [
+            'search' =>  Request::input('search'),
+            'table_colums' => array_values(array_diff($columns, ['remember_token', 'posyandus_id', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id'])),
+            'data' => KategoriPenilaian::with(['alternatif', 'penilaian'])->filter(Request::only('search', 'order'))
+                ->where('status', 'aktif')
+                ->paginate(10),
+            'can' => [
+                'add' => Auth::user()->can('add kriteria'),
+                'edit' => Auth::user()->can('edit kriteria'),
+                'show' => Auth::user()->can('show kriteria'),
+                'delete' => Auth::user()->can('delete kriteria'),
+            ]
+        ]);
+    }
+    public function riwayat_show()
+    {
+        return Inertia::render('Penilaian/RiwayatShow', [
+            'kategori'=> KategoriPenilaian::with(['alternatif', 'alternatif.staff'])->find(Request::input('slug')),
+        ]);
     }
 }

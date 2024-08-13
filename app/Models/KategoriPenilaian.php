@@ -22,7 +22,7 @@ class KategoriPenilaian extends Model
     }
     public function penilaian()
     {
-        return $this->hasMany(Alternatif::class, 'kategori_id', 'id');
+        return $this->hasMany(Penilaian::class, 'kategori_id', 'id');
     }
 
 

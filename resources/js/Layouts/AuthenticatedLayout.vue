@@ -49,11 +49,11 @@ window.addEventListener('resize', () => {
 
             <div class="flex flex-col w-full h-full !bg-primary text-white">
                 <div class="flex flex-col items-center py-6 gap-7 justify-center bg-secondary">
-                    <img v-if="user.profile_photo" class="inline-block w-32 h-32 object-cover rounded-full ring-2 ring-white" :src="user.profile_photo_path" alt="">
+                    <img v-if="user.profile_photo" class="inline-block w-20 h-20 object-cover rounded-full ring-2 ring-white" :src="user.profile_photo_path" alt="">
 
-                        <img v-else class="inline-block w-32 h-32 rounded-full ring-2 ring-white" :src="'/images/vecteezy_profile-icon-design-vector_5544718.jpg'" alt="">
+                        <img v-else class="inline-block w-20 h-20 rounded-full ring-2 ring-white" :src="'/images/vecteezy_profile-icon-design-vector_5544718.jpg'" alt="">
 
-                    <h1 class="text-2xl font-bold">{{ user.name }}</h1>
+                    <h1 class="text-xl font-bold text-center">{{ user.name }} - {{user.staff?user.staff.nama_departement: 'Admin'}}</h1>
                 </div>
 
                 <Sidebar />

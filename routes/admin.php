@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\KategoriPenilaianController;
 use App\Http\Controllers\Admin\KriteriaPenilaianController;
 use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\PenilaianController;
+use App\Models\Penilaian;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
@@ -79,4 +81,7 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
             Route::delete('/hapus-data/kategori', 'destroy')->name('destroy');
         });
     });
+
+    Route::get('riwayat', [PenilaianController::class, 'riwayat'])->name('admin.riwayat.penilaian');
+    Route::get('riwayat/detail', [PenilaianController::class, 'riwayat_show'])->name('admin.riwayat.show');
 });

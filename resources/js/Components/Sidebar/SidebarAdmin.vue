@@ -88,6 +88,14 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
                 <span class="-mr-1 font-medium">Kategori</span>
             </NavLink>
         </li>
+        <li>
+            <NavLink :href="route('admin.riwayat.penilaian')"
+                :active="route().current('admin.riwayat.penilaian')"
+                :icon="['fas', 'file']">
+
+                <span class="-mr-1 font-medium">Riwayat Evaluasi</span>
+            </NavLink>
+        </li>
 
     </ul>
 </template>

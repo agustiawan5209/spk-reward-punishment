@@ -54,11 +54,21 @@ const crud = ref({
     reset_password: props.can.reset,
 
 })
-function cekPenilaian(penilaian) {
-    console.log(penilaian)
- }
+function cekPenilaian(penilaian, kategori_id) {
+    if (!Array.isArray(penilaian)) {
+        console.error("penilaian harus berupa array");
+        return true;
+    }
+    const penilai = penilaian.filter(item => item.staff_penilai_id === user.staff.id && item.kategori_id === kategori_id);
+    console.log(penilai)
+    if (penilai.length > 0) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
-cekPenilaian(props.data.data[0].penilaian)
+console.log(cekPenilaian(props.data.data[0].penilaian))
 </script>
 
 <template>
@@ -120,10 +130,11 @@ cekPenilaian(props.data.data[0].penilaian)
                                         </div>
                                     </div>
                                 </td>
-                                <td class="p-4 border-b border-blue-gray-50">
-                                    <Link :href="route('Penilaian.create', {kategori: item.id})">
+                                <td class="p-4 border-b border-blue-gray-50" v-if="item.status == 'aktif'">
+                                    <Link v-if="cekPenilaian(item.penilaian, item.id)"
+                                        :href="route('Penilaian.create', { kategori: item.id })">
 
-                                        <button
+                                    <button
                                         class="relative select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-max p-2 rounded-lg text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20 border border-primary"
                                         type="button">
                                         <span class="text-xs flex items-center">
@@ -137,7 +148,19 @@ cekPenilaian(props.data.data[0].penilaian)
                                         </span>
 
                                     </button>
+
+
                                     </Link>
+
+                                    <button v-else
+                                        class="relative select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-max p-2 rounded-lg text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20 border border-primary"
+                                        type="button" :disabled="true">
+                                        <span class="text-xs flex items-center text-black">
+                                            Penilaian Telah Dibuat
+                                            <font-awesome-icon :icon="['fas', 'check']" />
+                                        </span>
+
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
