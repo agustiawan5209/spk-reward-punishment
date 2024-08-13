@@ -20,6 +20,10 @@ class KategoriPenilaian extends Model
     {
         return $this->hasMany(Alternatif::class, 'kategori_id', 'id');
     }
+    public function penilaian()
+    {
+        return $this->hasMany(Alternatif::class, 'kategori_id', 'id');
+    }
 
 
     //  FIlter Data User

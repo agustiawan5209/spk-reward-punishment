@@ -11,7 +11,7 @@ class StorePenilaianRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StorePenilaianRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "kategori"=> "required|exists:kategori_penilaians,id",
+            // "asp"=> "required|exists:kategori_penilaians,id",
         ];
     }
 }

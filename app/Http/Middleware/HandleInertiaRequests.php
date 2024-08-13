@@ -33,7 +33,7 @@ class HandleInertiaRequests extends Middleware
     {
         $user = $request->user();
         if(Auth::check()){
-            $user = User::find(Auth::user()->id);
+            $user = User::with(['staff'])->find(Auth::user()->id);
         }
         return [
             ...parent::share($request),

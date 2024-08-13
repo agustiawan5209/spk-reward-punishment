@@ -36,7 +36,7 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
 
 //router penilaian
-Route::middleware(['auth', 'verified', 'role:Admin|Kepala Bagian|Kepala Sekretariat|Staff'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:Kepala Bagian|Kepala Sekretariat|Staff'])->group(function () {
 
     Route::group(['prefix' => 'penilaian', 'as' => "Penilaian."], function () {
         Route::controller(PenilaianController::class)->group(function () {

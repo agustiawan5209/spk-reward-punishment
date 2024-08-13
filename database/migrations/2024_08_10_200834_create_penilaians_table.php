@@ -13,11 +13,18 @@ return new class extends Migration
     {
         Schema::create('penilaians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('staff_id')->constrained('staff')->cascadeOnDelete();
+            $table->foreignId('kategori_id');
+            $table->json('kategori');
+
+            $table->foreignId('aspek_id');
+            $table->json('aspek');
+
+            $table->foreignId('staff_penilai_id');
+            $table->json('staff_penilai')->nullable();
+
+            $table->foreignId('staff_id');
             $table->json('staff')->nullable();
-            $table->foreignId('aspek_id')->constrained('aspek_kriterias')->cascadeOnDelete();
-            $table->json('kriteria')->nullable();
-            $table->integer('nilai');
+
             $table->date('tgl_penilaian');
             $table->timestamps();
         });

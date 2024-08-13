@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StorePenilaianRequest;
 use App\Http\Requests\UpdatePenilaianRequest;
+use App\Models\Alternatif;
+use App\Models\AspekKriteria;
+use App\Models\DataPenilaian;
+use App\Models\KriteriaPenilaian;
+use App\Models\Staff;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class PenilaianController extends Controller
 {
@@ -29,7 +36,8 @@ class PenilaianController extends Controller
         return Inertia::render('Penilaian/Index', [
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'posyandus_id', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id'])),
-            'data' => KategoriPenilaian::filter(Request::only('search', 'order'))
+            'data' => KategoriPenilaian::with(['alternatif', 'penilaian'])->filter(Request::only('search', 'order'))
+                ->where('status', 'aktif')
                 ->paginate(10),
             'can' => [
                 'add' => Auth::user()->can('add kriteria'),
@@ -45,7 +53,23 @@ class PenilaianController extends Controller
      */
     public function create()
     {
-        //
+        $valid = Validator::make(Request::all(), [
+            'kategori' => 'required|exists:kategori_penilaians,id',
+        ]);
+        if ($valid->fails()) {
+            return redirect()->route('Penilaian.index')->with('message', 'Kategori Harus Di Pilih');
+        }
+        return Inertia::render('Penilaian/Form', [
+            'alternatif' => Alternatif::where('kategori_id', Request::input('kategori'))->get(),
+            'aspek' => AspekKriteria::all(),
+            'kriteria' => KriteriaPenilaian::with(['subkriteria'])->when(Request::has('aspek_id'), function ($query, $aspek) {
+                $query->where('aspek_id', $aspek);
+            })->get(),
+            'aspek_kriteria' => AspekKriteria::when(Request::has('aspek_id'), function ($query, $aspek) {
+                $query->where('id', $aspek);
+            })->first(),
+            'kategori' => KategoriPenilaian::with(['alternatif', 'alternatif.staff', 'alternatif.staff.departement'])->find(Request::input('kategori')),
+        ]);
     }
 
     /**
@@ -53,7 +77,45 @@ class PenilaianController extends Controller
      */
     public function store(StorePenilaianRequest $request)
     {
-        //
+        // dd($request->all());
+        $kategori_id = $request->kategori;
+        $kategori = KategoriPenilaian::with(['alternatif', 'alternatif.staff', 'alternatif.staff.departement'])->find($kategori_id);
+        $aspek = AspekKriteria::find($request->aspek_id);
+
+        // dd($aspek);
+        $staff_penilai = Staff::find(Auth::user()->staff->id);
+        $tgl_penilaian = $request->has('tgl_penilaian') ? $request->tgl_penilaian : Carbon::now()->format('Y-m-d');
+        // Data Matrix Penilaian Karyawan
+        $data = $request->kriteria;
+
+        for ($i = 0; $i < count($data); $i++) {
+            // Pecah data karyawan
+            $kriteria = $data[$i]['kriteria'];
+            $staff = $data[$i]['staffId'];
+
+            $penilaian = Penilaian::create([
+                'kategori_id' => $kategori->id,
+                'kategori' => $kategori,
+                'aspek_id' => $request->aspek_id,
+                'aspek' => $aspek,
+                'staff_penilai_id' => $staff_penilai->id,
+                'staff_penilai' => $staff_penilai,
+                'staff_id' => $staff['id'],
+                'staff' => $staff,
+                'tgl_penilaian' => $tgl_penilaian,
+            ]);
+            for ($k = 0; $k < count($kriteria); $k++) {
+                $data_kriteria = $kriteria[$k];
+                DataPenilaian::create([
+                    'penilaian_id' => $penilaian->id,
+                    'kriteria_id' => $data_kriteria['kriteria_id'],
+                    'kriteria' => $data_kriteria['kriteria'],
+                    'nilai' => $data_kriteria['bobot'],
+                ]);
+            }
+        }
+
+        return redirect()->route('Penilaian.index')->with('message', 'Penialaian Berhasil Di Buat');
     }
 
     /**

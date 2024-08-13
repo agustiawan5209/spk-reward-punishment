@@ -272,14 +272,14 @@ function truncateText(text) {
                                         <span v-else-if="col == 'deskripsi' || col == 'keterangan'">
                                             <p v-html="truncateText(item[col])"></p>
                                         </span>
-                                        <span v-else-if="col == 'status'">
+                                        <span v-else-if="col == 'status'" class="w-max">
                                             <span v-if="item.status == 0 || item.status == 'aktif'"
-                                                class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-700">
+                                                class="relative grid place-content-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-900 py-1 px-2 text-xs rounded-md">
 
                                                 <p class="whitespace-nowrap text-sm">{{item.status}}</p>
                                             </span>
                                             <span v-if="item.status == 1 || item.status == 'tidak aktif'"
-                                                class="inline-flex items-center justify-center rounded-full bg-amber-100 px-2.5 py-0.5 text-amber-700">
+                                                class="relative grid place-content-center font-sans font-bold uppercase whitespace-nowrap select-none bg-amber-500/20 text-amber-900 py-1 px-2 text-xs rounded-md">
 
                                                 <p class="whitespace-nowrap text-sm">{{item.status}}</p>
                                             </span>
