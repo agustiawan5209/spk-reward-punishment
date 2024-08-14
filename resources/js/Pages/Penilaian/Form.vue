@@ -47,23 +47,33 @@ watch(aspekID, (value) => {
 
 const Penilaian_karyawan = ref([]);
 
-if (props.kategori.alternatif.length > 0 && props.kriteria.length > 0) {
+if (props.alternatif.length > 0 && props.kriteria.length > 0) {
 
-    const dataKaryawan = [...props.kategori.alternatif]; // Use spread operator to create a new array
+    const dataKaryawan = [...props.alternatif]; // Use spread operator to create a new array
     // Jadikan Kriteria ke dalam bentuk array
     const Datakriteria = [...props.kriteria];
     const kriteriaObject = Datakriteria.reduce((acc, curr, i) => ({
-        ...acc, [i]: {
+        ...acc, [i]: 0
+        // {
+        //     kriteria_id: curr.id,
+        //     kriteria: curr,
+        //     bobot: 0,
+        // }
+    }), {});
+    const kriteriaData = Datakriteria.reduce((acc, curr, i) => ({
+        ...acc, [i]:
+        {
             kriteria_id: curr.id,
             kriteria: curr,
-            bobot: [],
         }
-    }), {}); // Create an object with kriteria as keys and empty
+    }), {});
+    // Create an object with kriteria as keys and empty
     // buat array dari value karyawan
     dataKaryawan.forEach((element, index) => {
         Penilaian_karyawan.value[index] = {
             staffId: element.staff,
             staff_id: element.staff.id,
+            data_kriteria: { ...kriteriaData },
             kriteria: { ...kriteriaObject } // Use spread operator to create a new object
         }
     });
@@ -79,7 +89,7 @@ function BobotPenilaian(index, idx, value) {
     const bobot = value.target.value;
 
     // Masukkan Bobot Value dari matrix karyawan
-    Penilaian_karyawan.value[index].kriteria[idx].bobot = bobot;
+    Penilaian_karyawan.value[index].kriteria[idx] = bobot;
 }
 
 
@@ -162,6 +172,7 @@ function submit() {
                                             <td
                                                 class="p-5 whitespace-nowrap text-xs leading-6 font-medium text-gray-900">
                                                 {{ item.staff.departement.nama }} - {{ item.staff.jabatan }} </td>
+
                                             <td v-for="(col, idx) in kriteria"
                                                 class="p-5 whitespace-nowrap text-xs leading-6 font-medium text-gray-900">
                                                 <select :name="col.nama" :id="col.nama" required

@@ -17,6 +17,7 @@ use App\Models\KriteriaPenilaian;
 use App\Models\Staff;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use ProfileMatching;
 
 class PenilaianController extends Controller
 {
@@ -104,6 +105,7 @@ class PenilaianController extends Controller
             // Pecah data karyawan
             $kriteria = $data[$i]['kriteria'];
             $staff = $data[$i]['staffId'];
+            $data_kriteria = $data[$i]['data_kriteria'];
 
             $penilaian = Penilaian::create([
                 'kategori_id' => $kategori->id,
@@ -117,12 +119,12 @@ class PenilaianController extends Controller
                 'tgl_penilaian' => $tgl_penilaian,
             ]);
             for ($k = 0; $k < count($kriteria); $k++) {
-                $data_kriteria = $kriteria[$k];
+                $kriteria_object = $kriteria[$k];
                 DataPenilaian::create([
                     'penilaian_id' => $penilaian->id,
-                    'kriteria_id' => $data_kriteria['kriteria_id'],
-                    'kriteria' => $data_kriteria['kriteria'],
-                    'nilai' => $data_kriteria['bobot'],
+                    'kriteria_id' => $data_kriteria[$k]['kriteria_id'],
+                    'kriteria' => $data_kriteria[$k]['kriteria'],
+                    'nilai' => $kriteria_object,
                 ]);
             }
         }
@@ -184,8 +186,16 @@ class PenilaianController extends Controller
     }
     public function riwayat_show()
     {
+        $aspek_id = Request::input('slug');
+        $profileMatching = new ProfileMatchingController($aspek_id);
+        $mtx = $profileMatching->matrixPenilai();
+        $rank = $profileMatching->resultRank();
         return Inertia::render('Penilaian/RiwayatShow', [
-            'kategori'=> KategoriPenilaian::with(['alternatif', 'alternatif.staff'])->find(Request::input('slug')),
+            'kategori' => KategoriPenilaian::with(['alternatif', 'alternatif.staff', 'penilaian'])->find(Request::input('slug')),
+            'penilaian' => Penilaian::with(['datapenilaian'])->where('kategori_id', Request::input('slug'))->get(),
+            'perhitungan' => $mtx,
+            'rank' => $rank,
+            'aspek' => AspekKriteria::with(['kriteriapenilaian'])->find(1),
         ]);
     }
 }

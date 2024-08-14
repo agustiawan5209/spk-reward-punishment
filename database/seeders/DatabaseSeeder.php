@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             AspekKriteriaSeeder::class,
             KriteriaPenilaianSeeder::class,
             DepartementSeeder::class,
+            GapSeeder::class,
         ]);
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('penilaians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kategori_id');
+            $table->foreignId('kategori_id')->constrained('kategori_penilaians')->cascadeOnDelete();
             $table->json('kategori');
 
             $table->foreignId('aspek_id');

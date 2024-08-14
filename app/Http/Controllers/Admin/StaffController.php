@@ -29,6 +29,7 @@ class StaffController extends Controller
         $columns[] = 'id';
         $columns[] = 'nama';
         $columns[] = 'nomor_telepon';
+        $columns[] = 'jabatan';
         $columns[] = 'alamat';
         // dd($columns);
         return Inertia::render('Admin/Staff/Index', [
