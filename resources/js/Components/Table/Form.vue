@@ -67,7 +67,7 @@ function storeUpdate() {
         onError: (err) => {
             var txt = "<ul>"
             Object.keys(err).forEach((item, val) => {
-                txt += `<li>${err[item]}</li>`
+                txt += `<li class="text-xs leading-7">${err[item]}</li>`
             });
             txt += "</ul>";
             console.log(txt)
@@ -117,7 +117,7 @@ function editUpdate() {
         onError: (err) => {
             var txt = "<ul>"
             Object.keys(err).forEach((item, val) => {
-                txt += `<li>${err[item]}</li>`
+                txt += `<li class="text-xs leading-7">${err[item]}</li>`
             });
             txt += "</ul>";
             console.log(txt)

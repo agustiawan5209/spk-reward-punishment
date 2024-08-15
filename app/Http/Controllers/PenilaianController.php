@@ -13,6 +13,7 @@ use App\Http\Requests\UpdatePenilaianRequest;
 use App\Models\Alternatif;
 use App\Models\AspekKriteria;
 use App\Models\DataPenilaian;
+use App\Models\Keputusan;
 use App\Models\KriteriaPenilaian;
 use App\Models\Staff;
 use Carbon\Carbon;
@@ -186,8 +187,8 @@ class PenilaianController extends Controller
     }
     public function riwayat_show()
     {
-        $aspek_id = Request::input('slug');
-        $profileMatching = new ProfileMatchingController($aspek_id);
+        $kategori_id = Request::input('slug');
+        $profileMatching = new ProfileMatchingController($kategori_id);
         $mtx = $profileMatching->matrixPenilai();
         $rank = $profileMatching->resultRank();
         return Inertia::render('Penilaian/RiwayatShow', [
@@ -196,6 +197,7 @@ class PenilaianController extends Controller
             'perhitungan' => $mtx,
             'rank' => $rank,
             'aspek' => AspekKriteria::with(['kriteriapenilaian'])->find(1),
+            'keputusan'=> Keputusan::with(['karyawan', 'kategoripenilaian'])->where('kategori_id', '=', $kategori_id)->get(),
         ]);
     }
 }
