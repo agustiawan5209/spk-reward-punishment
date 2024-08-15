@@ -90,69 +90,71 @@ class ProfileMatchingController extends Controller
         $matrix_penilaian = [];
         $matrix_factory = [];
         $matrix_total = [];
-        foreach ($penilaian as $key => $value) {
-            // Cek Jika data penilaian ada
+        if($penilaian->count() > 0) {
+            foreach ($penilaian as $key => $value) {
+                // Cek Jika data penilaian ada
 
-            if ($value->datapenilaian->count() > 0) {
-                // Membuat Key untuk matrix
-                // Id Dari Staff dan ID dari staff penilai
-                $key_id = $value->staff_id . '-' . $value->staff_penilai_id;
-                $Key_karyawan = $value->staff['nama'] . '-'. $value->staff_penilai_id;
+                if ($value->datapenilaian->count() > 0) {
+                    // Membuat Key untuk matrix
+                    // Id Dari Staff dan ID dari staff penilai
+                    $key_id = $value->staff_id . '-' . $value->staff_penilai_id;
+                    $Key_karyawan = $value->staff['nama'] . '-'. $value->staff_penilai_id;
 
-                // Profile Ideal
-                $ProfileIdeal = $this->getProfileIdeal($value->aspek_id);
-                // Factory Core
-                $factory_core = $this->getFactoryCore($value->aspek_id);
-                // Factory Secondary
-                $factory_secondary = $this->getFactorySecondary($value->aspek_id);
-                // Aspek Kriteria
-                $aspek = $this->getAspek($value->aspek_id);
+                    // Profile Ideal
+                    $ProfileIdeal = $this->getProfileIdeal($value->aspek_id);
+                    // Factory Core
+                    $factory_core = $this->getFactoryCore($value->aspek_id);
+                    // Factory Secondary
+                    $factory_secondary = $this->getFactorySecondary($value->aspek_id);
+                    // Aspek Kriteria
+                    $aspek = $this->getAspek($value->aspek_id);
 
-                //Masukkan Nilai Bobot ke dalam matrix;
-                $matrix[$key_id] = [];
-                $matrix_selisih[$Key_karyawan] = [];
-                $matrix_penilaian[$Key_karyawan] = [];
-                $matrix_factory[$Key_karyawan] = [];
-                $matrix_total[$Key_karyawan] = [];
+                    //Masukkan Nilai Bobot ke dalam matrix;
+                    $matrix[$key_id] = [];
+                    $matrix_selisih[$Key_karyawan] = [];
+                    $matrix_penilaian[$Key_karyawan] = [];
+                    $matrix_factory[$Key_karyawan] = [];
+                    $matrix_total[$Key_karyawan] = [];
 
-                $data_penilaian = $value->datapenilaian;
-                $cf = [];
-                $sf = [];
-                foreach ($data_penilaian as $col => $item) {
+                    $data_penilaian = $value->datapenilaian;
+                    $cf = [];
+                    $sf = [];
+                    foreach ($data_penilaian as $col => $item) {
 
-                    // Cari Kriteria Berdasarkan ID;
-                    $kriteria = KriteriaPenilaian::find($item->kriteria_id);
-                    if ($kriteria == null) {
-                        $kriteria = $item->kriteria;
+                        // Cari Kriteria Berdasarkan ID;
+                        $kriteria = KriteriaPenilaian::find($item->kriteria_id);
+                        if ($kriteria == null) {
+                            $kriteria = $item->kriteria;
+                        }
+
+                        // Mendapatkan Nilai Selisih pada core factory
+                        if ($kriteria->factory == 'core') {
+                            $selisih_gap = $this->hitungSelisih($item->nilai, $ProfileIdeal[$col]);
+
+                            $cf[$col] = $selisih_gap;
+                            $matrix_selisih[$Key_karyawan][$col] = $selisih_gap;
+                            $matrix_penilaian[$Key_karyawan][$col] = $selisih_gap;
+
+                            // Mendapatkan Nilai Selisih pada secondary factory
+                        } else if ($kriteria->factory == 'secondary') {
+                            $selisih_gap = $this->hitungSelisih($item->nilai, $ProfileIdeal[$col]);
+
+                            $sf[$col] = $selisih_gap;
+                            $matrix_selisih[$Key_karyawan][$col] = $selisih_gap;
+                            $matrix_penilaian[$Key_karyawan][$col] = $item->nilai;
+                        }
                     }
-
-                    // Mendapatkan Nilai Selisih pada core factory
-                    if ($kriteria->factory == 'core') {
-                        $selisih_gap = $this->hitungSelisih($item->nilai, $ProfileIdeal[$col]);
-
-                        $cf[$col] = $selisih_gap;
-                        $matrix_selisih[$Key_karyawan][$col] = $selisih_gap;
-                        $matrix_penilaian[$Key_karyawan][$col] = $selisih_gap;
-
-                        // Mendapatkan Nilai Selisih pada secondary factory
-                    } else if ($kriteria->factory == 'secondary') {
-                        $selisih_gap = $this->hitungSelisih($item->nilai, $ProfileIdeal[$col]);
-
-                        $sf[$col] = $selisih_gap;
-                        $matrix_selisih[$Key_karyawan][$col] = $selisih_gap;
-                        $matrix_penilaian[$Key_karyawan][$col] = $item->nilai;
-                    }
+                    // Menghitung nilai total setelah menghitung nilai selisih pada gap dan factory
+                    $matrix[$key_id] = $this->getValueTotal($factory_core, $factory_secondary, $this->getFactoryValue($cf), $this->getFactoryValue($sf));
+                    $matrix_total[$Key_karyawan] = $this->getValueTotal($factory_core, $factory_secondary, $this->getFactoryValue($cf), $this->getFactoryValue($sf));
+                    $matrix_factory[$Key_karyawan] = [$this->getFactoryValue($cf), $this->getFactoryValue($sf)];
                 }
-                // Menghitung nilai total setelah menghitung nilai selisih pada gap dan factory
-                $matrix[$key_id] = $this->getValueTotal($factory_core, $factory_secondary, $this->getFactoryValue($cf), $this->getFactoryValue($sf));
-                $matrix_total[$Key_karyawan] = $this->getValueTotal($factory_core, $factory_secondary, $this->getFactoryValue($cf), $this->getFactoryValue($sf));
-                $matrix_factory[$Key_karyawan] = [$this->getFactoryValue($cf), $this->getFactoryValue($sf)];
             }
         }
         $this->matirx_hasil = $matrix;
         return [
             'rank' => $this->resultRank(),
-            'nilai_total' => $matrix[$key_id],
+            'nilai_total' => $matrix,
             'hitung_selisih'=> $matrix_selisih,
             'matrix_penilaian'=> $matrix_penilaian,
             'matrix_factory'=> $matrix_factory,

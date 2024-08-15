@@ -27,6 +27,7 @@ class StaffController extends Controller
         $tableName = 'staff'; // Ganti dengan nama tabel yang Anda inginkan
         // $columns=DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
+        $columns[] = 'nama_departement';
         $columns[] = 'nama';
         $columns[] = 'nomor_telepon';
         $columns[] = 'jabatan';
@@ -84,7 +85,7 @@ class StaffController extends Controller
             'phone' => $request->no_telpon,
 
         ]);
-        $role = Role::findByName('Staff');
+        $role = Role::findByName($request->jabatan);
         if ($role) {
             $user->assignRole($role); // Assign 'user' role to the user
             $user->givePermissionTo([
@@ -154,6 +155,20 @@ class StaffController extends Controller
             // 'remember_token' => Str::random(60),
             'phone' => $request->no_telpon,
         ]);
+        $user->syncRoles([]);
+
+        $role = Role::findByName($request->jabatan);
+        if ($role) {
+            $user->assignRole($role); // Assign 'user' role to the user
+            $user->givePermissionTo([
+                'add penilaian',
+                'edit penilaian',
+                'delete penilaian',
+                'show penilaian',
+            ]);
+        }
+
+
 
         $staff->update([
             'nama' => $request->name,

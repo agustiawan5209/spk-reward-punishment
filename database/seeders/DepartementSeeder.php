@@ -17,7 +17,7 @@ class DepartementSeeder extends Seeder
     public function run(): void
     {
         Departement::factory(3)->afterCreating(function (Departement $departement) {
-            User::factory(3)->afterCreating(function (User $user) use($departement) {
+            User::factory(10)->afterCreating(function (User $user) use($departement) {
                 $role = Role::findByName('Staff'); // Replace 'user' with your actual role name
                 if ($role) {
                     $user->assignRole($role); // Assign 'user' role to the user
