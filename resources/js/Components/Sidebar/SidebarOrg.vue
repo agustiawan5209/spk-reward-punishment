@@ -42,11 +42,27 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
             </NavLink>
         </li>
         <li>
+            <NavLink :href="route('Sekretariat.staff.index')"
+                :active="route().current('Sekretariat.staff.index')"
+                :icon="['fas', 'users']">
+
+                <span class="-mr-1 font-medium">Data Karyawan</span>
+            </NavLink>
+        </li>
+        <li>
             <NavLink :href="route('Sekretariat.penilaian.index')"
                 :active="route().current('Sekretariat.penilaian.index')"
-                :icon="['fas', 'calendar']">
+                :icon="['fas', 'calendar-days']">
 
                 <span class="-mr-1 font-medium">Riwayat Evaluasi</span>
+            </NavLink>
+        </li>
+        <li>
+            <NavLink :href="route('Putusan.index')"
+                :active="route().current('Putusan.index')"
+                :icon="['fas', 'circle-info']">
+
+                <span class="-mr-1 font-medium">Punishment/Reward</span>
             </NavLink>
         </li>
     </ul>

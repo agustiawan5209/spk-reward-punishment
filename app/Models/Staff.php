@@ -57,14 +57,7 @@ class Staff extends Model
     {
         $query->when($filter['search'] ?? null, function ($query, $search) {
             $query->where('nama', 'like', '%' . $search . '%')
-                ->orWhere('jabatan', 'like', '%' . $search . '%')
-                ->orWhereHas('user', function ($query) use ($search) {
-                    $query->orWhere('name', 'like', '%' . $search . '%')
-                        ->orWhere('phone', 'like', '%' . $search . '%');
-                })
-                ->orWhereHas('departement', function ($query) use ($search) {
-                    $query->orWhere('nama', 'like', '%' . $search . '%');
-                });
+                ->orWhere('jabatan', 'like', '%' . $search . '%');
         })->when($filter['order'] ?? null, function ($query, $order) {
             $query->orderBy('id', $order);
         });

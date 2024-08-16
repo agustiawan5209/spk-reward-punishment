@@ -24,6 +24,7 @@ class DepartementSeeder extends Seeder
                 }
                 $user->givePermissionTo([
                     'show penilaian',
+                    'show staff',
                 ]);
                 Staff::create([
                     'jabatan' => $role->name,

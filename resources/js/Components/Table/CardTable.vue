@@ -269,7 +269,7 @@ function truncateText(text) {
                                         <span v-if="col == 'id' || col == 'slug'">
                                             {{ (TableData.current_page - 1) * TableData.per_page + index + 1 }}
                                         </span>
-                                        <span v-else-if="col == 'deskripsi' || col == 'keterangan'">
+                                        <span v-else-if="col == 'deskripsi' || col == 'keterangan' || col == 'alasan'">
                                             <p v-html="truncateText(item[col])"></p>
                                         </span>
                                         <span v-else-if="col == 'status'" class="w-max">

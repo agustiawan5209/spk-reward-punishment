@@ -22,6 +22,7 @@ class Keputusan extends Model
 
     protected $casts = [
         'kategori'=> 'json',
+        'staff'=> 'json',
     ];
 
     public function kategoripenilaian()

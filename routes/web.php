@@ -3,6 +3,7 @@
 use App\Http\Controllers\Kepala\StaffController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PutusanController;
 use App\Http\Controllers\Sekretariat\PenilaianController as SekretariatPenilaianController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,14 @@ Route::middleware(['auth', 'verified', 'role:Kepala Bagian|Kepala Sekretariat|St
             Route::delete('/hapus-data/penilaian', 'destroy')->name('destroy');
         });
     });
+
+
+    Route::group(['prefix' => 'punishment-reward', 'as' => "Putusan."], function () {
+        Route::controller(PutusanController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/detail-data/penilaian', 'show')->name('show');
+        });
+    });
 });
 
 //router Staff Departement Kepala bagian
@@ -69,6 +78,12 @@ Route::middleware(['auth', 'verified', 'role:Kepala Bagian'])->group(function ()
 Route::middleware(['auth', 'verified', 'role:Kepala Sekretariat'])->group(function () {
 
     Route::group(['prefix' => 'penilaian-karyawan', 'as' => "Sekretariat.penilaian."], function () {
+        Route::controller(SekretariatPenilaianController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/detail-data', 'show')->name('show');
+        });
+    });
+    Route::group(['prefix' => 'data-karyawan', 'as' => "Sekretariat.staff."], function () {
         Route::controller(SekretariatPenilaianController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/detail-data', 'show')->name('show');
