@@ -35,6 +35,12 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
 </script>
 <template>
     <ul>
+        <li>
+            <NavLink :href="route('dashboard')" :active="route().current('dashboard')" :icon="['fas', 'home']">
+
+                <span class="-mr-1 font-medium">Dashboard</span>
+            </NavLink>
+        </li>
         <li v-if="roleToCheck('Kepala Bagian')">
             <NavLink :href="route('Kepala.staff.index')"
                 :active="route().current('Kepala.staff.index') || route().current('Penilaian.show')"

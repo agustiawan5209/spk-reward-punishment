@@ -52,15 +52,15 @@ const props = defineProps({
                 <HeaderStats :pengguna="pengguna" :siswa="siswa" :staff="staff" :kelas="kelas" :orangtua="orangtua" />
 
             </div>
-            <div class="py-4 relative box-content bg-white border rounded-lg" v-if="roleToCheck('Orang Tua')">
+            <div class="py-4 relative box-content bg-white border rounded-lg" >
                 <div class="bg-priamry overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="grid grid-cols-1 2xl:grid-cols-2 gap-7 p-2 place-content-end">
                         <div class=" p-3 flex justify-center items-center relative">
                             <div class="text-lg font-semibold text-center">
-                                <span class="text-green-700 md:text-4xl">SISTEM INFORMASI MONITORING</span> <br>
-                                <span class="md:text-2xl">PERKEMBANGAN PENDIDIKAN ANAK USIA DINI</span>
-                                 BERBASIS WEB PADA <span class="text-red-600 text-2xl">PAUD INSAN MASAGENA
-                                    MAKASSAR</span>
+                                <span class="text-green-700 md:text-4xl">SISTEM PENDUKUNG KEPUTUSAN</span> <br>
+                                <span class="md:text-xl">PUNISMENT/REWARD MENGGUNAKAN METODE</span>
+                                PROFILE MATCHING<span class="text-red-600 text-2xl"> <br> DI BAWASLU KOTA
+                                   MAKASSAR</span>
                             </div>
                         </div>
                     </div>
