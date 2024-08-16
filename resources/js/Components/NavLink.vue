@@ -22,7 +22,7 @@ const classes = computed(() =>
         : ' flex items-center space-x-4 rounded-md p-2 sm:p-4 text-base text-white'
 );
 const classesIcon = computed(() =>
-    props.active ? 'text-green-200' : 'text-gray-50 group-hover:text-green-500'
+    props.active ? 'text-brown-200' : 'text-gray-50 group-hover:text-brown-500'
 );
 </script>
 

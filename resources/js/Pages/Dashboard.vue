@@ -14,28 +14,13 @@ function roleToCheck(role) {
     }
 }
 const props = defineProps({
-    pengguna: {
-        type: Number,
-        default: 0,
-    },
-    siswa: {
-        type: Number,
-        default: 0,
-    },
-    kelas: {
-        type: Number,
-        default: 0,
-    },
-    orangtua: {
-        type: Number,
-        default: 0,
-    },
-    staff: {
-        type: Number,
-        default: 0,
+    data: {
+        type: Object,
+        default: ()=>({}),
     },
 
 });
+
 </script>
 
 <template>
@@ -48,8 +33,8 @@ const props = defineProps({
         </template>
 
         <div class="py-4 relative box-content">
-            <div class="max-w-7xl mx-auto sm:px-6" v-if="roleToCheck('Admin') || roleToCheck('Staff')">
-                <HeaderStats :pengguna="pengguna" :siswa="siswa" :staff="staff" :kelas="kelas" :orangtua="orangtua" />
+            <div class="max-w-7xl mx-auto sm:px-6">
+                <HeaderStats :data="data"   />
 
             </div>
             <div class="py-4 relative box-content bg-white border rounded-lg" >

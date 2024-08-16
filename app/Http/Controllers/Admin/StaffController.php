@@ -35,9 +35,9 @@ class StaffController extends Controller
         // dd($columns);
         return Inertia::render('Admin/Staff/Index', [
             'search' =>  Request::input('search'),
-            'table_colums' => array_values(array_diff($columns, ['posyandus_id','remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id'])),
+            'table_colums' => array_values(array_diff($columns, ['posyandus_id', 'remember_token', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id'])),
             'data' => Staff::filter(Request::only('search', 'order'))->with(['user'])
-            ->paginate(10),
+                ->paginate(10),
             'can' => [
                 'add' => Auth::user()->can('add staff'),
                 'edit' => Auth::user()->can('edit staff'),
@@ -64,7 +64,7 @@ class StaffController extends Controller
         // dd($colums);
         return Inertia::render('Admin/Staff/Form', [
             'jabatan' => Role::whereNot('name', 'Admin')->get(),
-            'departement'=> Departement::all(),
+            'departement' => Departement::all(),
             'colums' => array_values($colums),
             'linkCreate' => 'Staff.store',
 
@@ -89,10 +89,8 @@ class StaffController extends Controller
         if ($role) {
             $user->assignRole($role); // Assign 'user' role to the user
             $user->givePermissionTo([
-                'add penilaian',
-                'edit penilaian',
-                'delete penilaian',
                 'show penilaian',
+                'show staff',
             ]);
         }
 
@@ -115,10 +113,10 @@ class StaffController extends Controller
     public function show(Staff $staff)
     {
         Request::validate([
-            'slug'=> 'required|exists:staff,id',
+            'slug' => 'required|exists:staff,id',
         ]);
         return Inertia::render('Admin/Staff/Show', [
-            'staff' => $staff->with(['departement','user'])->find(Request::input('slug')),
+            'staff' => $staff->with(['departement', 'user'])->find(Request::input('slug')),
         ]);
     }
 
@@ -128,12 +126,12 @@ class StaffController extends Controller
     public function edit(Staff $staff)
     {
         Request::validate([
-            'slug'=> 'required|exists:staff,id',
+            'slug' => 'required|exists:staff,id',
         ]);
         return Inertia::render('Admin/Staff/Edit', [
             'staff' => $staff->with(['user'])->find(Request::input('slug')),
             'jabatan' => Role::whereNot('name', 'Admin')->get(),
-            'departement'=> Departement::all(),
+            'departement' => Departement::all(),
 
         ]);
     }
@@ -193,7 +191,7 @@ class StaffController extends Controller
 
 
 
-   /**
+    /**
      * Display the specified resource.
      */
     public function resetpassword(Staff $staff)
@@ -218,6 +216,5 @@ class StaffController extends Controller
             'password' => Hash::make(Request::input('password')),
         ]);
         return redirect()->route('Staff.index')->with('message', 'Password Staff berhasil Di Ubah!');
-
     }
 }

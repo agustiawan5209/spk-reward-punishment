@@ -71,8 +71,6 @@ const props = defineProps({
                                     <tr class="" v-for="item in aspek.kriteriapenilaian">
                                         <td class="text-sm border-b py-2 font-bold">Nama</td>
                                         <td class="text-sm border-b px-3 text-gray-900">: {{ item.nama }} </td>
-                                        <td class="text-sm border-b py-2 font-bold">Bobot</td>
-                                        <td class="text-sm border-b px-3 text-gray-900">: {{ item.bobot }} </td>
                                     </tr>
                                 </table>
                             </div>

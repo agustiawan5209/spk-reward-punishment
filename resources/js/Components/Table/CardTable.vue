@@ -245,7 +245,8 @@ function truncateText(text) {
                                     <span v-else>{{ item }}</span>
                                 </th>
                                 <th scope="col" v-if="cekAksi()"
-                                    class=" px-2 py-1 md:py-2 text-center font-medium uppercase bg-primary text-white">Aksi
+                                    class=" px-2 py-1 md:py-2 text-center font-medium uppercase bg-primary text-white">
+                                    Aksi
                                 </th>
                             </thead>
                             <tbody v-if="Form.processing">
@@ -262,8 +263,7 @@ function truncateText(text) {
                                     class="text-gray-700 dark:text-gray-400"
                                     :class="{ 'opacity-75 blur-sm': Form.processing }">
 
-                                    <td
-                                        class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border"
+                                    <td class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border"
                                         v-for="col in tableColums">
 
                                         <span v-if="col == 'id' || col == 'slug'">
@@ -276,12 +276,12 @@ function truncateText(text) {
                                             <span v-if="item.status == 0 || item.status == 'aktif'"
                                                 class="relative grid place-content-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-900 py-1 px-2 text-xs rounded-md">
 
-                                                <p class="whitespace-nowrap text-sm">{{item.status}}</p>
+                                                <p class="whitespace-nowrap text-sm">{{ item.status }}</p>
                                             </span>
                                             <span v-if="item.status == 1 || item.status == 'tidak aktif'"
                                                 class="relative grid place-content-center font-sans font-bold uppercase whitespace-nowrap select-none bg-amber-500/20 text-amber-900 py-1 px-2 text-xs rounded-md">
 
-                                                <p class="whitespace-nowrap text-sm">{{item.status}}</p>
+                                                <p class="whitespace-nowrap text-sm">{{ item.status }}</p>
                                             </span>
                                         </span>
                                         <span v-else-if="col == 'jasa_galeri'"
@@ -295,67 +295,39 @@ function truncateText(text) {
                                         <span v-else :class="col == 'tanggal' ? 'whitespace-nowrap' : ''">{{ item[col]
                                             }}</span>
                                     </td>
-                                    <td
-                                        class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border relative"
+                                    <td class="px-2 py-1 md:px-4 md:py-3  text-xs font-medium text-gray-800 border relative"
                                         v-if="cekAksi()">
-                                        <DropdownLink v-if="crud.absen"
-                                            :href="route(props.path + '.create', { slug: item.id, item: item.kode })"
-                                            class="flex justify-start gap-3 text-gray-700">
-                                            <font-awesome-icon class="text-green-500 hover:text-green-700"
-                                                :icon="['fas', 'pen-to-square']" />
-                                            Buat Absen
-                                        </DropdownLink>
                                         <!-- Settings dropdownTable -->
-                                        <div class="ml-3 relative z-50" v-if="crud.edit ||crud.show || crud.delete || crud.reset_password">
-                                            <dropdownTable align="top" width="48" :key="index">
-                                                <template #trigger>
-                                                    <span class="inline-flex rounded-md">
-                                                        <button type="button"
-                                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-primary hover:text-white focus:bg-primary focus:text-white focus:outline-none transition ease-in-out duration-150">
-                                                            Aksi
+                                        <div class="ml-3 relative z-50 flex flex-row gap-2"
+                                            v-if="crud.edit || crud.show || crud.delete || crud.reset_password">
 
-                                                            <font-awesome-icon :icon="['fas', 'ellipsis-vertical']"
-                                                                class="ml-2 -mr-0.5 h-4 w-4" />
+                                            <Link v-if="crud.edit"
+                                                :href="route(props.path + '.edit', { slug: item.id })"
+                                                class="flex justify-start ">
+                                                <font-awesome-icon class="text-base text-green-500 hover:text-green-700"
+                                                    :icon="['fas', 'pen-to-square']" />
+                                            </Link>
 
-                                                        </button>
-                                                    </span>
-                                                </template>
-
-                                                <template #content>
-
-                                                    <DropdownLink v-if="crud.edit"
-                                                        :href="route(props.path + '.edit', { slug: item.id })"
-                                                        class="flex justify-start gap-3 text-gray-700">
-                                                        <font-awesome-icon class="text-green-500 hover:text-green-700"
-                                                            :icon="['fas', 'pen-to-square']" />
-                                                        Edit
-                                                    </DropdownLink>
-
-                                                    <DropdownLink v-if="crud.show"
-                                                        :href="route(props.path + '.show', { slug: item.id })"
-                                                        class="flex justify-start gap-3 text-gray-700">
-                                                        <font-awesome-icon class="text-blue-500 hover:text-blue-700"
-                                                            :icon="['fas', 'eye']" />
-                                                        Detail
-                                                    </DropdownLink>
-                                                    <button type="button" v-if="crud.delete"
-                                                        @click="showDeleteModal(item)"
-                                                        class="flex justify-start gap-3 w-full px-4 py-1 text-start text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-                                                        <font-awesome-icon class="text-red-500 hover:text-red-700"
-                                                            :icon="['fas', 'trash-can']" />
-                                                        hapus
-                                                    </button>
+                                            <Link v-if="crud.show"
+                                                :href="route(props.path + '.show', { slug: item.id })"
+                                                class="flex justify-start ">
+                                                <font-awesome-icon class="text-base text-blue-500 hover:text-blue-700"
+                                                    :icon="['fas', 'eye']" />
+                                            </Link>
+                                            <button type="button" v-if="crud.delete" @click="showDeleteModal(item)"
+                                                class="flex justify-start">
+                                                <font-awesome-icon class="text-base text-red-500 hover:text-red-700"
+                                                    :icon="['fas', 'trash-can']" />
+                                            </button>
 
 
-                                                    <DropdownLink v-if="crud.reset_password"
-                                                        :href="route(props.path + '.reset.password', { slug: item.user.id })"
-                                                        class="flex justify-start gap-3 text-gray-700">
-                                                        <font-awesome-icon class="text-blue-500 hover:text-blue-700"
-                                                            :icon="['fas', 'key']" />
-                                                        Reset Password
-                                                    </DropdownLink>
-                                                </template>
-                                            </dropdownTable>
+                                            <Link v-if="crud.reset_password"
+                                                :href="route(props.path + '.reset.password', { slug: item.user.id })"
+                                                class="flex justify-start w-full px-4 py-1">
+                                                <font-awesome-icon class="text-blue-500 hover:text-blue-700"
+                                                    :icon="['fas', 'key']" />
+                                                Reset Password
+                                            </Link>
                                         </div>
                                     </td>
                                 </tr>

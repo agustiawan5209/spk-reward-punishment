@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Kepala\StaffController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PutusanController;
 use App\Http\Controllers\Sekretariat\PenilaianController as SekretariatPenilaianController;
+use App\Http\Controllers\Sekretariat\StaffController as SekretariatStaffController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,9 +26,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -84,7 +84,7 @@ Route::middleware(['auth', 'verified', 'role:Kepala Sekretariat'])->group(functi
         });
     });
     Route::group(['prefix' => 'data-karyawan', 'as' => "Sekretariat.staff."], function () {
-        Route::controller(SekretariatPenilaianController::class)->group(function () {
+        Route::controller(SekretariatStaffController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/detail-data', 'show')->name('show');
         });
