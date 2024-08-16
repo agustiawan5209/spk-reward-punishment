@@ -26,8 +26,9 @@ class Staff extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function departement(){
-        return $this->hasOne(Departement::class,'id','departement_id');
+    public function departement()
+    {
+        return $this->hasOne(Departement::class, 'id', 'departement_id');
     }
 
     protected $appends = [
@@ -38,14 +39,14 @@ class Staff extends Model
     public function nomorTelepon(): Attribute
     {
         return new Attribute(
-            get: fn()=> $this->user->phone,
+            get: fn() => $this->user->phone,
             set: null,
         );
     }
     public function namaDepartement(): Attribute
     {
         return new Attribute(
-            get: fn()=> $this->departement->nama,
+            get: fn() => $this->departement->nama,
             set: null,
         );
     }
@@ -55,11 +56,14 @@ class Staff extends Model
     public function scopeFilter($query, $filter)
     {
         $query->when($filter['search'] ?? null, function ($query, $search) {
-            $query->where('alamat', 'like', '%' . $search . '%')
-                ->orWhere('nama', 'like', '%' . $search . '%')
-                ->whereHas('user', function($query) use ($search){
+            $query->where('nama', 'like', '%' . $search . '%')
+                ->orWhere('jabatan', 'like', '%' . $search . '%')
+                ->orWhereHas('user', function ($query) use ($search) {
                     $query->orWhere('name', 'like', '%' . $search . '%')
-                    ->orWhere('phone', 'like', '%' . $search . '%');
+                        ->orWhere('phone', 'like', '%' . $search . '%');
+                })
+                ->orWhereHas('departement', function ($query) use ($search) {
+                    $query->orWhere('nama', 'like', '%' . $search . '%');
                 });
         })->when($filter['order'] ?? null, function ($query, $order) {
             $query->orderBy('id', $order);

@@ -19,7 +19,10 @@ class DepartementController extends Controller
     public function index()
     {
         $tableName = 'departements'; // Ganti dengan nama tabel yang Anda inginkan
-        $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
+        // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
+        $columns[] = 'id';
+        $columns[] = 'nama';
+        $columns[] = 'jumlah_karyawan';
 
         return Inertia::render('Admin/Departement/Index', [
             'search' =>  Request::input('search'),

@@ -18,7 +18,7 @@ function roleToCheck(role) {
 </script>
 <template>
 
-    <nav class="flex-1 overflow-y-auto">
+    <nav class="flex-1 overflow-y-auto mt-5">
         <SidebarAdmin v-if="roleToCheck('Admin')"/>
         <SidebarStaff v-if="roleToCheck('Kepala Bagian') || roleToCheck('Staff')"/>
         <SidebarOrg v-if="roleToCheck('Kepala Sekretariat')"/>

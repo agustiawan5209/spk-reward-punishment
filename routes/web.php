@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Kepala\StaffController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -47,6 +48,17 @@ Route::middleware(['auth', 'verified', 'role:Kepala Bagian|Kepala Sekretariat|St
             Route::post('/store-data/penilaian', 'store')->name('store');
             Route::put('/update-data/penilaian', 'update')->name('update');
             Route::delete('/hapus-data/penilaian', 'destroy')->name('destroy');
+        });
+    });
+});
+
+//router Staff Departement Kepala bagian
+Route::middleware(['auth', 'verified', 'role:Kepala Bagian'])->group(function () {
+
+    Route::group(['prefix' => 'karyawan', 'as' => "Kepala.staff."], function () {
+        Route::controller(StaffController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/detail-data/karyawan', 'show')->name('show');
         });
     });
 });

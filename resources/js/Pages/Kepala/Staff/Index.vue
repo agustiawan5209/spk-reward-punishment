@@ -50,7 +50,7 @@ const crud = ref({
         </template>
 
         <div class="py-4 relative box-content">
-            <CardTable @update:search="search = $event" @update:order="order" :slug="null" path="Staff" :TableData="data" :tableColums="table_colums" :crud="crud" >
+            <CardTable @update:search="search = $event" @update:order="order" :slug="null" path="Kepala.staff" :TableData="data" :tableColums="table_colums" :crud="crud" >
 
             </CardTable>
         </div>

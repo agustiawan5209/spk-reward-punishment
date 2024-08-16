@@ -55,15 +55,15 @@ function submit() {
 
     <AuthenticatedLayout>
         <template #header>
-            <h2>Form Edit Staff</h2>
+            <h2>Form Edit Karyawan</h2>
         </template>
 
         <div class="py-4 relative box-content">
             <section class="p-6 bg-gray-100 text-gray-900">
                 <form @submit.prevent="submit()" novalidate="" action="" class="container flex flex-col mx-auto space-y-12">
                     <div class="space-y-2 col-span-full lg:col-span-1">
-                        <p class="font-medium">Data Informasi Staff</p>
-                        <p class="text-xs">Edit data Staff </p>
+                        <p class="font-medium">Data Informasi Karyawan</p>
+                        <p class="text-xs">Edit data Karyawan </p>
                     </div>
                     <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
                         <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
