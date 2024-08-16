@@ -52,6 +52,11 @@ class RoleSeeder extends Seeder
             'edit departement',
             'delete departement',
             'show departement',
+
+            'add penilaian',
+            'edit penilaian',
+            'delete penilaian',
+            'show penilaian',
         ]);
     }
 }

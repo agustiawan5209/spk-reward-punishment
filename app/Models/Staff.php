@@ -40,14 +40,14 @@ class Staff extends Model
     {
         return new Attribute(
             get: fn() => $this->user->phone,
-            set: null,
+            // set: null,
         );
     }
     public function namaDepartement(): Attribute
     {
         return new Attribute(
             get: fn() => $this->departement->nama,
-            set: null,
+            // set: null,
         );
     }
 

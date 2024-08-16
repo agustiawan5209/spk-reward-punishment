@@ -22,7 +22,7 @@ class DepartementController extends Controller
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
         $columns[] = 'nama';
-        $columns[] = 'jumlah_karyawan';
+        // $columns[] = 'jumlah_karyawan';
 
         return Inertia::render('Admin/Departement/Index', [
             'search' =>  Request::input('search'),

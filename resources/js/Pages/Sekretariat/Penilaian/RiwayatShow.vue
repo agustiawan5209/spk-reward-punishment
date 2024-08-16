@@ -20,6 +20,10 @@ onMounted(() => {
     }
 })
 const props = defineProps({
+    can: {
+        type: Object,
+        default: () => ({})
+    },
     kategori: {
         type: Object,
         default: () => ({})
@@ -251,7 +255,7 @@ const handleClose = () => {
                                     </table>
                                 </div>
                                 <div class="col-span-full overflow-x-auto mt-3" v-if="tabAction == 3">
-                                    <div class="inline-block" v-if="keputusan.length == 0 && Penilai > 0">
+                                    <div class="inline-block" v-if="keputusan.length == 0 && Penilai > 0 && can.add">
                                         <p class="text-sm text-gray-500">Keterangan : Menyimpan Data Penilaian
                                             {{ kategori.nama }}
                                             <br>

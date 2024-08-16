@@ -21,17 +21,17 @@ class Departement extends Model
         return $this->hasMany(Staff::class, 'departement_id', 'id');
     }
 
-    protected $appends = [
-        'jumlah_karyawan',
-    ];
+    // protected $appends = [
+    //     'jumlah_karyawan',
+    // ];
 
-    public function jumlahKaryawan(): Attribute
-    {
-        return new Attribute(
-            get: fn() => $this->staff->count(),
-            // set: null,
-        );
-    }
+    // public function jumlahKaryawan(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn() => $this->staff->count(),
+    //         // set: null,
+    //     );
+    // }
 
 
     //  FIlter Data User

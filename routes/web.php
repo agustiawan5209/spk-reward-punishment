@@ -3,6 +3,7 @@
 use App\Http\Controllers\Kepala\StaffController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Sekretariat\PenilaianController as SekretariatPenilaianController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -59,6 +60,18 @@ Route::middleware(['auth', 'verified', 'role:Kepala Bagian'])->group(function ()
         Route::controller(StaffController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/detail-data/karyawan', 'show')->name('show');
+        });
+    });
+});
+
+
+//router Penilaian Untuk Kepala Sekeretariat
+Route::middleware(['auth', 'verified', 'role:Kepala Sekretariat'])->group(function () {
+
+    Route::group(['prefix' => 'penilaian-karyawan', 'as' => "Sekretariat.penilaian."], function () {
+        Route::controller(SekretariatPenilaianController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/detail-data', 'show')->name('show');
         });
     });
 });

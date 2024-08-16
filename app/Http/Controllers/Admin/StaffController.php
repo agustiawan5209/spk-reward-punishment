@@ -27,7 +27,7 @@ class StaffController extends Controller
         $tableName = 'staff'; // Ganti dengan nama tabel yang Anda inginkan
         // $columns=DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
-        $columns[] = 'nama_departement';
+        // $columns[] = 'nama_departement';
         $columns[] = 'nama';
         $columns[] = 'nomor_telepon';
         $columns[] = 'jabatan';

@@ -18,18 +18,15 @@ class DepartementSeeder extends Seeder
     {
         Departement::factory(3)->afterCreating(function (Departement $departement) {
             User::factory(10)->afterCreating(function (User $user) use($departement) {
-                $role = Role::findByName('Staff'); // Replace 'user' with your actual role name
+                $role = Role::findByName(fake()->randomElement(['Staff', 'Kepala Bagian'])); // Replace 'user' with your actual role name
                 if ($role) {
                     $user->assignRole($role); // Assign 'user' role to the user
                 }
                 $user->givePermissionTo([
-                    'add penilaian',
-                    'edit penilaian',
-                    'delete penilaian',
                     'show penilaian',
                 ]);
                 Staff::create([
-                    'jabatan' => 'Staff',
+                    'jabatan' => $role->name,
                     'user_id' => $user->id,
                     'departement_id' => $departement->id,
                     'nama' => $user->name,
