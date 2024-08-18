@@ -80,7 +80,8 @@ if (props.alternatif.length > 0 && props.kriteria.length > 0) {
 };
 const Form = useForm({
     kategori: props.kategori.id,
-    aspek_id: aspekID.value,
+    // aspek_id: aspekID.value,
+    aspek_id: 1,
     tgl_penilaian: dateNow,
     kriteria: [],
 })
@@ -95,7 +96,8 @@ function BobotPenilaian(index, idx, value) {
 
 function submit() {
     Form.kriteria = Penilaian_karyawan.value;
-    Form.aspek_id = aspekForm.aspek_id;
+    // Form.aspek_id = aspekForm.aspek_id;
+    Form.aspek_id = 1;
     Form.post(route('Penilaian.store'), {
         onError: (err) => {
             var txt = "<ul>"
@@ -133,14 +135,14 @@ function submit() {
                         <div class="relative w-full inline-block align-middle overflow-hidden">
                             <div class="grid grid-cols-2 gap-7 items-center">
 
-                                <div class="relative  text-gray-500 focus-within:text-gray-900 mb-4">
+                                <!-- <div class="relative  text-gray-500 focus-within:text-gray-900 mb-4">
                                     <InputLabel for="tgl_penilaian" value="Aspek yang Dinilai" />
                                     <select v-model="aspekID" name="aspek_id" id="aspek_id" required
                                         class="px-2 py-1 md:px-3 md:py-2 placeholder-gray-400 border focus:outline-none sm:w-40 sm:text-sm border-gray-200 shadow-sm rounded-lg focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none ">
                                         <option value="">-----</option>
                                         <option v-for="col in aspek" :value="col.id">{{ col.nama }}</option>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="relative  text-gray-500 focus-within:text-gray-900 mb-4">
                                     <InputLabel for="tgl_penilaian" value="Tanggal Penilaian" />
                                     <TextInput type="date" v-model="Form.tgl_penilaian" :readonly="true" />
@@ -151,13 +153,13 @@ function submit() {
                                     <thead>
                                         <tr class="bg-gray-50">
                                             <th scope="col"
-                                                class="p-5 text-left text-xs leading-6 font-semibold text-gray-900 capitalize rounded-t-xl">
+                                                class="px-1 py-2 text-left text-xs leading-6 font-semibold text-gray-900 capitalize rounded-t-xl">
                                                 Nama Karyawan </th>
                                             <th scope="col"
-                                                class="p-5 text-left text-xs leading-6 font-semibold text-gray-900 capitalize">
+                                                class="px-1 py-2 text-left text-xs leading-6 font-semibold text-gray-900 capitalize">
                                                 Departement - Jabatan </th>
                                             <th scope="col" v-for="kr in kriteria"
-                                                class="p-5 text-left text-xs leading-6 font-semibold text-gray-900 capitalize">
+                                                class="px-1 py-2 text-left text-xs leading-6 font-semibold text-gray-900 capitalize">
                                                 {{ kr.nama }} </th>
                                         </tr>
                                     </thead>
@@ -165,23 +167,33 @@ function submit() {
                                         <tr class="bg-white transition-all duration-500 hover:bg-gray-50"
                                             v-for="(item, index) in alternatif">
                                             <td
-                                                class="p-5 whitespace-nowrap text-xs leading-6 font-medium text-gray-900 ">
+                                                class="px-1 py-2 whitespace-nowrap text-xs leading-6 font-medium text-gray-900 ">
                                                 {{ item.staff.nama }}
 
                                             </td>
                                             <td
-                                                class="p-5 whitespace-nowrap text-xs leading-6 font-medium text-gray-900">
+                                                class="px-1 py-2 whitespace-nowrap text-xs leading-6 font-medium text-gray-900">
                                                 {{ item.staff.departement.nama }} - {{ item.staff.jabatan }} </td>
 
                                             <td v-for="(col, idx) in kriteria"
-                                                class="p-5 whitespace-nowrap text-xs leading-6 font-medium text-gray-900">
+                                                class="p-1 whitespace-nowrap text-xs leading-6 font-medium text-gray-900">
                                                 <select :name="col.nama" :id="col.nama" required
                                                     @change="BobotPenilaian(index, idx, $event)"
-                                                    class="px-2 py-1 md:px-3 md:py-2 placeholder-gray-400 border focus:outline-none sm:w-40 sm:text-sm border-gray-200 shadow-sm rounded-lg focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none ">
+                                                    class="px-1 py-1 md:py-2 placeholder-gray-400 border focus:outline-none sm:text-sm border-gray-200 shadow-sm rounded-lg focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none ">
                                                     <option value="">-----</option>
-                                                    <option v-for="sub in col.subkriteria" :value="sub.bobot">{{
-                                                        sub.nama }}
-                                                    </option>
+                                                    <template v-if="col.subkriteria.length > 0">
+                                                        <option v-for="sub in col.subkriteria" :value="sub.bobot">{{
+                                                            sub.nama }}
+                                                        </option>
+                                                    </template>
+                                                    <template v-else>
+                                                        <option value="1">Tidak Memuaskan</option>
+                                                        <option value="2">Kurang Memuaskan</option>
+                                                        <option value="3">Memenuhi Harapan</option>
+                                                        <option value="4">Melebihi Harapan</option>
+                                                        <option value="5">Luar Biasa--</option>
+                                                    </template>
+
                                                 </select>
                                             </td>
 

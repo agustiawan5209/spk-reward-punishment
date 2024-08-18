@@ -22,8 +22,11 @@ class StorePenilaianRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "kategori"=> "required|exists:kategori_penilaians,id",
-            // "asp"=> "required|exists:kategori_penilaians,id",
+            "kategori" => "required|exists:kategori_penilaians,id",
+            "aspek_id" => "required|exists:aspek_kriterias,id",
+            "kriteria" => 'required|array',
+            "kriteria.*.kriteria"=> 'required',
+            "kriteria.*.kriteria.*"=> 'required|between:1,5',
         ];
     }
 }

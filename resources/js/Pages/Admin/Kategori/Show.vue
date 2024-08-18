@@ -23,11 +23,11 @@ const props = defineProps({
 
 <template>
 
-    <Head title="Kategori" />
+    <Head title="Evaluasi" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2>Detail Kategori</h2>
+            <h2>Detail Evaluasi</h2>
         </template>
 
         <div class="md:py-4 relative box-content">
@@ -38,7 +38,7 @@ const props = defineProps({
                             <div class="col-span-full sm:col-span-3 ">
                                 <ul class="flex flex-col space-y-20">
                                     <li class="flex gap-3 py-2 border-b">
-                                        <span class="text-lg">Detail Kategori</span>
+                                        <span class="text-lg">Detail Evaluasi</span>
                                     </li>
                                 </ul>
 

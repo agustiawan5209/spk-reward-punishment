@@ -56,11 +56,11 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
                     :active="route().current('Staff.index') || route().current('Staff.create') || route().current('Staff.edit') || route().current('Staff.show')"
                     :icon="['fas', 'users-line']">
 
-                    <span class="capitalize">Data Staff</span>
+                    <span class="capitalize">Data Karyawan</span>
                 </DropdownNavItem>
             </li>
         </DropdownNavLink>
-        <DropdownNavLink title="Master Penilaian"
+        <!-- <DropdownNavLink title="Master Penilaian"
             :active="route().current('Aspek.index') || route().current('Aspek.create') || route().current('Aspek.edit') || route().current('Aspek.show') || route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.edit') || route().current('Kriteria.show')">
             <template #icon>📂</template>
             <li>
@@ -84,9 +84,16 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
                     <span class="-mr-1 font-medium">Kriteria Penilaian</span>
                 </DropdownNavItem>
             </li>
-        </DropdownNavLink>
+        </DropdownNavLink> -->
 
 
+        <li>
+            <NavLink :href="route('Kriteria.index')"
+            :active="route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.edit') || route().current('Kriteria.show')" :icon="['fas', 'lock']">
+
+                <span class="-mr-1 font-medium">Kriteria Penilaian</span>
+            </NavLink>
+        </li>
         <li>
             <NavLink :href="route('Kategori.index')"
                 :active="route().current('Kategori.index') || route().current('Kategori.create') || route().current('Kategori.edit') || route().current('Kategori.show')"
@@ -100,7 +107,7 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
                 :active="route().current('admin.riwayat.penilaian')"
                 :icon="['fas', 'calendar']">
 
-                <span class="-mr-1 font-medium">Riwayat Evaluasi</span>
+                <span class="-mr-1 font-medium">Riwayat Penilaian</span>
             </NavLink>
         </li>
 

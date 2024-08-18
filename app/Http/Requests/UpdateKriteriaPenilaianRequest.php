@@ -31,7 +31,7 @@ class UpdateKriteriaPenilaianRequest extends FormRequest
             'sub_nama_kriteria' => 'nullable|array',
             'sub_nama_kriteria.*' => 'required|string|max:50',
             'sub_bobot_kriteria' => 'nullable|array',
-            'sub_bobot_kriteria.*' => 'required|numeric|between:1,50',
+            'sub_bobot_kriteria.*' => 'required|numeric|between:1,5',
         ];
     }
 

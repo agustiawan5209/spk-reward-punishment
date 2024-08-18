@@ -147,7 +147,7 @@ function submit() {
 
 <template>
     <div class="w-full mx-auto px-4 py-6">
-        <div class="w-full overflow-x-auto mt-3 px-2" >
+        <div class="w-full overflow-x-auto mt-3 px-1" >
             <PrimaryButton type="button" class="!bg-red-500 mt-2" @click="handleClose">Batalkan</PrimaryButton>
             <div class="">
                 <div class="col-span-1 md:col-span-full grid grid-cols-1 sm:grid-cols-2 gap-6 py-2">
@@ -158,41 +158,41 @@ function submit() {
                     </div>
 
                 </div>
-                <table class="w-full text-xs text-left rtl:text-right text-gray-500 border">
+                <table class="w-full text-xs text-center text-gray-500 border">
                     <thead class="text-xs text-white uppercase bg-primary ">
                         <tr>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-1 py-3">
                                 Departement
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-1 py-3">
                                 Nama Karyawan
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-1 py-3">
                                 Jabatan
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-1 py-3">
                                 Jenis Putusan
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-1 py-3">
                                 Alasan Putusan
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="bg-white border-b" v-for="(item, index) in staff_pr" :key="index">
-                            <th scope="row" class="px-6 py-4 font-medium text-sm capitalize text-gray-900 whitespace-nowrap">
+                            <th scope="row" class="px-1 py-1 font-medium text-sm capitalize text-gray-900 whitespace-nowrap">
                                 {{ item.staff.nama_departement }}
                             </th>
-                            <td class="px-6 py-4">
+                            <td class="px-1 py-1">
                                 {{ item.staff.nama }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-1 py-1">
                                 {{ item.staff.jabatan }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-1 py-1">
                                 <span class="font-bold tracking-wide text-base capitalize">{{ item.putusan }}</span>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-1 py-1">
                                 <div class="bg-white">
                                     <quill-editor id="keterangan" contentType="html" v-model:content="staff_pr[index].alasan"
                                         theme="snow" placeholder="@keterangan" required class="w-full text-gray-900" />

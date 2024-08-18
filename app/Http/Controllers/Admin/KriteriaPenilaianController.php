@@ -140,6 +140,7 @@ class KriteriaPenilaianController extends Controller
     public function destroy(KriteriaPenilaian $kriteriaPenilaian)
     {
         $kriteria = $kriteriaPenilaian->find(Request::input('slug'));
+        $kriteria->delete();
 
         return redirect()->route('Kriteria.index')->with('message', 'Berhasil Di Hapus!!');
     }

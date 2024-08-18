@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Kepala\StaffController;
-use App\Http\Controllers\PenilaianController;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PutusanController;
-use App\Http\Controllers\Sekretariat\PenilaianController as SekretariatPenilaianController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KeputusanController;
+use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\Kepala\StaffController;
 use App\Http\Controllers\Sekretariat\StaffController as SekretariatStaffController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\Sekretariat\PenilaianController as SekretariatPenilaianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,25 @@ Route::middleware(['auth', 'verified', 'role:Kepala Bagian'])->group(function ()
 });
 
 
+//router putusan
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::group(['prefix' => 'putusan', 'as' => "Keputusan."], function () {
+        Route::controller(KeputusanController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-data/putusan', 'create')->name('create');
+            Route::get('/edit-data/putusan', 'edit')->name('edit');
+            Route::get('/detail-data/putusan', 'show')->name('show');
+            Route::post('/store-data/putusan', 'store')->name('store');
+            Route::put('/update-data/putusan', 'update')->name('update');
+            Route::delete('/hapus-data/putusan', 'destroy')->name('destroy');
+        });
+    });
+    Route::get('riwayat', [PenilaianController::class, 'riwayat'])->name('admin.riwayat.penilaian');
+    Route::get('riwayat/detail', [PenilaianController::class, 'riwayat_show'])->name('admin.riwayat.show');
+
+
+});
 //router Penilaian Untuk Kepala Sekeretariat
 Route::middleware(['auth', 'verified', 'role:Kepala Sekretariat'])->group(function () {
 

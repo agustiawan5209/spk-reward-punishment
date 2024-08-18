@@ -92,11 +92,11 @@ function deleteKaryawan(index,item){
 
 <template>
 
-    <Head title="Penilaian Form" />
+    <Head title="Form Evaluasi" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2>Form Tambah Penilaian</h2>
+            <h2>Form Tambah Evaluasi</h2>
         </template>
 
         <div class="py-4 relative box-content">

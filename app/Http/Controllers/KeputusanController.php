@@ -30,6 +30,7 @@ class KeputusanController extends Controller
      */
     public function store(StoreKeputusanRequest $request)
     {
+        // dd($request);
         $staff = $request->staff;
 
         $keputusan = Keputusan::where('kategori_id', '=', $request->kategori_id)->get();

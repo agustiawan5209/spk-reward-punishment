@@ -34,7 +34,7 @@ class StoreKeputusanRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'kategori_id.required'=> 'Maaf Kategori Dari Penilaian tidak tersedia',
+            'kategori_id.required'=> 'Maaf Evaluasi Dari Penilaian tidak tersedia',
             'staff.required'=> 'Maaf data Staff/karyawan Hilang Hubungi Admin',
             'staff.array'=> 'Maaf data Staff/karyawan Hilang Hubungi Admin',
             'staff.*.alasan.required' => 'Alasan Pemberian Punishment/Reward Kosong Harap Di Isi',

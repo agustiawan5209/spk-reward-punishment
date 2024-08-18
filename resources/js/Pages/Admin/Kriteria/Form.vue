@@ -22,7 +22,7 @@ const props = defineProps({
     }
 })
 const Form = useForm({
-    aspek_id: '',
+    aspek_id: 1,
     nama: '',
     persentase: '',
     bobot: '',
@@ -86,14 +86,14 @@ watch(showSub, (value) => {
                         <fieldset :class="showSub ? 'w-[60%]' : 'w-full'"
                             class=" grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
                             <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
-                                <div class="col-span-full md:col-span-3">
+                                <!-- <div class="col-span-full md:col-span-3">
                                     <InputLabel for="aspek_id" value="Aspek" />
                                     <select id="countries" v-model="Form.aspek_id" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                         <option value="">---------</option>
                                         <option v-for="col in aspek" :value="col.id"> {{ col.nama }} </option>
                                       </select>
                                     <InputError :message="Form.errors.aspek_id" />
-                                </div>
+                                </div> -->
                                 <div class="col-span-full md:col-span-3">
                                     <InputLabel for="nama" value="Nama Kriteria" />
                                     <TextInput id="nama" type="text" placeholder="Nama Kriteria" v-model="Form.nama"

@@ -104,11 +104,11 @@ const handleClose = () => {
 
 <template>
 
-    <Head title="Kategori" />
+    <Head title="Riwayat Penilaian" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2>Detail Kategori</h2>
+            <h2>Detail Riwayat Penilaian</h2>
         </template>
 
         <div class="md:py-4 relative box-content">
@@ -119,7 +119,7 @@ const handleClose = () => {
                             <div class="col-span-full sm:col-span-3 ">
                                 <ul class="flex flex-col space-y-20">
                                     <li class="flex gap-3 py-2 border-b">
-                                        <span class="text-lg">Detail Kategori</span>
+                                        <span class="text-lg">Detail Riwayat Penilaian</span>
                                     </li>
                                 </ul>
 
@@ -251,7 +251,7 @@ const handleClose = () => {
                                     </table>
                                 </div>
                                 <div class="col-span-full overflow-x-auto mt-3" v-if="tabAction == 3">
-                                    <div class="inline-block" v-if="keputusan.length == 0 && Penilai > 0">
+                                    <div class="inline-block" v-if="keputusan.length == 0 && Penilai > 0  && can.add">
                                         <p class="text-sm text-gray-500">Keterangan : Menyimpan Data Penilaian
                                             {{ kategori.nama }}
                                             <br>

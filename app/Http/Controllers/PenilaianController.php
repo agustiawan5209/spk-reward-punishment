@@ -59,7 +59,7 @@ class PenilaianController extends Controller
             'kategori' => 'required|exists:kategori_penilaians,id',
         ]);
         if ($valid->fails()) {
-            return redirect()->route('Penilaian.index')->with('message', 'Kategori Harus Di Pilih');
+            return redirect()->route('Penilaian.index')->with('message', 'Evaluasi Harus Di Pilih');
         }
 
         // dd(Auth::user()->staff->departement_id);

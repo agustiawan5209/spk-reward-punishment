@@ -95,20 +95,6 @@ Route::middleware(['auth', 'verified', 'role:Admin'])->group(function () {
         });
     });
 
-    Route::get('riwayat', [PenilaianController::class, 'riwayat'])->name('admin.riwayat.penilaian');
-    Route::get('riwayat/detail', [PenilaianController::class, 'riwayat_show'])->name('admin.riwayat.show');
 
 
-    //router putusan
-    Route::group(['prefix' => 'putusan', 'as' => "Keputusan."], function () {
-        Route::controller(KeputusanController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('/tambah-data/putusan', 'create')->name('create');
-            Route::get('/edit-data/putusan', 'edit')->name('edit');
-            Route::get('/detail-data/putusan', 'show')->name('show');
-            Route::post('/store-data/putusan', 'store')->name('store');
-            Route::put('/update-data/putusan', 'update')->name('update');
-            Route::delete('/hapus-data/putusan', 'destroy')->name('destroy');
-        });
-    });
 });
