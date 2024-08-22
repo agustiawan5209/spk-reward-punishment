@@ -155,6 +155,9 @@ class StaffController extends Controller
         ]);
         $user->syncRoles([]);
 
+        // Remove all permissions
+        $user->syncPermissions([]);
+
         $role = Role::findByName($request->jabatan);
         if ($role) {
             $user->assignRole($role); // Assign 'user' role to the user
