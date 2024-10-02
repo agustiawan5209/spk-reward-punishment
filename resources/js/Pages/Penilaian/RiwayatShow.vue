@@ -40,6 +40,10 @@ const props = defineProps({
         type: Object,
         default: () => ({})
     },
+    can: {
+        type: Object,
+        default: () => ({})
+    },
     rank: {
         type: [Array, Object], // Mendukung Array atau Object, tergantung pengiriman data
         default: () => ([]), // Default adalah array kosong
@@ -251,7 +255,7 @@ const handleClose = () => {
                                     </table>
                                 </div>
                                 <div class="col-span-full overflow-x-auto mt-3" v-if="tabAction == 3">
-                                    <div class="inline-block" v-if="keputusan.length == 0 && Penilai > 0  && can.add">
+                                    <div class="inline-block" v-if="keputusan.length == 0 && Penilai > 0">
                                         <p class="text-sm text-gray-500">Keterangan : Menyimpan Data Penilaian
                                             {{ kategori.nama }}
                                             <br>
