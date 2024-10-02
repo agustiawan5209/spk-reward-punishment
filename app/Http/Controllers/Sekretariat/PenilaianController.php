@@ -48,7 +48,7 @@ class PenilaianController extends Controller
             'aspek' => AspekKriteria::with(['kriteriapenilaian'])->find(1),
             'keputusan'=> Keputusan::with(['karyawan', 'kategoripenilaian'])->where('kategori_id', '=', $kategori_id)->get(),
             'can' => [
-                'add' => Auth::user()->can('add penilaian'),
+                'add' => true,
                 'edit' => Auth::user()->can('edit penilaian'),
                 'show' => true,
                 'delete' => Auth::user()->can('delete penilaian'),
