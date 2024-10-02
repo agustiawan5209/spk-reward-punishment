@@ -89,7 +89,7 @@ function uniqueField(array) {
     return result.length;
 }
 
-const Penilai = uniqueField(dataPenilai);
+const Penilai = ref(uniqueField(dataPenilai));
 
 const tabAction = ref(3);
 const tabActive = 'inline-block w-full p-4 text-gray-900 bg-gray-100 border-r border-gray-200 rounded-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none';
@@ -104,6 +104,9 @@ function showPutusan() {
 const handleClose = () => {
     varPutusan.value = false; // Emit event untuk memberitahu parent agar modal ditutup
 };
+
+console.log(Penilai.value)
+console.log(props.keputusan)
 </script>
 
 <template>
@@ -255,7 +258,7 @@ const handleClose = () => {
                                     </table>
                                 </div>
                                 <div class="col-span-full overflow-x-auto mt-3" v-if="tabAction == 3">
-                                    <div class="inline-block" v-if="keputusan.length == 0 && Penilai > 0">
+                                    <div class="inline-block" v-if="keputusan.length == 0">
                                         <p class="text-sm text-gray-500">Keterangan : Menyimpan Data Penilaian
                                             {{ kategori.nama }}
                                             <br>
