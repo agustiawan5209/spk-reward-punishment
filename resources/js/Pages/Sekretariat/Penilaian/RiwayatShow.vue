@@ -72,8 +72,10 @@ if (Array.isArray(props.rank)) {
     Rank = Object.values(props.rank);
 }
 
-const HasilRank = Rank.sort((a, b) => a.hasil - b.hasil); // Urutkan array berdasarkan properti 'hasil'
-
+const HasilRank = Rank.sort((b, a) => {
+    return a.hasil - b.hasil;
+}); // Urutkan array berdasarkan properti 'hasil'
+console.log(HasilRank)
 // Caridata yang memiliki nilai yang sama
 function uniqueField(array) {
     const seen = new Set();
@@ -91,14 +93,14 @@ function uniqueField(array) {
 
 const Penilai = uniqueField(dataPenilai);
 
-const tabAction = ref(3);
+const tabAction = ref(2);
 const tabActive = 'inline-block w-full p-4 text-gray-900 bg-gray-100 border-r border-gray-200 rounded-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none';
 const tabNonActive = 'inline-block w-full p-4 bg-white border-r border-gray-200 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none';
 
 
 const varPutusan = ref(false);
 function showPutusan() {
-    varPutusan.value = !varPutusan.value
+    varPutusan.value = true;
 }
 
 const handleClose = () => {
@@ -221,6 +223,9 @@ const handleClose = () => {
                                         <thead class="text-xs text-white uppercase bg-primary ">
                                             <tr>
                                                 <th scope="col" class="px-6 py-3">
+                                                    Ranking
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
                                                     Departement
                                                 </th>
                                                 <th scope="col" class="px-6 py-3">
@@ -237,6 +242,10 @@ const handleClose = () => {
                                         <tbody>
                                             <tr class="bg-white border-b" v-for="(item, index) in HasilRank"
                                                 :key="index">
+                                                <th scope="row"
+                                                    class="px-6 py-4 font-medium text-sm capitalize text-gray-900 whitespace-nowrap">
+                                                    {{ index+1 }}
+                                                </th>
                                                 <th scope="row"
                                                     class="px-6 py-4 font-medium text-sm capitalize text-gray-900 whitespace-nowrap">
                                                     {{ item.staff.nama_departement }}

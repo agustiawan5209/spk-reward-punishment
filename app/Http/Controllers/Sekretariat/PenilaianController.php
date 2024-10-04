@@ -40,6 +40,7 @@ class PenilaianController extends Controller
         $profileMatching = new ProfileMatchingController($kategori_id);
         $mtx = $profileMatching->matrixPenilai();
         $rank = $profileMatching->resultRank();
+        // dd($rank);
         return Inertia::render('Sekretariat/Penilaian/RiwayatShow', [
             'kategori' => KategoriPenilaian::with(['alternatif', 'alternatif.staff', 'penilaian'])->find(Request::input('slug')),
             'penilaian' => Penilaian::with(['datapenilaian'])->where('kategori_id', Request::input('slug'))->get(),

@@ -67,6 +67,10 @@ class ProfileMatchingController extends Controller
                 'hasil' => array_sum($value) / count($value),
             ];
         }
+        uasort($rank, function($a, $b) {
+            return $b['hasil'] <=> $a['hasil'];
+        });
+
 
         return $rank;
     }
