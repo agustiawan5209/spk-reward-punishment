@@ -64,18 +64,15 @@ function findSameItem(array) {
 
     return count;
 }
-let Rank = [];
-if (Array.isArray(props.rank)) {
-    Rank = [...props.rank]; // Spread operator digunakan untuk membuat salinan array
-} else if (typeof props.rank === 'object') {
-    // Jika props.rank adalah objek, kamu bisa mengonversinya menjadi array
-    Rank = Object.values(props.rank);
-}
+// let Rank = [];
+// if (Array.isArray(props.rank)) {
+//     Rank = [...props.rank]; // Spread operator digunakan untuk membuat salinan array
+// } else if (typeof props.rank === 'object') {
+//     // Jika props.rank adalah objek, kamu bisa mengonversinya menjadi array
+//     Rank = Object.values(props.rank);
+// }
+const HasilRank = props.rank // Urutkan array berdasarkan properti 'hasil'
 
-const HasilRank = Rank.sort((b, a) => {
-    return a.hasil - b.hasil;
-}); // Urutkan array berdasarkan properti 'hasil'
-console.log(HasilRank)
 // Caridata yang memiliki nilai yang sama
 function uniqueField(array) {
     const seen = new Set();
@@ -244,7 +241,7 @@ const handleClose = () => {
                                                 :key="index">
                                                 <th scope="row"
                                                     class="px-6 py-4 font-medium text-sm capitalize text-gray-900 whitespace-nowrap">
-                                                    {{ index+1 }}
+                                                    {{ index + 1 }}
                                                 </th>
                                                 <th scope="row"
                                                     class="px-6 py-4 font-medium text-sm capitalize text-gray-900 whitespace-nowrap">

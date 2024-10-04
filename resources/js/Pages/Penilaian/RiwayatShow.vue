@@ -72,7 +72,7 @@ if (Array.isArray(props.rank)) {
     Rank = Object.values(props.rank);
 }
 
-const HasilRank = Rank.sort((a, b) => a.hasil - b.hasil); // Urutkan array berdasarkan properti 'hasil'
+const HasilRank = Rank // Urutkan array berdasarkan properti 'hasil'
 
 // Caridata yang memiliki nilai yang sama
 function uniqueField(array) {

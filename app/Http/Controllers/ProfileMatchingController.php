@@ -68,7 +68,7 @@ class ProfileMatchingController extends Controller
             ];
         }
         uasort($rank, function($a, $b) {
-            return $b['hasil'] <=> $a['hasil'];
+            return $b['hasil'] <= $a['hasil'];
         });
 
 
