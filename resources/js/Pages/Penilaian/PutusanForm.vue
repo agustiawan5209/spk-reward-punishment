@@ -35,13 +35,16 @@ const dateNow = new Date().toISOString().slice(0, 10);
  * Fungsi untuk mengambil 3 staff teratas untuk reward
  * @returns {Array} 3 staff teratas untuk reward
  */
-const staff_reward = props.staff.slice(0, 3)
+const staff_reward = props.staff.slice(0, 1)
+const batas = staff_reward[0]['hasil'] + 1;
 
 /**
  * Fungsi untuk mengambil 3 staff terbawah untuk punishment
  * @returns {Array} 3 staff terbawah untuk punishment
  */
-const staff_punishment = props.staff.slice(-3)
+const staff_punishment = props.staff.filter(function(staff){
+    return staff.hasil >= 4.3;
+})
 
 /**
  * Fungsi untuk menginisialisasi data putusan reward

@@ -191,7 +191,7 @@ function submit() {
                                                         <option value="2">Kurang Memuaskan</option>
                                                         <option value="3">Memenuhi Harapan</option>
                                                         <option value="4">Melebihi Harapan</option>
-                                                        <option value="5">Luar Biasa--</option>
+                                                        <option value="5">Luar Biasa</option>
                                                     </template>
 
                                                 </select>

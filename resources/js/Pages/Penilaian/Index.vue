@@ -68,7 +68,6 @@ function cekPenilaian(penilaian, kategori_id) {
     }
 }
 
-console.log(cekPenilaian(props.data.data[0].penilaian))
 </script>
 
 <template>

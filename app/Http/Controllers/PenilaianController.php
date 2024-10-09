@@ -180,7 +180,7 @@ class PenilaianController extends Controller
             'can' => [
                 'add' => Auth::user()->can('add kriteria'),
                 'edit' => Auth::user()->can('edit kriteria'),
-                'show' => Auth::user()->can('show kriteria'),
+                'show' => true,
                 'delete' => Auth::user()->can('delete kriteria'),
             ]
         ]);
