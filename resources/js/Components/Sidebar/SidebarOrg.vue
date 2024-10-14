@@ -50,8 +50,8 @@ const isOpenDropdown = (menu) => openDropdown.value.includes(menu);
             </NavLink>
         </li>
         <li>
-            <NavLink :href="route('admin.riwayat.penilaian')"
-                :active="route().current('admin.riwayat.penilaian')"
+            <NavLink :href="route('Sekretariat.penilaian.index')"
+                :active="route().current('Sekretariat.penilaian.index')"
                 :icon="['fas', 'calendar-days']">
 
                 <span class="-mr-1 font-medium">Riwayat Evaluasi</span>
