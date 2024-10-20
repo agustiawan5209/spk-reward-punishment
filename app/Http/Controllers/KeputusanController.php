@@ -6,6 +6,7 @@ use App\Models\Staff;
 use App\Models\Keputusan;
 use App\Http\Requests\StoreKeputusanRequest;
 use App\Http\Requests\UpdateKeputusanRequest;
+use App\Models\KategoriPenilaian;
 
 class KeputusanController extends Controller
 {
@@ -52,6 +53,9 @@ class KeputusanController extends Controller
 
             ]);
         }
+        $kategori = KategoriPenilaian::find($request->kategori_id)->update([
+            'status'=> 'tidak aktif'
+        ]);
 
         return redirect()->route('admin.riwayat.show', ['slug'=> $request->kategori_id])->with('message', "Data Putusan :". $request->kategori['nama']. " Berhasil Dibuat!!");
     }

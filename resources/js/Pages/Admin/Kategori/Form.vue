@@ -86,6 +86,8 @@ function addSliceArray(index, item){
 
 function deleteKaryawan(index,item){
     CheckBoxKaryawan.value.splice(index, 1)
+    DataKaryawan.value.push(item)
+
 
 }
 </script>
