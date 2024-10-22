@@ -133,15 +133,15 @@ class ProfileMatchingController extends Controller
 
                         // Mendapatkan Nilai Selisih pada core factory
                         if ($kriteria->factory == 'core') {
-                            $selisih_gap = $this->hitungSelisih($item->nilai, $ProfileIdeal[$col]);
+                            $selisih_gap = $this->hitungSelisih($ProfileIdeal[$col],$item->nilai);
 
                             $cf[$col] = $selisih_gap;
                             $matrix_selisih[$Key_karyawan][$col] = $selisih_gap;
-                            $matrix_penilaian[$Key_karyawan][$col] = $selisih_gap;
+                            $matrix_penilaian[$Key_karyawan][$col] = $item->nilai;
 
                             // Mendapatkan Nilai Selisih pada secondary factory
                         } else if ($kriteria->factory == 'secondary') {
-                            $selisih_gap = $this->hitungSelisih($item->nilai, $ProfileIdeal[$col]);
+                            $selisih_gap = $this->hitungSelisih($ProfileIdeal[$col],$item->nilai);
 
                             $sf[$col] = $selisih_gap;
                             $matrix_selisih[$Key_karyawan][$col] = $selisih_gap;
@@ -242,17 +242,17 @@ class ProfileMatchingController extends Controller
      * Fungsi untuk menghitung selisih antara nilai dan target
      *
      * @param numeric $profile Nilai
-     * @param numeric $ideal Target
+     * @param numeric $aktual Target
      * @return numeric Selisih
      *
      * Contoh:
      * $selisih = $this->hitungSelisih(10, 15);
      * echo $selisih;
      */
-    public function hitungSelisih($profile, $ideal)
+    public function hitungSelisih($profile, $aktual)
     {
-        if (is_numeric($profile) && is_numeric($ideal)) {
-            return $this->getGap($ideal - $profile);
+        if (is_numeric($profile) && is_numeric($aktual)) {
+            return $this->getGap($aktual - $profile);
         } else {
             return 0;
         }

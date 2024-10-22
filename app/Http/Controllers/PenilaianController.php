@@ -70,6 +70,7 @@ class PenilaianController extends Controller
                 });
             })
             ->where('kategori_id', Request::input('kategori'))
+            ->orderBy('id','asc')
             ->get();
         return Inertia::render('Penilaian/Form', [
             'alternatif' => $alternatif,
@@ -192,6 +193,8 @@ class PenilaianController extends Controller
         $mtx = $profileMatching->matrixPenilai();
         $rank = $profileMatching->resultRank();
         $rank = array_values($rank);
+
+        // dd($mtx);
 
         return Inertia::render('Penilaian/RiwayatShow', [
             'kategori' => KategoriPenilaian::with(['alternatif', 'alternatif.staff', 'penilaian'])->find(Request::input('slug')),
