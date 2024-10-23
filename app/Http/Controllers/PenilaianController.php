@@ -66,11 +66,12 @@ class PenilaianController extends Controller
         $alternatif = Alternatif::with(['staff', 'staff.departement'])
             ->when(Auth::user()->hasRole('Staff'), function ($query) {
                 $query->whereHas('staff', function ($query) {
-                    $query->where('departement_id', '=', Auth::user()->staff->departement_id);
+                    $query->where('departement_id', '=', Auth::user()->staff->departement_id)
+                        ->where('user_id', '!=', Auth::user()->id);
                 });
             })
             ->where('kategori_id', Request::input('kategori'))
-            ->orderBy('id','asc')
+            ->orderBy('id', 'asc')
             ->get();
         return Inertia::render('Penilaian/Form', [
             'alternatif' => $alternatif,
@@ -202,7 +203,7 @@ class PenilaianController extends Controller
             'perhitungan' => $mtx,
             'rank' => $rank,
             'aspek' => AspekKriteria::with(['kriteriapenilaian'])->find(1),
-            'keputusan'=> Keputusan::with(['karyawan', 'kategoripenilaian'])->where('kategori_id', '=', $kategori_id)->get(),
+            'keputusan' => Keputusan::with(['karyawan', 'kategoripenilaian'])->where('kategori_id', '=', $kategori_id)->get(),
             'can' => [
                 'add' => Auth::user()->can('add penilaian'),
                 'edit' => Auth::user()->can('edit penilaian'),
