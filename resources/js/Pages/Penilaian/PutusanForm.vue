@@ -36,7 +36,7 @@ const dateNow = new Date().toISOString().slice(0, 10);
  * @returns {Array} 3 staff teratas untuk reward
  */
 const staff_reward = props.staff.slice(0, 1)
-let batas = staff_reward[0]['hasil'] + 0.2;
+let batas = staff_reward[1]['hasil'] + 0.2;
 
 /**
  * Fungsi untuk mengambil 3 staff terbawah untuk punishment
