@@ -39,12 +39,12 @@ class PenilaianController extends Controller
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'posyandus_id', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id'])),
             'data' => KategoriPenilaian::with(['alternatif', 'penilaian'])->filter(Request::only('search', 'order'))
-                ->where('status', 'aktif')
+                // ->where('status', 'aktif')
                 ->paginate(10),
             'can' => [
                 'add' => Auth::user()->can('add kriteria'),
                 'edit' => Auth::user()->can('edit kriteria'),
-                'show' => Auth::user()->can('show kriteria'),
+                'show' => true,
                 'delete' => Auth::user()->can('delete kriteria'),
             ]
         ]);
@@ -177,7 +177,6 @@ class PenilaianController extends Controller
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'posyandus_id', 'password', 'email_verified_at', 'created_at', 'updated_at', 'user_id'])),
             'data' => KategoriPenilaian::with(['alternatif', 'penilaian'])->filter(Request::only('search', 'order'))
-                ->where('status', 'aktif')
                 ->paginate(10),
             'can' => [
                 'add' => Auth::user()->can('add kriteria'),
