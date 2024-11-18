@@ -42,7 +42,7 @@ console.log(staff_reward)
  * @returns {Array} 3 staff terbawah untuk punishment
  */
 const staff_punishment = props.staff.filter(function(staff){
-    return staff.hasil >= 4.25;
+    return staff.hasil > (staff_reward[1].hasil + 0.12);
 })
 
 /**
