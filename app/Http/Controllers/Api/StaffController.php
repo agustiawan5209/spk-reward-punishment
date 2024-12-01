@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Keputusan;
 use App\Models\Staff;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class StaffController extends Controller
@@ -19,36 +21,70 @@ class StaffController extends Controller
 
         return response()->json($staff);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function getRewardStaff(Request $request)
     {
-        //
+        $staffs = $request->staff;
+        $result = [];
+        foreach ($staffs as $key => $staff) {
+            $staff_id = $staff['staff']['id'];
+
+            $tahun = Carbon::now()->format('Y');
+            $putusan = Keputusan::where('staff_id', $staff_id)->where('jenis_putusan', 'reward')->whereYear('created_at', $tahun)->get()->count();
+            $reward = 'sertifikat penghargaan';
+            switch ($putusan) {
+                case 0:
+                    $reward = 'sertifikat penghargaan';
+                    break;
+                case 1:
+                    $reward = 'sertifikat dan bonus uang tunai';
+                    break;
+                case 2:
+                    $reward = 'promosi jabatan';
+                    break;
+
+                default:
+                    $reward = 'sertifikat penghargaan';
+                    break;
+            }
+            $result[$key] = [
+                'staff' => $staff['staff'],
+                'hasil' => $staff['hasil'],
+                'reward' => $reward,
+            ];
+        }
+        return $result;
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Staff $staff)
+    public function getPunishmentStaff(Request $request)
     {
-        //
-    }
+        $staffs = $request->staff;
+        $batas = $request->batas;
+        $result = [];
+        $punishment = [
+            'Diberikan teguran SP1',
+            'memberikan tugas tambahan',
+            'Dilarang melakukan perjalanan dinas',
+            'Rotasi jabatan',
+        ];
+        foreach ($staffs as $key => $staff) {
+            $staff_id = $staff['staff']['id'];
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Staff $staff)
-    {
-        //
-    }
+            $tahun = Carbon::now()->format('Y');
+            $putusan = Keputusan::where('staff_id', $staff_id)->where('jenis_putusan', 'punishment')->whereYear('created_at', $tahun)->get()->count();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Staff $staff)
-    {
-        //
+            $nilai = $staff['hasil'];
+
+            if (array_key_exists($key, $punishment)) {
+               $punish = $punishment[$key];
+            }else{
+                $punish = 'Rotasi Jabatan';
+            }
+
+            $result[$key] = [
+                'staff' => $staff['staff'],
+                'hasil' => $staff['hasil'],
+                'reward' => $punish,
+            ];
+        }
+        return $result;
     }
 }

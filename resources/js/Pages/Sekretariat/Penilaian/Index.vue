@@ -60,7 +60,7 @@ function cekPenilaian(penilaian, kategori_id) {
         return true;
     }
     const penilai = penilaian.filter(item => item.staff_penilai_id === user.staff.id && item.kategori_id === kategori_id);
-    console.log(penilai)
+
     if (penilai.length > 0) {
         return false;
     } else {
@@ -68,7 +68,6 @@ function cekPenilaian(penilaian, kategori_id) {
     }
 }
 
-console.log(cekPenilaian(props.data.data[0].penilaian))
 </script>
 
 <template>

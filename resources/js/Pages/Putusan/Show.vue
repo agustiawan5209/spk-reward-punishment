@@ -42,13 +42,13 @@ const props = defineProps({
                             <div class="col-span-full sm:col-span-3 ">
                                 <ul class="flex flex-col space-y-20">
                                     <li class="flex gap-3 py-2 border-b">
-                                        <span class="text-lg">Detail Karyawan</span>
+                                        <span class="text-lg">Detail Keputusan</span>
                                     </li>
                                 </ul>
 
                                 <table class="w-full table">
                                     <tr class="">
-                                        <td class="text-sm border-b py-2 font-bold">Nama</td>
+                                        <td class="text-sm border-b py-2 font-bold">Jenis Putusan</td>
                                         <td class="text-sm border-b text-gray-600">: {{ putusan.jenis_putusan }} </td>
                                     </tr>
                                     <tr class="">
@@ -79,6 +79,10 @@ const props = defineProps({
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold">Jenis Putusan</td>
                                         <td class="text-sm border-b text-gray-600">: {{ putusan.jenis_putusan }} </td>
+                                    </tr>
+                                    <tr class="">
+                                        <td class="text-sm border-b py-2 font-bold">Hasil Putusan</td>
+                                        <td class="text-sm border-b text-gray-600">: {{ putusan.hasil }} </td>
                                     </tr>
                                     <tr class="">
                                         <td class="text-sm border-b py-2 font-bold">Tanggal Punishment/Reward</td>

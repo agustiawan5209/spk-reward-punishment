@@ -21,6 +21,7 @@ return new class extends Migration
             $table->double('point', 10,2)->default(0);
             $table->enum('jenis_putusan', ['punishment', 'reward']);
             $table->date('tgl_putusan');
+            $table->string('hasil');
             $table->timestamps();
         });
     }

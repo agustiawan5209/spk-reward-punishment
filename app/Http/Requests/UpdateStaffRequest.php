@@ -23,6 +23,7 @@ class UpdateStaffRequest extends FormRequest
     {
         return [
             'slug' => 'required|sometimes|integer|exists:staff,id',
+            'kode_pegawai' => 'required|string|max:10|unique:staff,kode_pegawai,'. $this->slug .',id',
             'name' => 'required|sometimes|string|max:255',
             'no_telpon' => 'required|sometimes|string|max:255',
             'alamat' => 'required|sometimes|string',

@@ -23,6 +23,7 @@ class StoreStaffRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'kode_pegawai' => 'required|string|max:10|unique:staff,kode_pegawai',
             'name' => 'required|string|max:255',
             'no_telpon' => 'required|string|max:255',
             'alamat' => 'required|string',

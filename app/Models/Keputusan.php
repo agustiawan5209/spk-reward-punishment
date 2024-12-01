@@ -16,8 +16,9 @@ class Keputusan extends Model
         'staff',
         'alasan',
         'point',
-        'jenis_putusan',
         'tgl_putusan',
+        'jenis_putusan',
+        'hasil',
     ];
 
     protected $casts = [

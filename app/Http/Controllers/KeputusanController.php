@@ -48,6 +48,7 @@ class KeputusanController extends Controller
                 'staff'=> $karyawan,
                 'alasan'=> $staff[$i]['alasan'],
                 'point'=> $staff[$i]['point'],
+                'hasil'=> $staff[$i]['hasil'],
                 'jenis_putusan'=> $staff[$i]['putusan'],
                 'tgl_putusan'=> $request->tgl_putusan,
 

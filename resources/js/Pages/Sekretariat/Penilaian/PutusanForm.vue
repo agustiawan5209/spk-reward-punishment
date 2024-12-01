@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, defineEmits, inject } from 'vue';
+import { ref, defineProps, defineEmits, inject, onMounted } from 'vue';
 import { useForm, usePage } from '@inertiajs/vue3';
 import TextInput from '@/Components/TextInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -7,6 +7,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InputError from '@/Components/InputError.vue';
 import Modal from '@/Components/Modal.vue';
 import { FwbSpinner } from 'flowbite-vue';
+import axios from 'axios';
 const swal = inject('$swal')
 const page = usePage()
 /**
@@ -36,48 +37,58 @@ const dateNow = new Date().toISOString().slice(0, 10);
  * @returns {Array} 3 staff teratas untuk reward
  */
 const staff_reward = props.staff.slice(0, 2)
-console.log(staff_reward)
+
 /**
  * Fungsi untuk mengambil 3 staff terbawah untuk punishment
  * @returns {Array} 3 staff terbawah untuk punishment
  */
-const staff_punishment = props.staff.filter(function(staff){
+const staff_punishment = props.staff.filter(function (staff) {
     return staff.hasil < (staff_reward[1].hasil - 0.12);
 })
 
-/**
+const putusan_reward = ref([]);
+const putusan_punishment = ref([]);
+const staff_pr = ref([]);
+
+onMounted(async () => {
+    const res_reward = (await axios.get(route('api.staff.reward', { staff: staff_reward }))).data
+    const res_punishment =  (await axios.get(route('api.staff.punishment', { staff: staff_punishment, batas: staff_reward[1].hasil }))).data
+
+    /**
  * Fungsi untuk menginisialisasi data putusan reward
  * @returns {Array} Data putusan reward
  */
-const putusan_reward = ref([]);
-for (let i = 0; i < staff_reward.length; i++) {
-    putusan_reward.value.push({
-        staff: staff_reward[i].staff,
-        point: staff_reward[i].hasil,
-        putusan: "reward",
-        alasan: 'Keterangan Reward'
-    })
-}
+    for (let i = 0; i < res_reward.length; i++) {
+        putusan_reward.value.push({
+            staff: res_reward[i].staff,
+            point: res_reward[i].hasil,
+            putusan: "reward",
+            hasil: res_reward[i].reward,
+            alasan: 'Keterangan Reward'
+        })
+    }
 
-/**
- * Fungsi untuk menginisialisasi data putusan punishment
- * @returns {Array} Data putusan punishment
- */
-const putusan_punishment = ref([]);
-for (let i = 0; i < staff_punishment.length; i++) {
-    putusan_punishment.value.push({
-        staff: staff_punishment[i].staff,
-        point: staff_punishment[i].hasil,
-        putusan: "punishment",
-        alasan: 'Keterangan Punishment',
-    })
-}
+    /**
+     * Fungsi untuk menginisialisasi data putusan punishment
+     * @returns {Array} Data putusan punishment
+     */
+    for (let i = 0; i < res_punishment.length; i++) {
+        putusan_punishment.value.push({
+            staff: res_punishment[i].staff,
+            point: res_punishment[i].hasil,
+            putusan: "punishment",
+            hasil: res_punishment[i].reward,
+            alasan: 'Keterangan Punishment',
+        })
+    }
+    staff_pr.value = putusan_reward.value.concat(putusan_punishment.value);
+})
+
 
 /**
  * Fungsi untuk menggabungkan data putusan reward dan punishment
  * @returns {Array} Data putusan gabungan
  */
-const staff_pr = ref(putusan_reward.value.concat(putusan_punishment.value));
 
 /**
  * Fungsi untuk membuat form keputusan
@@ -105,7 +116,7 @@ function showModal() {
 const emit = defineEmits(['close']);
 
 const handleClose = () => {
-  emit('close'); // Emit event untuk memberitahu parent agar modal ditutup
+    emit('close'); // Emit event untuk memberitahu parent agar modal ditutup
 };
 
 /**
@@ -149,18 +160,19 @@ function submit() {
 
 <template>
     <div class="w-full mx-auto px-4 py-6">
-        <div class="w-full overflow-x-auto mt-3 px-1" >
+        <div class="w-full overflow-x-auto mt-3 px-1">
             <PrimaryButton type="button" class="!bg-red-500 mt-2" @click="handleClose">Batalkan</PrimaryButton>
             <div class="">
                 <div class="col-span-1 md:col-span-full grid grid-cols-1 sm:grid-cols-2 gap-6 py-2">
                     <div>
                         <InputLabel for="tgl_putusan" value="Tanggal Pemberian Punishment Dan Reward" />
-                        <TextInput type="date" id="tgl_putusan" class="w-full my-2" required v-model="Form.tgl_putusan" />
+                        <TextInput type="date" id="tgl_putusan" class="w-full my-2" required
+                            v-model="Form.tgl_putusan" />
                         <InputError :messsage="Form.errors.tgl_putusan" />
                     </div>
 
                 </div>
-                <table class="w-full text-xs text-center text-gray-500 border">
+                <table class="w-full text-xs text-center text-gray-500 border" v-if="putusan_reward.length > 0">
                     <thead class="text-xs text-white uppercase bg-primary ">
                         <tr>
                             <th scope="col" class="px-1 py-3">
@@ -176,13 +188,17 @@ function submit() {
                                 Jenis Putusan
                             </th>
                             <th scope="col" class="px-1 py-3">
+                                Hasil Putusan
+                            </th>
+                            <th scope="col" class="px-1 py-3">
                                 Alasan Putusan
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="bg-white border-b" v-for="(item, index) in staff_pr" :key="index">
-                            <th scope="row" class="px-1 py-1 font-medium text-sm capitalize text-gray-900 whitespace-nowrap">
+                            <th scope="row"
+                                class="px-1 py-1 font-medium text-sm capitalize text-gray-900 whitespace-nowrap">
                                 {{ item.staff.nama_departement }}
                             </th>
                             <td class="px-1 py-1">
@@ -195,9 +211,13 @@ function submit() {
                                 <span class="font-bold tracking-wide text-base capitalize">{{ item.putusan }}</span>
                             </td>
                             <td class="px-1 py-1">
+                                <span class="font-bold tracking-wide text-base capitalize">{{ item.hasil }}</span>
+                            </td>
+                            <td class="px-1 py-1">
                                 <div class="bg-white">
-                                    <quill-editor id="keterangan" contentType="html" v-model:content="staff_pr[index].alasan"
-                                        theme="snow" placeholder="@keterangan" required class="w-full text-gray-900" />
+                                    <quill-editor id="keterangan" contentType="html"
+                                        v-model:content="staff_pr[index].alasan" theme="snow" placeholder="@keterangan"
+                                        required class="w-full text-gray-900" />
                                 </div>
                             </td>
                         </tr>
@@ -216,7 +236,8 @@ function submit() {
                         <div class="flex justify-end p-2">
                             <button type="button"
                                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                         clip-rule="evenodd"></path>
@@ -229,12 +250,13 @@ function submit() {
 
                         </div>
                         <div class="p-6 pt-0 text-center" v-else>
-                            <svg class="w-20 h-20 text-red-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg class="w-20 h-20 text-red-600 mx-auto" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">Apakah anda yakin ingin menyimpan data hasil
+                            <h3 class="text-xl font-normal text-gray-500 mt-5 mb-6">Apakah anda yakin ingin menyimpan
+                                data hasil
                                 putusan {{ kategori.nama }}?</h3>
                             <a href="#" @click="submit()"
                                 class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2">

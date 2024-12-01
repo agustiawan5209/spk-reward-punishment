@@ -29,6 +29,7 @@ const props = defineProps({
 const Form = useForm({
     slug: props.staff.id,
     name:props.staff.user.name,
+    kode_pegawai:props.staff.kode_pegawai,
     alamat:props.staff.alamat,
     jabatan:props.staff.jabatan,
     departement_id:props.staff.departement_id,
@@ -67,6 +68,12 @@ function submit() {
                     </div>
                     <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm bg-gray-50">
                         <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
+                            <div class="col-span-full sm:col-span-3">
+                                <label for="kode_pegawai" class="text-sm">Kode Pegawai</label>
+                                <TextInput id="kode_pegawai" type="text" placeholder="kode_pegawai lengkap" v-model="Form.kode_pegawai"
+                                    class="w-full text-gray-900" />
+                                <InputError :message="Form.errors.kode_pegawai" />
+                            </div>
                             <div class="col-span-full sm:col-span-3">
                                 <label for="firstname" class="text-sm">Nama Lengkap</label>
                                 <TextInput id="firstname" type="text" placeholder="nama lengkap" v-model="Form.name"  class="w-full text-gray-900"  />

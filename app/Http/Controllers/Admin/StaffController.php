@@ -28,6 +28,7 @@ class StaffController extends Controller
         // $columns=DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
         // $columns[] = 'nama_departement';
+        $columns[] = 'kode_pegawai';
         $columns[] = 'nama';
         $columns[] = 'nomor_telepon';
         $columns[] = 'jabatan';
@@ -98,6 +99,7 @@ class StaffController extends Controller
         event(new Registered($user));
 
         Staff::create([
+            'kode_pegawai' => $request->kode_pegawai,
             'user_id' => $user->id,
             'nama' => $user->name,
             'jabatan' => $request->jabatan,
@@ -172,6 +174,7 @@ class StaffController extends Controller
 
 
         $staff->update([
+            'kode_pegawai' => $request->kode_pegawai,
             'nama' => $request->name,
             'alamat' => $request->alamat,
             'departement_id' => $request->departement_id,

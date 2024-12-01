@@ -90,7 +90,7 @@ function uniqueField(array) {
 
 const Penilai = uniqueField(dataPenilai);
 
-const tabAction = ref(2);
+const tabAction = ref(3);
 const tabActive = 'inline-block w-full p-4 text-gray-900 bg-gray-100 border-r border-gray-200 rounded-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none';
 const tabNonActive = 'inline-block w-full p-4 bg-white border-r border-gray-200 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none';
 
@@ -292,15 +292,18 @@ const handleClose = () => {
                                                         Jenis Putusan
                                                     </th>
                                                     <th scope="col" class="px-6 py-3">
+                                                        Hasil
+                                                    </th>
+                                                    <th scope="col" class="px-6 py-3">
                                                         alasan
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="bg-white border-b" v-for="(item, index) in keputusan"
+                                                <tr class="bg-white border-b text-gray-900" v-for="(item, index) in keputusan"
                                                     :key="index">
                                                     <th scope="row"
-                                                        class="px-6 py-4 font-medium text-sm capitalize text-gray-900 whitespace-nowrap">
+                                                        class="px-6 py-4 font-medium text-sm capitalize">
                                                         {{ item.karyawan.nama_departement }}
                                                     </th>
                                                     <td class="px-6 py-4 text-sm">
@@ -314,6 +317,9 @@ const handleClose = () => {
                                                     </td>
                                                     <td class="px-6 py-4">
                                                         {{ item.jenis_putusan }}
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        {{ item.hasil }}
                                                     </td>
                                                     <td class="px-6 py-4" v-html="item.alasan">
                                                     </td>

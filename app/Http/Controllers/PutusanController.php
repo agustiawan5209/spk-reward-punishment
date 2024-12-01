@@ -16,6 +16,7 @@ class PutusanController extends Controller
         // $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
         $columns[] = 'id';
         $columns[] = 'jenis_putusan';
+        $columns[] = 'hasil';
         $columns[] = 'point';
         $columns[] = 'alasan';
         $columns[] = 'tgl_putusan';

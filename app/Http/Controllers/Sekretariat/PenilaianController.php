@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sekretariat;
 
+use Carbon\Carbon;
 use Inertia\Inertia;
 use App\Models\Keputusan;
 use App\Models\Penilaian;
@@ -42,6 +43,7 @@ class PenilaianController extends Controller
         $rank = $profileMatching->resultRank();
         $rank = array_values($rank);
         // dd($rank);
+
         return Inertia::render('Sekretariat/Penilaian/RiwayatShow', [
             'kategori' => KategoriPenilaian::with(['alternatif', 'alternatif.staff', 'penilaian'])->find(Request::input('slug')),
             'penilaian' => Penilaian::with(['datapenilaian'])->where('kategori_id', Request::input('slug'))->get(),

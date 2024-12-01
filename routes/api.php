@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('list/staff/{departement_id}', [StaffController::class,'getStaff'])->name('api.staff.list');
+Route::get('reward/staff/', [StaffController::class,'getRewardStaff'])->name('api.staff.reward');
+Route::get('punishment/staff/', [StaffController::class,'getPunishmentStaff'])->name('api.staff.punishment');
